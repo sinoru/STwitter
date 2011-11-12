@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'STwitter' target in the 'STwitter' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
