@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		192A6817146E1F75005FE81F /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 192A6811146E1F67005FE81F /* libsbjson-ios.a */; };
+		199BBC0B147271DB009DA42C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC0A147271DB009DA42C /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		199BBC11147271DF009DA42C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC10147271DF009DA42C /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		19C60611146E1C99008CDE62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C60610146E1C99008CDE62 /* Foundation.framework */; };
-		19C60632146E1CF4008CDE62 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C6061D146E1CF4008CDE62 /* NSData+Base64.h */; };
+		19C60632146E1CF4008CDE62 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C6061D146E1CF4008CDE62 /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19C60633146E1CF4008CDE62 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C6061E146E1CF4008CDE62 /* NSData+Base64.m */; };
 		19C60634146E1CF4008CDE62 /* NSString (AmpersandEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 19C6061F146E1CF4008CDE62 /* NSString (AmpersandEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19C60635146E1CF4008CDE62 /* NSString (RFC3875PercentEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 19C60620146E1CF4008CDE62 /* NSString (RFC3875PercentEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		192A6802146E1F67005FE81F /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = ../SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
+		199BBC0A147271DB009DA42C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		199BBC10147271DF009DA42C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		19C6060D146E1C99008CDE62 /* libSTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		19C60610146E1C99008CDE62 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		19C60614146E1C99008CDE62 /* STwitter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "STwitter-Prefix.pch"; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				199BBC11147271DF009DA42C /* Accounts.framework in Frameworks */,
+				199BBC0B147271DB009DA42C /* Twitter.framework in Frameworks */,
 				192A6817146E1F75005FE81F /* libsbjson-ios.a in Frameworks */,
 				19C60611146E1C99008CDE62 /* Foundation.framework in Frameworks */,
 			);
@@ -143,6 +149,8 @@
 		19C6060F146E1C99008CDE62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				199BBC0A147271DB009DA42C /* Twitter.framework */,
+				199BBC10147271DF009DA42C /* Accounts.framework */,
 				19C60610146E1C99008CDE62 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -192,6 +200,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19C60632146E1CF4008CDE62 /* NSData+Base64.h in Headers */,
 				19C60634146E1CF4008CDE62 /* NSString (AmpersandEscapes).h in Headers */,
 				19C60635146E1CF4008CDE62 /* NSString (RFC3875PercentEscapes).h in Headers */,
 				19C60636146E1CF4008CDE62 /* STwitter.h in Headers */,
@@ -203,7 +212,6 @@
 				19C60641146E1CF4008CDE62 /* STwitterTweets.h in Headers */,
 				19C60643146E1CF4008CDE62 /* STwitterUser.h in Headers */,
 				19C60645146E1CF4008CDE62 /* STwitterUserStream.h in Headers */,
-				19C60632146E1CF4008CDE62 /* NSData+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +379,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -389,7 +401,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
