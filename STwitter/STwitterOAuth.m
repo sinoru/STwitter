@@ -71,6 +71,16 @@
     return returnDict;
 }
 
+- (NSURLRequest *)authorizeURLRequestWithRequestToken:(NSString *)token
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", token]] cachePolicy:NSURLRequestReloadRevalidatingCacheData timeoutInterval:5.0f];
+    
+    // Set HTTP Method to GET
+    [request setHTTPMethod:@"GET"];
+    
+    return request;
+}
+
 - (NSDictionary *)exchangeRequestTokenToAccessTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthRequestToken:(NSString *)oAuthRequestToken oAuthRequestTokenSecret:(NSString *)oAuthRequestTokenSecret oAuthVerifier:oAuthVerifier
 {
     // Declare Variables

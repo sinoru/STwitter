@@ -244,7 +244,7 @@
 		19C60604146E1C99008CDE62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 19C60607146E1C99008CDE62 /* Build configuration list for PBXProject "STwitter" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -380,7 +380,7 @@
 				DSTROOT = /tmp/STwitter.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -402,7 +402,10 @@
 				DSTROOT = /tmp/STwitter.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				HEADER_SEARCH_PATHS = (
+					"${TARGET_BUILD_DIR}/**",
+					"${OBJROOT}/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
 					"-all_load",

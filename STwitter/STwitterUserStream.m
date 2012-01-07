@@ -98,7 +98,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
         requestURL = apiURL;
     }
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0f];
     
     // Set HTTP Method to POST
     [request setHTTPMethod:@"GET"];

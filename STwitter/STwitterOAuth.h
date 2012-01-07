@@ -14,6 +14,7 @@
 }
 
 - (NSDictionary *)requestRequestTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret;
+- (NSURLRequest *)authorizeURLRequestWithRequestToken:(NSString *)token;
 - (NSDictionary *)exchangeRequestTokenToAccessTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthRequestToken:(NSString *)oAuthRequestToken oAuthRequestTokenSecret:(NSString *)oAuthRequestTokenSecret oAuthVerifier:oAuthVerifier;
 
 @end
