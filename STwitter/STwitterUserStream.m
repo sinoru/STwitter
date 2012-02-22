@@ -158,7 +158,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 #pragma mark NSURLConnectionDelegate methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	NSLog(@"Connection didReceiveData of length: %u", data.length);
+	//NSLog(@"Connection didReceiveData of length: %u", data.length);
 	
 	// Parse the new chunk of data. The parser will append it to
 	// its internal buffer, then parse from where it left off in
@@ -169,7 +169,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 		NSLog(@"Parser error: %@", parser.error);
 		
 	} else if (status == SBJsonStreamParserWaitingForData) {
-		NSLog(@"Parser waiting for more data");
+		//NSLog(@"Parser waiting for more data");
 	}
 }
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		192A6817146E1F75005FE81F /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 192A6811146E1F67005FE81F /* libsbjson-ios.a */; };
+		1962046E14E811D4004F634A /* STwitterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1962046C14E811D4004F634A /* STwitterRequest.h */; };
+		1962046F14E811D4004F634A /* STwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1962046D14E811D4004F634A /* STwitterRequest.m */; };
 		199BBC0B147271DB009DA42C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC0A147271DB009DA42C /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		199BBC11147271DF009DA42C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC10147271DF009DA42C /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		19C60611146E1C99008CDE62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C60610146E1C99008CDE62 /* Foundation.framework */; };
@@ -74,6 +76,8 @@
 
 /* Begin PBXFileReference section */
 		192A6802146E1F67005FE81F /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = ../SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
+		1962046C14E811D4004F634A /* STwitterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterRequest.h; sourceTree = "<group>"; };
+		1962046D14E811D4004F634A /* STwitterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterRequest.m; sourceTree = "<group>"; };
 		199BBC0A147271DB009DA42C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		199BBC10147271DF009DA42C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		19C6060D146E1C99008CDE62 /* libSTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +185,8 @@
 				19C6062F146E1CF4008CDE62 /* STwitterUser.m */,
 				19C60630146E1CF4008CDE62 /* STwitterUserStream.h */,
 				19C60631146E1CF4008CDE62 /* STwitterUserStream.m */,
+				1962046C14E811D4004F634A /* STwitterRequest.h */,
+				1962046D14E811D4004F634A /* STwitterRequest.m */,
 				19C60613146E1C99008CDE62 /* Supporting Files */,
 			);
 			path = STwitter;
@@ -214,6 +220,7 @@
 				19C60641146E1CF4008CDE62 /* STwitterTweets.h in Headers */,
 				19C60643146E1CF4008CDE62 /* STwitterUser.h in Headers */,
 				19C60645146E1CF4008CDE62 /* STwitterUserStream.h in Headers */,
+				1962046E14E811D4004F634A /* STwitterRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +321,7 @@
 				19C60642146E1CF4008CDE62 /* STwitterTweets.m in Sources */,
 				19C60644146E1CF4008CDE62 /* STwitterUser.m in Sources */,
 				19C60646146E1CF4008CDE62 /* STwitterUserStream.m in Sources */,
+				1962046F14E811D4004F634A /* STwitterRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
