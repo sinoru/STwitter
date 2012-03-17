@@ -50,7 +50,7 @@
     [parts sortUsingSelector:@selector(compare:)];
     
     if (oAuthTokenSecret == nil)
-        oAuthTokenSecret = [NSString stringWithString:@""];
+        oAuthTokenSecret = @"";
     
     NSString *signatureKey = [NSString stringWithFormat:@"%@&%@", oAuthConsumerSecret, oAuthTokenSecret];
     NSArray *signatureArray = [NSArray arrayWithObjects:httpMethod, [[apiURL absoluteString] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [parts componentsJoinedByString:@"\%26"], nil];
@@ -94,7 +94,7 @@
     return oAuthArgumentMutableString;
 }
 
-- (NSString *)generateHTTPBody:(NSDictionary *)httpBodyParameterDict
+- (NSString *)generateHTTPBodyString:(NSDictionary *)httpBodyParameterDict
 {
     NSMutableArray *parts = [NSMutableArray array];
     
@@ -105,7 +105,6 @@
             id value;
             value = [httpBodyParameterDict objectForKey:key];
             part = [NSString stringWithFormat:@"%@=%@", key, value];
-            // part = [NSString stringWithFormat:@"%@=%@", key, value];
             [parts addObject:part];
         }
     }
@@ -113,6 +112,37 @@
     [parts sortUsingSelector:@selector(compare:)];
     
     return [parts componentsJoinedByString:@"&"];
+}
+
+- (NSData *)generateHTTPBodyDataWithMultiPartDatas:(NSArray *)multiPartDatas multiPartNames:(NSArray *)multiPartNames multiPartTypes:(NSArray *)multiPartTypes boundary:(NSString *)boundary 
+{
+    NSMutableData *body = [NSMutableData data];
+    
+    for (NSData *data in multiPartDatas) {
+        @autoreleasepool {
+            NSUInteger index = [multiPartDatas indexOfObject:data];
+            
+            NSString *name = [multiPartNames objectAtIndex:index];
+            NSString *type = [multiPartTypes objectAtIndex:index];
+            
+            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            if ([type isEqualToString:@"image/jpeg"])
+                [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"./image.jpeg\"\r\n", name] dataUsingEncoding:NSUTF8StringEncoding]];
+            else
+                [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n", name] dataUsingEncoding:NSUTF8StringEncoding]];
+            if (type && !([type isEqualToString:@"text/plain"] || [type isEqualToString:@"multipart/form-data"]))
+                [body appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", type] dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:data];
+            [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    
+    // final boundary
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return body;
 }
 
 @end

@@ -29,8 +29,8 @@
     // Make HTTP Body Dictionary and Data
     if (size) {
         STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [[NSString stringWithString:@"size"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-        httpBodyParameterData = [[sTwitterOAuthTool generateHTTPBody:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
+        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"size" stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
+        httpBodyParameterData = [[sTwitterOAuthTool generateHTTPBodyString:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
     }
     
     // Create Request
@@ -73,8 +73,8 @@
     // Make HTTP Body Dictionary and Data
     if (size) {
         STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [[NSString stringWithString:@"size"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-        httpBodyParameterData = [[sTwitterOAuthTool generateHTTPBody:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
+        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"size" stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
+        httpBodyParameterData = [[sTwitterOAuthTool generateHTTPBodyString:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
     }
     
     // Create Request

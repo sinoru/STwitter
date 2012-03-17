@@ -10,6 +10,9 @@
 
 #import "STwitterOAuth.h"
 #import "STwitterTweets.h"
+#import "STwitterTweets+Twitpic.h"
+#import "STwitterTweets+media.h"
+#import "STwitterHelp.h"
 #import "STwitterTimeline.h"
 #import "STwitterUser.h"
 #import "STwitterFavorites.h"

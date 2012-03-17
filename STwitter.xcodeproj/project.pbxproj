@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		192A6817146E1F75005FE81F /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 192A6811146E1F67005FE81F /* libsbjson-ios.a */; };
-		1962046E14E811D4004F634A /* STwitterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1962046C14E811D4004F634A /* STwitterRequest.h */; };
+		1962046E14E811D4004F634A /* STwitterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1962046C14E811D4004F634A /* STwitterRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1962046F14E811D4004F634A /* STwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1962046D14E811D4004F634A /* STwitterRequest.m */; };
+		19907DD31505061E00E63307 /* STwitterHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 19907DD11505061E00E63307 /* STwitterHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19907DD41505061E00E63307 /* STwitterHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 19907DD21505061E00E63307 /* STwitterHelp.m */; };
+		19907DDB1505077000E63307 /* STwitterTweets+media.h in Headers */ = {isa = PBXBuildFile; fileRef = 19907DD91505077000E63307 /* STwitterTweets+media.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19907DDC1505077000E63307 /* STwitterTweets+media.m in Sources */ = {isa = PBXBuildFile; fileRef = 19907DDA1505077000E63307 /* STwitterTweets+media.m */; };
 		199BBC0B147271DB009DA42C /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC0A147271DB009DA42C /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		199BBC11147271DF009DA42C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 199BBC10147271DF009DA42C /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		19C60611146E1C99008CDE62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C60610146E1C99008CDE62 /* Foundation.framework */; };
@@ -78,6 +82,10 @@
 		192A6802146E1F67005FE81F /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = ../SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
 		1962046C14E811D4004F634A /* STwitterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterRequest.h; sourceTree = "<group>"; };
 		1962046D14E811D4004F634A /* STwitterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterRequest.m; sourceTree = "<group>"; };
+		19907DD11505061E00E63307 /* STwitterHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterHelp.h; sourceTree = "<group>"; };
+		19907DD21505061E00E63307 /* STwitterHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterHelp.m; sourceTree = "<group>"; };
+		19907DD91505077000E63307 /* STwitterTweets+media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STwitterTweets+media.h"; sourceTree = "<group>"; };
+		19907DDA1505077000E63307 /* STwitterTweets+media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STwitterTweets+media.m"; sourceTree = "<group>"; };
 		199BBC0A147271DB009DA42C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		199BBC10147271DF009DA42C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		19C6060D146E1C99008CDE62 /* libSTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +189,10 @@
 				19C6062B146E1CF4008CDE62 /* STwitterTimeline.m */,
 				19C6062C146E1CF4008CDE62 /* STwitterTweets.h */,
 				19C6062D146E1CF4008CDE62 /* STwitterTweets.m */,
+				19907DD91505077000E63307 /* STwitterTweets+media.h */,
+				19907DDA1505077000E63307 /* STwitterTweets+media.m */,
+				19907DD11505061E00E63307 /* STwitterHelp.h */,
+				19907DD21505061E00E63307 /* STwitterHelp.m */,
 				19C6062E146E1CF4008CDE62 /* STwitterUser.h */,
 				19C6062F146E1CF4008CDE62 /* STwitterUser.m */,
 				19C60630146E1CF4008CDE62 /* STwitterUserStream.h */,
@@ -217,7 +229,9 @@
 				19C6063B146E1CF4008CDE62 /* STwitterOAuth.h in Headers */,
 				19C6063D146E1CF4008CDE62 /* STwitterOAuthTool.h in Headers */,
 				19C6063F146E1CF4008CDE62 /* STwitterTimeline.h in Headers */,
+				19907DD31505061E00E63307 /* STwitterHelp.h in Headers */,
 				19C60641146E1CF4008CDE62 /* STwitterTweets.h in Headers */,
+				19907DDB1505077000E63307 /* STwitterTweets+media.h in Headers */,
 				19C60643146E1CF4008CDE62 /* STwitterUser.h in Headers */,
 				19C60645146E1CF4008CDE62 /* STwitterUserStream.h in Headers */,
 				1962046E14E811D4004F634A /* STwitterRequest.h in Headers */,
@@ -322,6 +336,8 @@
 				19C60644146E1CF4008CDE62 /* STwitterUser.m in Sources */,
 				19C60646146E1CF4008CDE62 /* STwitterUserStream.m in Sources */,
 				1962046F14E811D4004F634A /* STwitterRequest.m in Sources */,
+				19907DD41505061E00E63307 /* STwitterHelp.m in Sources */,
+				19907DDC1505077000E63307 /* STwitterTweets+media.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

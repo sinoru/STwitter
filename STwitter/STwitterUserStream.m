@@ -7,6 +7,7 @@
 //
 
 #import "STwitterUserStream.h"
+#import "STwitterRequest.h"
 
 NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamConnectionDidFail";
 
@@ -16,7 +17,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 @synthesize userStreamConnection;
 @synthesize userStreamData;
 
-- (void)startUserStreamingWithAccount:(ACAccount *)aAccount
+- (void)startUserStreamingWithAccount:(ACAccount *)account
 {
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://userstream.twitter.com/2/user.json"];
@@ -42,7 +43,6 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 	// JSON documents.
 	parser.supportMultipleDocuments = YES;
     
-    account = aAccount;
     accountIdentifier = account.identifier;
     
     // Create Request
@@ -58,53 +58,8 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret
 {
-    NSString *oAuthNonce;
-    NSString *oAuthTimestamp;
-    NSString *oAuthArgumentString;
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
-    NSString *parameterString = nil;
     NSURL *apiURL = [NSURL URLWithString:@"https://userstream.twitter.com/2/user.json"];
-    NSURL *requestURL;
-    accountIdentifier = identifier;
-    
-    // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
-    
-    // Generate Time Stamp
-    oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-    
-    // Make OAuth Arguemnt Dictionary
-    NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthAccessToken, @"oauth_token", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
-    
-    if ([parameterDict count]) {
-        parameterString = [sTwitterOAuthTool generateHTTPBody:parameterDict];
-    }
-    
-    // Generate and Add OAuthTokenSignature
-    NSMutableDictionary *oAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:oAuthArgumentDict];
-    [oAuthSignatureDict addEntriesFromDictionary:parameterDict];
-    
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthSignatureDict httpMethod:@"GET" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthAccessTokenSecret] forKey:@"oauth_signature"];
-    
-    // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
-    
-    // Create Request
-    if (parameterString) {
-        requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [apiURL absoluteString], parameterString]];
-    }
-    else {
-        requestURL = apiURL;
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0f];
-    
-    // Set HTTP Method to POST
-    [request setHTTPMethod:@"GET"];
-    
-    // Set HTTP Authorization Header to requestsParameter
-    [request setValue:oAuthArgumentString forHTTPHeaderField:@"Authorization"];
     
     // We don't want *all* the individual messages from the
 	// SBJsonStreamParser, just the top-level objects. The stream
@@ -127,7 +82,13 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 	// JSON documents.
 	parser.supportMultipleDocuments = YES;
     
-    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    accountIdentifier = identifier;
+    
+    // Create Request
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthAccessToken", oAuthAccessTokenSecret, @"OAuthAccessTokenSecret", nil];
+    
+    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
     
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];

@@ -9,6 +9,7 @@
 #import "STwitterAccounts.h"
 
 #import "STwitterOAuthTool.h"
+#import "STwitterRequest.h"
 #import "NSString (RFC3875PercentEscapes).h"
 #import "SBJson.h"
 
@@ -20,19 +21,19 @@
     
     // Make Parameter Dictionary
     if (includeEntities) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
     if (skipStatus) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"skip_status"]];
+        [parameterDict setObject:@"true" forKey:@"skip_status"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"skip_status"]];
+        [parameterDict setObject:@"false" forKey:@"skip_status"];
     }
     
-    TWRequest *request = [[TWRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:TWRequestMethodGET];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
     request.account = account;
     
     // Get Response
@@ -75,77 +76,29 @@
 
 - (NSDictionary *)verifyCredentialsWithoAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities skipStatus:(BOOL)skipStatus error:(NSError **)error {
     // Declare Variables
-    NSString *oAuthNonce;
-    NSString *oAuthTimestamp;
-    NSString *oAuthArgumentString;
-    NSMutableDictionary *httpBodyParameterDict;
-    NSString *httpBodyParameterString = nil;
+    NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
-    NSURL *requestURL;
     
-    // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
-    
-    // Generate Time Stamp
-    oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-    
-    // Make OAuth Arguemnt Dictionary
-    NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthAccessToken, @"oauth_token", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
-    
-    // Make HTTP Body Dictionary and Data
-    
-    httpBodyParameterDict = [NSMutableDictionary dictionary];
-    
+    // Make Parameter Dictionary
     if (includeEntities) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
-    
     if (skipStatus) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"skip_status"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"skip_status"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"skip_status"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"skip_status"];
     }
     
-    if ([httpBodyParameterDict count]) {
-        httpBodyParameterString = [sTwitterOAuthTool generateHTTPBody:httpBodyParameterDict];
-    }
-    
-    
-    // Generate and Add OAuthTokenSignature
-    NSMutableDictionary *oAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:oAuthArgumentDict];
-    [oAuthSignatureDict addEntriesFromDictionary:httpBodyParameterDict];
-    
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthSignatureDict httpMethod:@"GET" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthAccessTokenSecret] forKey:@"oauth_signature"];
-    
-    // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
-    
-    
-    // Create Request
-    if (httpBodyParameterString) {
-        requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [apiURL absoluteString], httpBodyParameterString]];
-    }
-    else {
-        requestURL = apiURL;
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
-    
-    // Set HTTP Method to GET
-    [request setHTTPMethod:@"GET"];
-    
-    // Set HTTP Authorization Header to requestsParameter
-    [request setValue:oAuthArgumentString forHTTPHeaderField:@"Authorization"];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthAccessToken", oAuthAccessTokenSecret, @"OAuthAccessTokenSecret", nil];
     
     // Get Response
-    // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&connectionError];
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];

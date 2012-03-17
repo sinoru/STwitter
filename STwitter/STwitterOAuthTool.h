@@ -16,6 +16,7 @@
 - (NSString *)generateUUID;
 - (NSString *)generateOAuthSignature:(NSDictionary *)httpBodyDict httpMethod:(NSString *)httpMethod apiURL:(NSURL *)apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:(NSString *)oAuthTokenSecret;
 - (NSString *)generateHTTPAuthorizationHeader:(NSDictionary *)oAuthArgumentDict;
-- (NSString *)generateHTTPBody:(NSDictionary *)httpBodyParameterDict;
+- (NSString *)generateHTTPBodyString:(NSDictionary *)httpBodyParameterDict;
+- (NSData *)generateHTTPBodyDataWithMultiPartDatas:(NSArray *)multiPartDatas multiPartNames:(NSArray *)multiPartNames multiPartTypes:(NSArray *)multiPartTypes boundary:(NSString *)boundary ;
 
 @end

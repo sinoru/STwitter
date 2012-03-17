@@ -18,6 +18,8 @@ enum STwitterRequestMethod {
 
 typedef enum STwitterRequestMethod STwitterRequestMethod;
 
+typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+
 @interface STwitterRequest : NSObject {
     @private
     NSURL *URL;
@@ -25,6 +27,9 @@ typedef enum STwitterRequestMethod STwitterRequestMethod;
     NSDictionary *OAuthToken;
     NSDictionary *parameters;
     STwitterRequestMethod requestMethod;
+    NSArray *multiPartDatas;
+    NSArray *multiPartNames;
+    NSArray *multiPartTypes;
 }
 
 @property (nonatomic, retain) ACAccount *account;
@@ -39,6 +44,10 @@ typedef enum STwitterRequestMethod STwitterRequestMethod;
 
 - (id)initWithURL:(NSURL *)url parameters:(NSDictionary *)parameters requestMethod:(STwitterRequestMethod)STwitterRequestMethod;
 
+- (void)addMultiPartData:(NSData*)data withName:(NSString*)name type:(NSString*)type;
+
 - (NSURLRequest *)signedURLRequest;
+
+- (void)performRequestWithHandler:(STwitterRequestHandler)handler;
 
 @end

@@ -13,6 +13,7 @@
 @implementation STwitterRequest
 
 @synthesize account;
+@synthesize OAuthToken;
 @synthesize URL;
 @synthesize requestMethod;
 @synthesize parameters;
@@ -47,6 +48,24 @@
     parameters = [percentEscapedParameters copy];
 }
 
+- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type
+{
+    if (!multiPartDatas)
+        multiPartDatas = [[NSArray alloc] initWithObjects:(data ? data : Nil), nil];
+    else 
+        multiPartDatas = [multiPartDatas arrayByAddingObject:(data ? data : Nil)];
+    
+    if (!multiPartNames)
+        multiPartNames = [[NSArray alloc] initWithObjects:(name ? name : Nil), nil];
+    else 
+        multiPartNames = [multiPartNames arrayByAddingObject:(name ? name : Nil)];
+    
+    if (!multiPartTypes)
+        multiPartTypes = [[NSArray alloc] initWithObjects:(type ? type : Nil), nil];
+    else
+        multiPartTypes = [multiPartTypes arrayByAddingObject:(type ? type : Nil)];
+}
+
 - (NSURLRequest *)signedURLRequest
 {
     NSURLRequest *request = nil;
@@ -54,23 +73,41 @@
     if (account) {
         TWRequestMethod twitterRequestMethod;
         
-        if (requestMethod == STwitterRequestMethodDELETE) {
-            twitterRequestMethod = TWRequestMethodDELETE;
-        } else if (requestMethod == STwitterRequestMethodGET) {
-            twitterRequestMethod = TWRequestMethodGET;
-        } else if (requestMethod == STwitterRequestMethodPOST) {
-            twitterRequestMethod = TWRequestMethodPOST;
+        switch (requestMethod) {
+            case STwitterRequestMethodDELETE:
+                twitterRequestMethod = TWRequestMethodDELETE;
+                break;
+            case STwitterRequestMethodGET:
+                twitterRequestMethod = TWRequestMethodGET;
+                break;
+            case STwitterRequestMethodPOST:
+                twitterRequestMethod = TWRequestMethodPOST;
+                break;
         }
         
         TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:URL parameters:parameters requestMethod:twitterRequestMethod];
         
         twitterRequest.account = account;
         
+        if (multiPartDatas) {
+            for (NSData *data in multiPartDatas) {
+                @autoreleasepool {
+                    NSUInteger index = [multiPartDatas indexOfObject:data];
+                    
+                    NSString *name = [multiPartNames objectAtIndex:index];
+                    NSString *type = [multiPartTypes objectAtIndex:index];
+                    
+                    [twitterRequest addMultiPartData:data withName:name type:type];
+                }
+            }
+        }
+        
         request = [twitterRequest signedURLRequest];
     }
     else if (OAuthToken) {
         STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
         NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
+        
         NSString *OAuthConsumerKey = [OAuthToken objectForKey:@"OAuthConsumerKey"];
         NSString *OAuthConsumerSecret = [OAuthToken objectForKey:@"OAuthConsumerSecret"];
         NSString *OAuthAccessToken = [OAuthToken objectForKey:@"OAuthAccessToken"];
@@ -92,39 +129,104 @@
         
         NSString *OAuthSignature = nil;
         
-        if (requestMethod == STwitterRequestMethodDELETE) {
-            OAuthSignature = [sTwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:@"DELETE" apiURL:URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthAccessTokenSecret];
-        } else if (requestMethod == STwitterRequestMethodGET) {
-            OAuthSignature = [sTwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:@"GET" apiURL:URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthAccessTokenSecret];
-        } else if (requestMethod == STwitterRequestMethodPOST) {
-            OAuthSignature = [sTwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:@"POST" apiURL:URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthAccessTokenSecret];
+        switch (requestMethod) {
+            case STwitterRequestMethodDELETE:
+                mutableRequest.HTTPMethod = @"DELETE";
+                break;
+            case STwitterRequestMethodGET:
+                mutableRequest.HTTPMethod = @"GET";
+                break;
+            case STwitterRequestMethodPOST:
+                mutableRequest.HTTPMethod = @"POST";
+                break;
         }
+        
+        OAuthSignature = [sTwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthAccessTokenSecret];
         
         [OAuthArgumentDict setObject:OAuthSignature forKey:@"oauth_signature"];
         
         NSString *HTTPAuthorizationHeader = [sTwitterOAuthTool generateHTTPAuthorizationHeader:OAuthArgumentDict];
         [mutableRequest setValue:HTTPAuthorizationHeader forHTTPHeaderField:@"Authorization"];
         
-        NSString *HTTPBodyParameterString = [sTwitterOAuthTool generateHTTPBody:parameters];
-        
-        if (requestMethod == STwitterRequestMethodDELETE) {
-            if (HTTPBodyParameterString) {
-                mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [URL absoluteString], HTTPBodyParameterString]];
-            }
-        } else if (requestMethod == STwitterRequestMethodGET) {
-            if (HTTPBodyParameterString) {
-                mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [URL absoluteString], HTTPBodyParameterString]];
-            }
-        } else if (requestMethod == STwitterRequestMethodPOST) {
-            if (HTTPBodyParameterString) {
-                mutableRequest.HTTPBody = [HTTPBodyParameterString dataUsingEncoding:NSUTF8StringEncoding];
-            }
+        switch (requestMethod) {
+            case STwitterRequestMethodDELETE:
+            case STwitterRequestMethodGET:
+                if (parameters) {
+                    NSString *HTTPBodyParameterString = [sTwitterOAuthTool generateHTTPBodyString:parameters];
+                    mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [URL absoluteString], HTTPBodyParameterString]];
+                }
+                break;
+            case STwitterRequestMethodPOST:
+                if (multiPartDatas) {
+                    NSString *boundary = @"0xN0b0dy_lik3s_a_mim3__AKhSmhMrH";
+                    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+                    [mutableRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
+                    
+                    NSData *HTTPBodyData = [sTwitterOAuthTool generateHTTPBodyDataWithMultiPartDatas:multiPartDatas multiPartNames:multiPartNames multiPartTypes:multiPartTypes boundary:boundary];
+                    
+                    mutableRequest.HTTPBody = HTTPBodyData;
+                    
+                    [mutableRequest addValue:[NSString stringWithFormat:@"%d", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
+                }
+                else if (parameters) {
+                    NSString *HTTPBodyParameterString = [sTwitterOAuthTool generateHTTPBodyString:parameters];
+                    mutableRequest.HTTPBody = [HTTPBodyParameterString dataUsingEncoding:NSUTF8StringEncoding];
+                }
+                break;
         }
         
         request = [mutableRequest copy];
     }
     
     return request;
+}
+
+- (void)performRequestWithHandler:(STwitterRequestHandler)handler
+{
+    if (account) {
+        TWRequestMethod twitterRequestMethod;
+        
+        switch (requestMethod) {
+            case STwitterRequestMethodDELETE:
+                twitterRequestMethod = TWRequestMethodDELETE;
+                break;
+            case STwitterRequestMethodGET:
+                twitterRequestMethod = TWRequestMethodGET;
+                break;
+            case STwitterRequestMethodPOST:
+                twitterRequestMethod = TWRequestMethodPOST;
+                break;
+        }
+        
+        TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:URL parameters:parameters requestMethod:twitterRequestMethod];
+        
+        twitterRequest.account = account;
+        
+        if (multiPartDatas) {
+            for (NSData *data in multiPartDatas) {
+                @autoreleasepool {
+                    NSUInteger index = [multiPartDatas indexOfObject:data];
+                    
+                    NSString *name = [multiPartNames objectAtIndex:index];
+                    NSString *type = [multiPartTypes objectAtIndex:index];
+                    
+                    [twitterRequest addMultiPartData:data withName:name type:type];
+                }
+            }
+        }
+        
+        [twitterRequest performRequestWithHandler:handler];
+    }
+    else if (OAuthToken) {
+        NSURLRequest *request = [self signedURLRequest];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSHTTPURLResponse *urlResponse = nil;
+            NSError *error = nil;
+            NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+            handler(responseData, urlResponse, error);
+        });
+    }
 }
 
 @end

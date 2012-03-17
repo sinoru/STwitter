@@ -9,6 +9,7 @@
 #import "STwitterTimeline.h"
 
 #import "STwitterOAuthTool.h"
+#import "STwitterRequest.h"
 #import "NSString (RFC3875PercentEscapes).h"
 #import "SBJson.h"
 
@@ -22,34 +23,34 @@
     
     // Make Parameter Dictionary
     if (sinceID) {
-        [parameterDict setObject:[sinceID stringValue] forKey:[NSString stringWithString:@"since_id"]];
+        [parameterDict setObject:[sinceID stringValue] forKey:@"since_id"];
     }
     
     if (maxID) {
-        [parameterDict setObject:[maxID stringValue] forKey:[NSString stringWithString:@"max_id"]];
+        [parameterDict setObject:[maxID stringValue] forKey:@"max_id"];
     }
     
     if (count) {
-        [parameterDict setObject:[count stringValue] forKey:[NSString stringWithString:@"count"]];
+        [parameterDict setObject:[count stringValue] forKey:@"count"];
     }
     
     if (trimUser) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"trim_user"]];
+        [parameterDict setObject:@"true" forKey:@"trim_user"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"trim_user"]];
+        [parameterDict setObject:@"false" forKey:@"trim_user"];
     }
     
     if (includeEntities) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
     
     
     // Create Request
-    TWRequest *request = [[TWRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:TWRequestMethodGET];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
     request.account = account;
     
     // Get Response
@@ -94,89 +95,44 @@
 
 - (id)getHomeTimelineWithOAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret sinceID:(NSNumber *)sinceID maxID:(NSNumber *)maxID count:(NSNumber *)count trimUser:(BOOL)trimUser includeEntities:(BOOL)includeEntities error:(NSError **)error {
     // Declare Variables
-    NSString *oAuthNonce;
-    NSString *oAuthTimestamp;
-    NSString *oAuthArgumentString;
-    NSMutableDictionary *httpBodyParameterDict;
-    NSString *httpBodyParameterString = nil;
+    NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/home_timeline.json"];
-    NSURL *requestURL;
     
-    // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
-    
-    // Generate Time Stamp
-    oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-    
-    // Make OAuth Arguemnt Dictionary
-    NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthAccessToken, @"oauth_token", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
-    
-    // Make HTTP Body Dictionary and Data
-    
-    httpBodyParameterDict = [NSMutableDictionary dictionary];
-    
+    // Make Parameter Dictionary
     if (sinceID) {
-        [httpBodyParameterDict setObject:[[sinceID stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"since_id"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[sinceID stringValue] forKey:@"since_id"];
     }
     
     if (maxID) {
-        [httpBodyParameterDict setObject:[[maxID stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"max_id"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[maxID stringValue] forKey:@"max_id"];
     }
     
     if (count) {
-        [httpBodyParameterDict setObject:[[count stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"count"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[count stringValue] forKey:@"count"];
     }
     
     if (trimUser) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"trim_user"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"trim_user"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"trim_user"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"trim_user"];
     }
     
     if (includeEntities) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
-    
-    if ([httpBodyParameterDict count]) {
-        httpBodyParameterString = [sTwitterOAuthTool generateHTTPBody:httpBodyParameterDict];
-    }
-    
-    
-    // Generate and Add OAuthTokenSignature
-    NSMutableDictionary *oAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:oAuthArgumentDict];
-    [oAuthSignatureDict addEntriesFromDictionary:httpBodyParameterDict];
-    
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthSignatureDict httpMethod:@"GET" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthAccessTokenSecret] forKey:@"oauth_signature"];
-    
-    // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
-    
     
     // Create Request
-    if (httpBodyParameterString) {
-        requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [apiURL absoluteString], httpBodyParameterString]];
-    }
-    else {
-        requestURL = apiURL;
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
-    
-    // Set HTTP Method to POST
-    [request setHTTPMethod:@"GET"];
-    
-    // Set HTTP Authorization Header to requestsParameter
-    [request setValue:oAuthArgumentString forHTTPHeaderField:@"Authorization"];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthAccessToken", oAuthAccessTokenSecret, @"OAuthAccessTokenSecret", nil];
     
     // Get Response
     // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&connectionError];
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];
@@ -222,40 +178,40 @@
     
     // Make Parameter Dictionary
     if (sinceID) {
-        [parameterDict setObject:[sinceID stringValue] forKey:[NSString stringWithString:@"since_id"]];
+        [parameterDict setObject:[sinceID stringValue] forKey:@"since_id"];
     }
     
     if (maxID) {
-        [parameterDict setObject:[maxID stringValue] forKey:[NSString stringWithString:@"max_id"]];
+        [parameterDict setObject:[maxID stringValue] forKey:@"max_id"];
     }
     
     if (count) {
-        [parameterDict setObject:[count stringValue] forKey:[NSString stringWithString:@"count"]];
+        [parameterDict setObject:[count stringValue] forKey:@"count"];
     }
     
     if (trimUser) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"trim_user"]];
+        [parameterDict setObject:@"true" forKey:@"trim_user"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"trim_user"]];
+        [parameterDict setObject:@"false" forKey:@"trim_user"];
     }
     
     if (includeRetweets) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"include_rts"]];
+        [parameterDict setObject:@"true" forKey:@"include_rts"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"include_rts"]];
+        [parameterDict setObject:@"false" forKey:@"include_rts"];
     }
     
     if (includeEntities) {
-        [parameterDict setObject:[NSString stringWithString:@"true"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [parameterDict setObject:[NSString stringWithString:@"false"] forKey:[NSString stringWithString:@"include_entities"]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
     
     // Create Request
-    TWRequest *request = [[TWRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:TWRequestMethodGET];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
     request.account = account;
     
     // Get Response
@@ -301,96 +257,52 @@
 
 - (id)getMentionsWithOAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret sinceID:(NSNumber *)sinceID maxID:(NSNumber *)maxID count:(NSNumber *)count trimUser:(BOOL)trimUser includeRetweets:(BOOL)includeRetweets includeEntities:(BOOL)includeEntities error:(NSError **)error {
     // Declare Variables
-    NSString *oAuthNonce;
-    NSString *oAuthTimestamp;
-    NSString *oAuthArgumentString;
-    NSMutableDictionary *httpBodyParameterDict;
-    NSString *httpBodyParameterString = nil;
+    NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/mentions.json"];
-    NSURL *requestURL;
     
-    // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
-    
-    // Generate Time Stamp
-    oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-    
-    // Make OAuth Arguemnt Dictionary
-    NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthAccessToken, @"oauth_token", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
-    
-    // Make HTTP Body Dictionary and Data
-    
-    httpBodyParameterDict = [NSMutableDictionary dictionary];
-    
+    // Make Parameter Dictionary
     if (sinceID) {
-        [httpBodyParameterDict setObject:[[sinceID stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"since_id"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[sinceID stringValue] forKey:@"since_id"];
     }
     
     if (maxID) {
-        [httpBodyParameterDict setObject:[[maxID stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"max_id"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[maxID stringValue] forKey:@"max_id"];
     }
     
     if (count) {
-        [httpBodyParameterDict setObject:[[count stringValue] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"count"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:[count stringValue] forKey:@"count"];
     }
     
     if (trimUser) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"trim_user"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"trim_user"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"trim_user"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"trim_user"];
     }
     
     if (includeRetweets) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_rts"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"include_rts"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_rts"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"include_rts"];
     }
     
     if (includeEntities) {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"true"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     else {
-        [httpBodyParameterDict setObject:[[NSString stringWithString:@"false"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[[NSString stringWithString:@"include_entities"] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [parameterDict setObject:@"false" forKey:@"include_entities"];
     }
-    
-    if ([httpBodyParameterDict count]) {
-        httpBodyParameterString = [sTwitterOAuthTool generateHTTPBody:httpBodyParameterDict];
-    }
-    
-    
-    // Generate and Add OAuthTokenSignature
-    NSMutableDictionary *oAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:oAuthArgumentDict];
-    [oAuthSignatureDict addEntriesFromDictionary:httpBodyParameterDict];
-    
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthSignatureDict httpMethod:@"GET" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthAccessTokenSecret] forKey:@"oauth_signature"];
-    
-    // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
     
     
     // Create Request
-    if (httpBodyParameterString) {
-        requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [apiURL absoluteString], httpBodyParameterString]];
-    }
-    else {
-        requestURL = apiURL;
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
-    
-    // Set HTTP Method to POST
-    [request setHTTPMethod:@"GET"];
-    
-    // Set HTTP Authorization Header to requestsParameter
-    [request setValue:oAuthArgumentString forHTTPHeaderField:@"Authorization"];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthAccessToken", oAuthAccessTokenSecret, @"OAuthAccessTokenSecret", nil];
     
     // Get Response
     // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&connectionError];
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];

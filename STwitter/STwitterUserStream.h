@@ -24,7 +24,6 @@
     NSURLConnection *userStreamConnection;
     NSMutableData *userStreamData;
     
-    ACAccount *account;
     NSString *accountIdentifier;
     
     SBJsonStreamParser *parser;
