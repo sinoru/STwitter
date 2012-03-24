@@ -15,7 +15,7 @@
 
 @implementation STwitterOAuthTool
 
-- (NSString *)generateUUID
++ (NSString *)generateUUID
 {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     assert(uuid != NULL);
@@ -31,7 +31,7 @@
     return uuidString;
 }
 
-- (NSString *)generateOAuthSignature:(NSDictionary *)oAuthSignatureDict httpMethod:(NSString *)httpMethod apiURL:(NSURL *)apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:(NSString *)oAuthTokenSecret
++ (NSString *)generateOAuthSignature:(NSDictionary *)oAuthSignatureDict httpMethod:(NSString *)httpMethod apiURL:(NSURL *)apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:(NSString *)oAuthTokenSecret
 {
     NSMutableArray *parts = [NSMutableArray array];
     NSString *part;
@@ -70,7 +70,7 @@
     
 }
 
-- (NSString *)generateHTTPAuthorizationHeader:(NSDictionary *)oAuthArgumentDict
++ (NSString *)generateHTTPAuthorizationHeader:(NSDictionary *)oAuthArgumentDict
 {
     NSMutableArray *parts = [NSMutableArray array];
     NSString *part;
@@ -94,7 +94,7 @@
     return oAuthArgumentMutableString;
 }
 
-- (NSString *)generateHTTPBodyString:(NSDictionary *)httpBodyParameterDict
++ (NSString *)generateHTTPBodyString:(NSDictionary *)httpBodyParameterDict
 {
     NSMutableArray *parts = [NSMutableArray array];
     
@@ -114,7 +114,7 @@
     return [parts componentsJoinedByString:@"&"];
 }
 
-- (NSData *)generateHTTPBodyDataWithMultiPartDatas:(NSArray *)multiPartDatas multiPartNames:(NSArray *)multiPartNames multiPartTypes:(NSArray *)multiPartTypes boundary:(NSString *)boundary 
++ (NSData *)generateHTTPBodyDataWithMultiPartDatas:(NSArray *)multiPartDatas multiPartNames:(NSArray *)multiPartNames multiPartTypes:(NSArray *)multiPartTypes boundary:(NSString *)boundary
 {
     NSMutableData *body = [NSMutableData data];
     

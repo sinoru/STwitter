@@ -14,7 +14,7 @@
 
 @implementation STwitterOAuth
 
-- (NSDictionary *)requestRequestTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret
++ (NSDictionary *)requestRequestTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret
 {
     // Declare Variables
     NSString *oAuthNonce;
@@ -23,8 +23,7 @@
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
     
     // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
+    oAuthNonce = [STwitterOAuthTool generateUUID];
     
     // Generate Time Stamp
     oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
@@ -32,10 +31,10 @@
     NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"oob", @"oauth_callback", oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
     
     // Generate and Add OAuthTokenSignature
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthArgumentDict httpMethod:@"POST" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:nil] forKey:@"oauth_signature"];
+    [oAuthArgumentDict setObject:[STwitterOAuthTool generateOAuthSignature:oAuthArgumentDict httpMethod:@"POST" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:nil] forKey:@"oauth_signature"];
     
     // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
+    oAuthArgumentString = [STwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
     
     // Create Request
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:apiURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
@@ -71,7 +70,7 @@
     return returnDict;
 }
 
-- (NSURLRequest *)authorizeURLRequestWithRequestToken:(NSString *)token
++ (NSURLRequest *)authorizeURLRequestWithRequestToken:(NSString *)token
 {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", token]] cachePolicy:NSURLRequestReloadRevalidatingCacheData timeoutInterval:5.0f];
     
@@ -81,7 +80,7 @@
     return request;
 }
 
-- (NSDictionary *)exchangeRequestTokenToAccessTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthRequestToken:(NSString *)oAuthRequestToken oAuthRequestTokenSecret:(NSString *)oAuthRequestTokenSecret oAuthVerifier:oAuthVerifier
++ (NSDictionary *)exchangeRequestTokenToAccessTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthRequestToken:(NSString *)oAuthRequestToken oAuthRequestTokenSecret:(NSString *)oAuthRequestTokenSecret oAuthVerifier:oAuthVerifier
 {
     // Declare Variables
     NSString *oAuthNonce;
@@ -90,8 +89,7 @@
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
     
     // Generate UUID for OAuth Nonce
-    STwitterOAuthTool *sTwitterOAuthTool = [[STwitterOAuthTool alloc] init];
-    oAuthNonce = [sTwitterOAuthTool generateUUID];
+    oAuthNonce = [STwitterOAuthTool generateUUID];
     
     // Generate Time Stamp
     oAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
@@ -99,10 +97,10 @@
     NSMutableDictionary *oAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oAuthConsumerKey, @"oauth_consumer_key", oAuthNonce, @"oauth_nonce", @"HMAC-SHA1", @"oauth_signature_method", oAuthRequestToken, @"oauth_token", oAuthTimestamp, @"oauth_timestamp", @"1.0", @"oauth_version", nil];
     
     // Generate and Add OAuthTokenSignature
-    [oAuthArgumentDict setObject:[sTwitterOAuthTool generateOAuthSignature:oAuthArgumentDict httpMethod:@"POST" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthRequestTokenSecret] forKey:@"oauth_signature"];
+    [oAuthArgumentDict setObject:[STwitterOAuthTool generateOAuthSignature:oAuthArgumentDict httpMethod:@"POST" apiURL:apiURL oAuthConsumerSecret:oAuthConsumerSecret oAuthTokenSecret:oAuthRequestTokenSecret] forKey:@"oauth_signature"];
     
     // Generate HTTP Authorization Header String
-    oAuthArgumentString = [sTwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
+    oAuthArgumentString = [STwitterOAuthTool generateHTTPAuthorizationHeader:oAuthArgumentDict];
     
     // Create Request
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:apiURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];

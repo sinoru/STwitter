@@ -13,7 +13,7 @@
 
 @implementation STwitterHelp
 
-- (id)getConfiguration:(out NSError **)error
++ (id)getConfiguration:(out NSError **)error
 {
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/help/configuration.json"];
     

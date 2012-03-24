@@ -15,7 +15,7 @@
 
 @implementation STwitterAccounts
 
-- (NSDictionary *)verifyCredentialsWithAccount:(ACAccount *)account includeEntities:(BOOL)includeEntities skipStatus:(BOOL)skipStatus error:(NSError **)error {
++ (NSDictionary *)verifyCredentialsWithAccount:(ACAccount *)account includeEntities:(BOOL)includeEntities skipStatus:(BOOL)skipStatus error:(NSError **)error {
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
     
@@ -74,7 +74,7 @@
     return nil;
 }
 
-- (NSDictionary *)verifyCredentialsWithoAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities skipStatus:(BOOL)skipStatus error:(NSError **)error {
++ (NSDictionary *)verifyCredentialsWithoAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities skipStatus:(BOOL)skipStatus error:(NSError **)error {
     // Declare Variables
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];

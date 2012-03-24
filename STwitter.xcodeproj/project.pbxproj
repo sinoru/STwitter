@@ -172,33 +172,33 @@
 		19C60612146E1C99008CDE62 /* STwitter */ = {
 			isa = PBXGroup;
 			children = (
-				19C6061D146E1CF4008CDE62 /* NSData+Base64.h */,
-				19C6061E146E1CF4008CDE62 /* NSData+Base64.m */,
-				19C6061F146E1CF4008CDE62 /* NSString (AmpersandEscapes).h */,
-				19C60620146E1CF4008CDE62 /* NSString (RFC3875PercentEscapes).h */,
 				19C60621146E1CF4008CDE62 /* STwitter.h */,
-				19C60622146E1CF4008CDE62 /* STwitterAccounts.h */,
-				19C60623146E1CF4008CDE62 /* STwitterAccounts.m */,
-				19C60624146E1CF4008CDE62 /* STwitterFavorites.h */,
-				19C60625146E1CF4008CDE62 /* STwitterFavorites.m */,
-				19C60626146E1CF4008CDE62 /* STwitterOAuth.h */,
-				19C60627146E1CF4008CDE62 /* STwitterOAuth.m */,
-				19C60628146E1CF4008CDE62 /* STwitterOAuthTool.h */,
-				19C60629146E1CF4008CDE62 /* STwitterOAuthTool.m */,
-				19C6062A146E1CF4008CDE62 /* STwitterTimeline.h */,
-				19C6062B146E1CF4008CDE62 /* STwitterTimeline.m */,
+				1962046C14E811D4004F634A /* STwitterRequest.h */,
+				1962046D14E811D4004F634A /* STwitterRequest.m */,
 				19C6062C146E1CF4008CDE62 /* STwitterTweets.h */,
 				19C6062D146E1CF4008CDE62 /* STwitterTweets.m */,
 				19907DD91505077000E63307 /* STwitterTweets+media.h */,
 				19907DDA1505077000E63307 /* STwitterTweets+media.m */,
+				19C60626146E1CF4008CDE62 /* STwitterOAuth.h */,
+				19C60627146E1CF4008CDE62 /* STwitterOAuth.m */,
+				19C60622146E1CF4008CDE62 /* STwitterAccounts.h */,
+				19C60623146E1CF4008CDE62 /* STwitterAccounts.m */,
+				19C60624146E1CF4008CDE62 /* STwitterFavorites.h */,
+				19C60625146E1CF4008CDE62 /* STwitterFavorites.m */,
+				19C60628146E1CF4008CDE62 /* STwitterOAuthTool.h */,
+				19C60629146E1CF4008CDE62 /* STwitterOAuthTool.m */,
+				19C6062A146E1CF4008CDE62 /* STwitterTimeline.h */,
+				19C6062B146E1CF4008CDE62 /* STwitterTimeline.m */,
 				19907DD11505061E00E63307 /* STwitterHelp.h */,
 				19907DD21505061E00E63307 /* STwitterHelp.m */,
 				19C6062E146E1CF4008CDE62 /* STwitterUser.h */,
 				19C6062F146E1CF4008CDE62 /* STwitterUser.m */,
 				19C60630146E1CF4008CDE62 /* STwitterUserStream.h */,
 				19C60631146E1CF4008CDE62 /* STwitterUserStream.m */,
-				1962046C14E811D4004F634A /* STwitterRequest.h */,
-				1962046D14E811D4004F634A /* STwitterRequest.m */,
+				19C6061D146E1CF4008CDE62 /* NSData+Base64.h */,
+				19C6061E146E1CF4008CDE62 /* NSData+Base64.m */,
+				19C6061F146E1CF4008CDE62 /* NSString (AmpersandEscapes).h */,
+				19C60620146E1CF4008CDE62 /* NSString (RFC3875PercentEscapes).h */,
 				19C60613146E1C99008CDE62 /* Supporting Files */,
 			);
 			path = STwitter;
@@ -402,6 +402,10 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
 				DSTROOT = /tmp/STwitter.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}/**";
@@ -424,6 +428,10 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
 				DSTROOT = /tmp/STwitter.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
