@@ -435,6 +435,7 @@
 				HEADER_SEARCH_PATHS = (
 					"${TARGET_BUILD_DIR}/**",
 					"${OBJROOT}/**",
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = (
