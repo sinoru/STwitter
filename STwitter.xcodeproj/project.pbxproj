@@ -112,7 +112,6 @@
 		19C6062F146E1CF4008CDE62 /* STwitterUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterUser.m; sourceTree = "<group>"; };
 		19C60630146E1CF4008CDE62 /* STwitterUserStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterUserStream.h; sourceTree = "<group>"; };
 		19C60631146E1CF4008CDE62 /* STwitterUserStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterUserStream.m; sourceTree = "<group>"; };
-		19D5B685147D064A00EB14FF /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				19C60614146E1C99008CDE62 /* STwitter-Prefix.pch */,
-				19D5B685147D064A00EB14FF /* LICENSE */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
