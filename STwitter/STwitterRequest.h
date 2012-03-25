@@ -34,8 +34,8 @@ typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *u
 
 /**
  * Optional account information used to authenticate the request. If you don't want using ACAccount.
- * This should be a dictionary that include keys named "OAuthConsumerKey", "OAuthConsumerSecret", "OAuthAccessToken", 
- * "OAuthAccessTokenSecret" and NSString objects.
+ * This should be a dictionary that include keys named "OAuthConsumerKey", "OAuthConsumerSecret", "OAuthToken", 
+ * "OAuthTokenSecret" and NSString objects.
  */
 @property (nonatomic, retain) NSDictionary *OAuthToken;
 

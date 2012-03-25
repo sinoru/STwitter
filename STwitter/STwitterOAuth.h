@@ -13,8 +13,10 @@
     
 }
 
-+ (NSDictionary *)requestRequestTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret;
-+ (NSURLRequest *)authorizeURLRequestWithRequestToken:(NSString *)token;
-+ (NSDictionary *)exchangeRequestTokenToAccessTokenWithOAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthRequestToken:(NSString *)oAuthRequestToken oAuthRequestTokenSecret:(NSString *)oAuthRequestTokenSecret oAuthVerifier:oAuthVerifier;
++ (NSDictionary *)getRequestTokenWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret;
++ (NSURLRequest *)getUserAuthorizeURLRequestWithRequestToken:(NSString *)token;
++ (NSURLRequest *)getUserAuthorizeURLRequestWithRequestToken:(NSString *)token forceLogin:(BOOL)forceLogin screenName:(NSString *)screenName;
++ (NSDictionary *)exchangeRequestTokenForAccessTokenWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthRequestToken:(NSString *)OAuthRequestToken OAuthRequestTokenSecret:(NSString *)OAuthRequestTokenSecret OAuthVerifier:OAuthVerifier;
++ (NSDictionary *)exchangeRequestTokenForAccessTokenWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthRequestToken:(NSString *)OAuthRequestToken OAuthRequestTokenSecret:(NSString *)OAuthRequestTokenSecret xAuthUsername:(NSString *)xAuthUsername xAuthPassword:(NSString *)xAuthPassword;
 
 @end

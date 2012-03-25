@@ -109,8 +109,8 @@
         
         NSString *OAuthConsumerKey = [OAuthToken objectForKey:@"OAuthConsumerKey"];
         NSString *OAuthConsumerSecret = [OAuthToken objectForKey:@"OAuthConsumerSecret"];
-        NSString *OAuthAccessToken = [OAuthToken objectForKey:@"OAuthAccessToken"];
-        NSString *OAuthAccessTokenSecret = [OAuthToken objectForKey:@"OAuthAccessTokenSecret"];
+        NSString *OAuthAccessToken = [OAuthToken objectForKey:@"OAuthToken"];
+        NSString *OAuthAccessTokenSecret = [OAuthToken objectForKey:@"OAuthTokenSecret"];
         NSString *OAuthSignatureMethod = @"HMAC-SHA1";
         NSString *OAuthVersion = @"1.0";
         
