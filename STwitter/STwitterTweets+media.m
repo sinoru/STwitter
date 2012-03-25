@@ -11,7 +11,7 @@
 #import "STwitterOAuthTool.h"
 #import "STwitterRequest.h"
 #import "NSString (RFC3875PercentEscapes).h"
-#import "SBJson.h"
+#import "SBJson/SBJson.h"
 
 @implementation STwitterTweets (media)
 

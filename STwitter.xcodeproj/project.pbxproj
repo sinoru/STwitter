@@ -353,7 +353,6 @@
 		19C60618146E1C99008CDE62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -377,7 +376,6 @@
 		19C60619146E1C99008CDE62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
@@ -406,15 +404,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
-				HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
+				HEADER_SEARCH_PATHS = (
+					"${TARGET_BUILD_DIR}/include/**",
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include/SBJson";
 			};
 			name = Debug;
 		};
@@ -433,18 +432,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STwitter/STwitter-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"${TARGET_BUILD_DIR}/**",
-					"${OBJROOT}/**",
-					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/**",
+					"${TARGET_BUILD_DIR}/include/**",
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include/SBJson";
 			};
 			name = Release;
 		};

@@ -9,7 +9,7 @@
 #import "STwitterHelp.h"
 
 #import "STwitterRequest.h"
-#import "SBJson.h"
+#import "SBJson/SBJson.h"
 
 @implementation STwitterHelp
 

@@ -9,7 +9,7 @@
 #import "STwitterFavorites.h"
 
 #import "NSString (RFC3875PercentEscapes).h"
-#import "SBJson.h"
+#import "SBJson/SBJson.h"
 #import "STwitterOAuthTool.h"
 #import "STwitterRequest.h"
 
