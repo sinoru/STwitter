@@ -10,89 +10,58 @@
 
 #import "STwitterOAuthTool.h"
 #import "NSString (RFC3875PercentEscapes).h"
+#import "STwitterRequest.h"
 
 
 @implementation STwitterUser
 
-@synthesize getUserProfileImageActiveDownload;
 @synthesize getUserProfileImageResponse;
-@synthesize getUserProfileImageResult;
-@synthesize getUserProfileImageConnection;
 @synthesize getUserProfileImageURLConnection;
 
 - (NSDictionary *)getUserProfileImageAndURLWithScreenName:(NSString *)screenName size:(NSString *)size
 {
-    NSMutableDictionary *httpBodyParameterDict;
-    NSData *httpBodyParameterData;
+    NSMutableDictionary *parameterDict;
     NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json", screenName]];
     
     // Make HTTP Body Dictionary and Data
     if (size) {
-        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"size" stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-        httpBodyParameterData = [[STwitterOAuthTool generateHTTPBodyString:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
+        [parameterDict setObject:size forKey:@"size"];
     }
     
-    // Create Request
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:apiURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodPOST];
     
-    // Set HTTP Method to POST
-    [request setHTTPMethod:@"POST"];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
     
-    // Set HTTP Body
-    if (size)
-        [request setHTTPBody:httpBodyParameterData];
+    NSData *receivedData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:&response error:&error];
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    self.getUserProfileImageConnection = connection;
-    
-    if (getUserProfileImageConnection)
-    {
-        getUserProfileImageActiveDownload = [[NSMutableData alloc] init];
-        
-        while (getUserProfileImageConnection && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-        
-        if (getUserProfileImageResult) {
-            return [NSDictionary dictionaryWithObjectsAndKeys:getUserProfileImageResult, @"image", [getUserProfileImageResponse URL], @"url", nil];
-        }
-        else {
-            return nil;
-        }
+    if (!error && receivedData) {
+        return [NSDictionary dictionaryWithObjectsAndKeys:receivedData, @"image", [response URL], @"url", nil];
     }
-    else {
-        return nil;
-    }
+    
+    return nil;
 }
 
 - (NSURL *)getUserProfileImageURLWithScreenName:(NSString *)screenName size:(NSString *)size
 {
-    NSMutableDictionary *httpBodyParameterDict;
-    NSData *httpBodyParameterData;
+    NSMutableDictionary *parameterDict;
     NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json", screenName]];
     
     // Make HTTP Body Dictionary and Data
     if (size) {
-        httpBodyParameterDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[size stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [@"size" stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-        httpBodyParameterData = [[STwitterOAuthTool generateHTTPBodyString:httpBodyParameterDict] dataUsingEncoding:NSUTF8StringEncoding];
+        [parameterDict setObject:size forKey:@"size"];
     }
     
-    // Create Request
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:apiURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0f];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodPOST];
     
-    // Set HTTP Method to POST
-    [request setHTTPMethod:@"POST"];
-    
-    // Set HTTP Body
-    if (size)
-        [request setHTTPBody:httpBodyParameterData];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
     self.getUserProfileImageURLConnection = connection;
     
     if (getUserProfileImageURLConnection)
     {
         while (getUserProfileImageURLConnection && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
         
-        if (getUserProfileImageResult) {
+        if (getUserProfileImageResponse) {
             return [getUserProfileImageResponse URL];
         }
         else {
@@ -108,26 +77,10 @@
 {
     self.getUserProfileImageResponse = response;
     
-    if (connection == getUserProfileImageURLConnection)
+    if (connection == getUserProfileImageURLConnection) {
+        [self.getUserProfileImageURLConnection cancel];
         self.getUserProfileImageURLConnection = nil;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [getUserProfileImageActiveDownload appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"Error: %@", [error localizedDescription]);
-    
-    self.getUserProfileImageConnection = nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    getUserProfileImageResult = [[NSData alloc] initWithData:getUserProfileImageActiveDownload];
-    
-    self.getUserProfileImageConnection = nil;
+    }
 }
 
 @end
