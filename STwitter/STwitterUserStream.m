@@ -1,6 +1,6 @@
 //
 //  STwitterUserStream.m
-//  TweetBlast
+//  STwitter
 //
 //  Created by Sinoru on 11. 4. 9..
 //  Copyright 2011 Sinoru. All rights reserved.

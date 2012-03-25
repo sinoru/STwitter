@@ -1,9 +1,9 @@
 //
 //  STwitterTimeline.h
-//  TweetBlast
+//  STwitter
 //
 //  Created by Sinoru on 11. 4. 4..
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Sinoru. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

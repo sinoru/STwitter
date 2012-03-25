@@ -1,9 +1,9 @@
 //
 //  STwitterFavorites.h
-//  TweetBlast
+//  STwitter
 //
-//  Created by 재홍 강 on 11. 9. 9..
-//  Copyright (c) 2011년 __MyCompanyName__. All rights reserved.
+//  Created by Sinoru on 11. 9. 9..
+//  Copyright (c) 2011년 Sinoru. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

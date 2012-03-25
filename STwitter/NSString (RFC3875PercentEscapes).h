@@ -1,6 +1,6 @@
 //
 //  NSString RFC3875.h
-//  TweetBlast
+//  STwitter
 //
 //  Created by Sinoru on 11. 4. 1..
 //  Copyright 2011 Sinoru. All rights reserved.

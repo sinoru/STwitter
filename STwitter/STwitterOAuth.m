@@ -1,6 +1,6 @@
 //
 //  STwitterOAuth.m
-//  TweetBlast
+//  STwitter
 //
 //  Created by Sinoru on 11. 3. 29..
 //  Copyright 2011 Sinoru. All rights reserved.

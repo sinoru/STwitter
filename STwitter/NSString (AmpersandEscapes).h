@@ -1,6 +1,6 @@
 //
 //  NSString (HTMLEscape).h
-//  TweetBlast
+//  STwitter
 //
 //  Created by Sinoru on 11. 4. 10..
 //  Copyright 2011 __MyCompanyName__. All rights reserved.

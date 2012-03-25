@@ -1,9 +1,9 @@
 //
 //  STwitterAccounts.m
-//  TweetBlast
+//  STwitter
 //
-//  Created by 재홍 강 on 11. 10. 15..
-//  Copyright (c) 2011년 __MyCompanyName__. All rights reserved.
+//  Created by Sinoru on 11. 10. 15..
+//  Copyright (c) 2011년 Sinoru. All rights reserved.
 //
 
 #import "STwitterAccounts.h"

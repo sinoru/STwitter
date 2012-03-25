@@ -2,8 +2,8 @@
 //  STwitterRequest.h
 //  STwitter
 //
-//  Created by 재홍 강 on 12. 2. 13..
-//  Copyright (c) 2012년 __MyCompanyName__. All rights reserved.
+//  Created by Sinoru on 12. 2. 13..
+//  Copyright (c) 2012년 Sinoru. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
