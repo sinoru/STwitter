@@ -8,14 +8,26 @@
 
 #import "STwitterUserStream.h"
 #import "STwitterRequest.h"
+#import "STwitterOAuthTool.h"
+#import "SBJson/SBJson.h"
 
 NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamConnectionDidFail";
 
+@interface STwitterUserStream () <NSURLConnectionDelegate, SBJsonStreamParserAdapterDelegate>
+
+@property (nonatomic) SBJsonStreamParser *parser;
+@property (nonatomic) SBJsonStreamParserAdapter *adapter;
+
+@end
+
 @implementation STwitterUserStream
 
+@synthesize accountIdentifier;
 @synthesize delegate;
 @synthesize userStreamConnection;
 @synthesize userStreamData;
+@synthesize parser;
+@synthesize adapter;
 
 - (void)startUserStreamingWithAccount:(ACAccount *)account
 {

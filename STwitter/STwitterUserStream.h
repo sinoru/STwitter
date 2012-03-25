@@ -9,31 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
-#import "SBJson.h"
-#import "STwitterOAuthTool.h"
 
 @protocol STwitterUserStreamDelegate <NSObject>
-
 @required
 - (void)accountIdentifier:(NSString *)identifier didReceiveUserStreamObject:(id)object;
 - (void)accountIdentifier:(NSString *)identifier didFailWithError:(NSError *)error;
-
 @end
 
-@interface STwitterUserStream : NSObject <NSURLConnectionDelegate ,SBJsonStreamParserAdapterDelegate> {
-    NSURLConnection *userStreamConnection;
-    NSMutableData *userStreamData;
-    
-    NSString *accountIdentifier;
-    
-    SBJsonStreamParser *parser;
-    SBJsonStreamParserAdapter *adapter;
-}
+@interface STwitterUserStream : NSObject
 
 - (void)startUserStreamingWithAccount:(ACAccount *)account;
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret;
 - (void)stopUserStreaming;
 
+@property (nonatomic, readonly) NSString *accountIdentifier;
 @property (nonatomic, strong) NSURLConnection *userStreamConnection;
 @property (nonatomic, strong) NSMutableData *userStreamData;
 @property (strong) id<STwitterUserStreamDelegate> delegate;
