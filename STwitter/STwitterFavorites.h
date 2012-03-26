@@ -14,7 +14,7 @@
     
 }
 
-+ (id)favoriteTweet:(NSNumber *)retweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error;
++ (id)favoriteTweet:(NSNumber *)retweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
 + (id)favoriteTweet:(NSNumber *)retweetID oAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error;
 
 @end

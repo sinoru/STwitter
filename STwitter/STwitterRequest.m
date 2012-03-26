@@ -71,6 +71,8 @@
     NSURLRequest *request = nil;
     
     if (account) {
+        #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+        
         TWRequestMethod twitterRequestMethod;
         
         switch (requestMethod) {
@@ -103,6 +105,8 @@
         }
         
         request = [twitterRequest signedURLRequest];
+        
+        #endif
     }
     else if (OAuthToken) {
         NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
@@ -183,6 +187,8 @@
 - (void)performRequestWithHandler:(STwitterRequestHandler)handler
 {
     if (account) {
+        #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+        
         TWRequestMethod twitterRequestMethod;
         
         switch (requestMethod) {
@@ -215,6 +221,8 @@
         }
         
         [twitterRequest performRequestWithHandler:handler];
+        
+        #endif
     }
     else if (OAuthToken) {
         NSURLRequest *request = [self signedURLRequest];

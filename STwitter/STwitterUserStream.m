@@ -31,6 +31,8 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
 
 - (void)startUserStreamingWithAccount:(ACAccount *)account
 {
+    #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+    
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://userstream.twitter.com/2/user.json"];
     
@@ -66,6 +68,8 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];
     }
+    
+    #endif
 }
 
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret

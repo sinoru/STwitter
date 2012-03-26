@@ -30,7 +30,7 @@ typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *u
 /**
  * Optional account information used to authenticate the request. 
  */
-@property (nonatomic, retain) ACAccount *account;
+@property (nonatomic, retain) ACAccount *account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
 
 /**
  * Optional account information used to authenticate the request. If you don't want using ACAccount.

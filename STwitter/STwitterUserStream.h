@@ -18,7 +18,7 @@
 
 @interface STwitterUserStream : NSObject
 
-- (void)startUserStreamingWithAccount:(ACAccount *)account;
+- (void)startUserStreamingWithAccount:(ACAccount *)account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret;
 - (void)stopUserStreaming;
 
