@@ -1,13 +1,13 @@
 # STwitter #
 
-STwitter is a Twitter Frameworks for iOS. It support iOS Integrated Twitter SSO too. and It offers User Streaming API.
+STwitter is a Twitter Frameworks for iOS / OS X. It support iOS Integrated Twitter SSO too. and It offers User Streaming API.
 
 ========
 
 
 ### Usage ###
 
-Place anywhere and drag STwitter.xcodeproj in to your project. It needs SBJson Framework to support iOS 4.
+Place anywhere and drag STwitter.xcodeproj in to your project. It needs SBJson Framework to support iOS 4 / OS X.
 
 Library documents will be available later.
 
@@ -21,7 +21,7 @@ Twitter API is not implemented all yet. and API Documents aren't available yet.
 
 Available API:
 
-* STwitterRequest (Same as TWRequest in Twitter framework. but It supports iOS 4)
+* STwitterRequest (Same as TWRequest in Twitter framework. but It supports iOS 4 and OS X)
 * STwitterTweets
 	* statusUpdate
 	* statusUpdate with media
