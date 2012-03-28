@@ -2,14 +2,29 @@
 
 STwitter is a Twitter Frameworks for iOS / OS X. It support iOS Integrated Twitter SSO too. and It offers User Streaming API.
 
-========
+### Features ###
+- BSD License
+- High-Level Twitter API
+- User Stream API
+- iOS Styled API (STwitterRequest) for iOS 4 and OS X
+- Automatic Reference Counting on OS X and iOS
 
+========
 
 ### Usage ###
 
-Place anywhere and drag STwitter.xcodeproj in to your project. It needs SBJson Framework to support iOS 4 / OS X.
+Place anywhere and drag STwitter.xcodeproj in to your project.
 
-Library documents will be available later.
+### Requirements ###
+
+##### Build time requirements ####
+
+This framework needs the latest version of Apple's LLVM Compiler that included in Xcode 4.2+ (Need for ARC).
+and It need SBJSon Framework for support iOS 4 and OS X. Just download it from this link ( https://github.com/stig/json-framework ) and drag SBJson.xcodeproj to this framework.
+
+##### Run time requirements ####
+
+It support just OS X 10.6, iOS 4.0 and above. Other version of iOS/OS X will not be worked correctly. It needs OS Supports libdispatch and ARC (Automatic Reference Counting).
 
 ### License ###
 
@@ -17,7 +32,7 @@ Read LICENSE for more information.
 
 ### Note ###
 
-Twitter API is not implemented all yet. and API Documents aren't available yet.
+Twitter API is not implemented all yet. and API Documents aren't available yet. Sorry. I'm working on it.
 
 Available API:
 
