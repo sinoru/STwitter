@@ -20,7 +20,7 @@
 
 - (NSDictionary *)getUserProfileImageAndURLWithScreenName:(NSString *)screenName size:(NSString *)size
 {
-    NSMutableDictionary *parameterDict;
+    NSMutableDictionary *parameterDict = [[NSMutableDictionary alloc] init];
     NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json", screenName]];
     
     // Make HTTP Body Dictionary and Data
@@ -44,7 +44,7 @@
 
 - (NSURL *)getUserProfileImageURLWithScreenName:(NSString *)screenName size:(NSString *)size
 {
-    NSMutableDictionary *parameterDict;
+    NSMutableDictionary *parameterDict = [[NSMutableDictionary alloc] init];
     NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.json", screenName]];
     
     // Make HTTP Body Dictionary and Data
