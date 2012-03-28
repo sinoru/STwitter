@@ -17,4 +17,5 @@
 #import "STwitterFavorites.h"
 #import "STwitterUserStream.h"
 #import "STwitterAccounts.h"
+#import "STwitterDirectMessages.h"
 

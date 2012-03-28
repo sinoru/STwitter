@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		196AEFF5152395C100FEB216 /* STwitterDirectMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		196AEFF6152395C100FEB216 /* STwitterDirectMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		196AEFF7152395C100FEB216 /* STwitterDirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */; };
+		196AEFF8152395C100FEB216 /* STwitterDirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */; };
 		198F176C1520C38600F2648B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198F176B1520C38600F2648B /* Cocoa.framework */; };
 		198F17761520C38600F2648B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 198F17741520C38600F2648B /* InfoPlist.strings */; };
 		198F17861520C3A400F2648B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198F17851520C3A400F2648B /* Foundation.framework */; };
@@ -102,6 +106,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterDirectMessages.h; sourceTree = "<group>"; };
+		196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterDirectMessages.m; sourceTree = "<group>"; };
 		198F17681520C38600F2648B /* STwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STwitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		198F176B1520C38600F2648B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		198F176E1520C38600F2648B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -221,6 +227,8 @@
 				198F17941520C57E00F2648B /* STwitter.h */,
 				198F17951520C57E00F2648B /* STwitterAccounts.h */,
 				198F17961520C57E00F2648B /* STwitterAccounts.m */,
+				196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */,
+				196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */,
 				198F17971520C57E00F2648B /* STwitterFavorites.h */,
 				198F17981520C57E00F2648B /* STwitterFavorites.m */,
 				198F17991520C57E00F2648B /* STwitterHelp.h */,
@@ -294,6 +302,7 @@
 				198F17B11520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */,
 				198F17B31520C57E00F2648B /* STwitter.h in Headers */,
 				198F17B51520C57E00F2648B /* STwitterAccounts.h in Headers */,
+				196AEFF5152395C100FEB216 /* STwitterDirectMessages.h in Headers */,
 				198F17B91520C57E00F2648B /* STwitterFavorites.h in Headers */,
 				198F17BD1520C57E00F2648B /* STwitterHelp.h in Headers */,
 				198F17C11520C57E00F2648B /* STwitterOAuth.h in Headers */,
@@ -316,6 +325,7 @@
 				198F17B21520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */,
 				198F17B41520C57E00F2648B /* STwitter.h in Headers */,
 				198F17B61520C57E00F2648B /* STwitterAccounts.h in Headers */,
+				196AEFF6152395C100FEB216 /* STwitterDirectMessages.h in Headers */,
 				198F17BA1520C57E00F2648B /* STwitterFavorites.h in Headers */,
 				198F17BE1520C57E00F2648B /* STwitterHelp.h in Headers */,
 				198F17C21520C57E00F2648B /* STwitterOAuth.h in Headers */,
@@ -459,6 +469,7 @@
 				198F17D71520C57E00F2648B /* STwitterTweets+media.m in Sources */,
 				198F17DB1520C57E00F2648B /* STwitterUser.m in Sources */,
 				198F17DF1520C57E00F2648B /* STwitterUserStream.m in Sources */,
+				196AEFF7152395C100FEB216 /* STwitterDirectMessages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +489,7 @@
 				198F17D81520C57E00F2648B /* STwitterTweets+media.m in Sources */,
 				198F17DC1520C57E00F2648B /* STwitterUser.m in Sources */,
 				198F17E01520C57E00F2648B /* STwitterUserStream.m in Sources */,
+				196AEFF8152395C100FEB216 /* STwitterDirectMessages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
