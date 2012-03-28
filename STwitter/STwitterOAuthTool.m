@@ -8,7 +8,6 @@
 
 #import "STwitterOAuthTool.h"
 
-#import <CommonCrypto/CommonHMAC.h>
 #import "NSString (RFC3875PercentEscapes).h"
 #import "NSData+Base64.h"
 
