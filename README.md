@@ -52,8 +52,13 @@ Available API:
 * STwitterTimeline
 	* getHomeTimeline
 	* getMentions
+* STwitterDirectMessages
+	* getDirectMessages
 * STwitterHelp
 	* getConfiguration
 * STwitterUser
 	* getUserProfileImage
 * STwitterUserStream
+	* startUserStreaming
+	* stopUserStreaming
+	* (with Delegate)
