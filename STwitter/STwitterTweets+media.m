@@ -8,8 +8,6 @@
 
 #import "STwitterTweets+media.h"
 
-#import "STwitterOAuthTool.h"
-#import "STwitterRequest.h"
 #import "SBJson/SBJson.h"
 
 @implementation STwitterTweets (media)
@@ -76,12 +74,12 @@
     return nil;
 }
 
-+ (id)statusUpdate:(NSString *)status withMediaDatas:(NSArray *)mediaDatas mediaTypes:(NSArray *)mediaTypes oAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret inReplyToStatusID:(NSNumber *)inReplyToStatusID error:(out NSError **)error
++ (id)statusUpdate:(NSString *)status withMediaDatas:(NSArray *)mediaDatas mediaTypes:(NSArray *)mediaTypes OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret inReplyToStatusID:(NSNumber *)inReplyToStatusID error:(out NSError **)error
 {
     NSURL *apiURL = [NSURL URLWithString:@"https://upload.twitter.com/1/statuses/update_with_media.json"];
     
     STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:nil requestMethod:STwitterRequestMethodPOST];
-    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthToken", oAuthAccessTokenSecret, @"OAuthTokenSecret", nil];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     
     if (status) {
         [request addMultiPartData:[status dataUsingEncoding:NSUTF8StringEncoding] withName:@"status" type:@"text/plain"];

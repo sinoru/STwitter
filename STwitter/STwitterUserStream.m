@@ -8,8 +8,6 @@
 
 #import "STwitterUserStream.h"
 
-#import "STwitterRequest.h"
-#import "STwitterOAuthTool.h"
 #import "SBJson/SBJson.h"
 
 NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamConnectionDidFail";
@@ -73,7 +71,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
     #endif
 }
 
-- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret
+- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret
 {
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://userstream.twitter.com/2/user.json"];
@@ -103,7 +101,7 @@ NSString *const TweetBlastUserStreamConnectionDidFail = @"TweetBlastUserStreamCo
     
     // Create Request
     STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
-    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthToken", oAuthAccessTokenSecret, @"OAuthTokenSecret", nil];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     
     self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
     

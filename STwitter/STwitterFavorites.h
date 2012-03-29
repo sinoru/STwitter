@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Accounts/Accounts.h>
-#import <Twitter/Twitter.h>
 
-@interface STwitterFavorites : NSObject {
-    
-}
+#import "STwitterRequest.h"
 
-+ (id)favoriteTweet:(NSNumber *)retweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
-+ (id)favoriteTweet:(NSNumber *)retweetID oAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error;
+@interface STwitterFavorites : NSObject
+
++ (id)favoriteTweet:(NSNumber *)tweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
++ (id)favoriteTweet:(NSNumber *)tweetID OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error;
 
 @end

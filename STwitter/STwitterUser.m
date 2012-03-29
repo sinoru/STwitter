@@ -8,9 +8,6 @@
 
 #import "STwitterUser.h"
 
-#import "STwitterOAuthTool.h"
-#import "STwitterRequest.h"
-
 
 @implementation STwitterUser
 

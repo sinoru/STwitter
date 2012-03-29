@@ -9,16 +9,14 @@
 #import "STwitterFavorites.h"
 
 #import "SBJson/SBJson.h"
-#import "STwitterOAuthTool.h"
-#import "STwitterRequest.h"
 
 @implementation STwitterFavorites
 
-+ (id)favoriteTweet:(NSNumber *)retweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error
++ (id)favoriteTweet:(NSNumber *)tweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error
 {
     // Declare Variables
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
-    NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/favorites/create/%@.json", retweetID]];
+    NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/favorites/create/%@.json", tweetID]];
     
     if (includeEntities) {
         [parameterDict setObject:@"true" forKey:@"include_entities"];
@@ -64,18 +62,18 @@
     return nil;
 }
 
-+ (id)favoriteTweet:(NSNumber *)retweetID oAuthConsumerKey:oAuthConsumerKey oAuthConsumerSecret:oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error
++ (id)favoriteTweet:(NSNumber *)tweetID OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error
 {
     // Declare Variables
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
-    NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/favorites/create/%@.json", retweetID]];
+    NSURL *apiURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/favorites/create/%@.json", tweetID]];
     
     if (includeEntities) {
         [parameterDict setObject:@"true" forKey:@"include_entities"];
     }
     
     STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodPOST];
-    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:oAuthConsumerKey, @"OAuthConsumerKey", oAuthConsumerSecret, @"OAuthConsumerSecret", oAuthAccessToken, @"OAuthToken", oAuthAccessTokenSecret, @"OAuthTokenSecret", nil];
+    request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     
     // Get Response
     NSError *connectionError = nil;

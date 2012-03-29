@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "STwitterRequest.h"
+
 
 @interface STwitterUser : NSObject
 

@@ -10,6 +10,11 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 
+extern NSString* const kOAuthConsumerKey;
+extern NSString* const kOAuthConsumerSecret;
+extern NSString* const kOAuthToken;
+extern NSString* const kOAuthTokenSecret;
+
 enum STwitterRequestMethod {
     STwitterRequestMethodGET,
     STwitterRequestMethodPOST,

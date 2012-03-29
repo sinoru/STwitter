@@ -10,7 +10,6 @@
 
 #import "STwitterOAuthTool.h"
 
-
 @implementation STwitterOAuth
 
 + (NSDictionary *)getRequestTokenWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret

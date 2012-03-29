@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Accounts/Accounts.h>
-#import <Twitter/Twitter.h>
+
+#import "STwitterRequest.h"
 
 @protocol STwitterUserStreamDelegate <NSObject>
 @required
@@ -19,7 +19,7 @@
 @interface STwitterUserStream : NSObject
 
 - (void)startUserStreamingWithAccount:(ACAccount *)account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
-- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)oAuthConsumerKey oAuthConsumerSecret:(NSString *)oAuthConsumerSecret oAuthAccessToken:(NSString *)oAuthAccessToken oAuthAccessTokenSecret:(NSString *)oAuthAccessTokenSecret;
+- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret;
 - (void)stopUserStreaming;
 
 @property (nonatomic, readonly) NSString *accountIdentifier;

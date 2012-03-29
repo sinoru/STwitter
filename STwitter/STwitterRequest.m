@@ -11,6 +11,11 @@
 #import "STwitterOAuthTool.h"
 #import "NSString (RFC3875PercentEscapes).h"
 
+NSString* const kOAuthConsumerKey = @"OAuthConsumerKey";
+NSString* const kOAuthConsumerSecret = @"OAuthConsumerSecret";
+NSString* const kOAuthToken = @"OAuthToken";
+NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
+
 @implementation STwitterRequest
 
 @synthesize account = _account;
@@ -124,10 +129,10 @@
         }
         
         if (_OAuthToken) {
-            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:@"OAuthConsumerKey"];
-            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:@"OAuthConsumerSecret"];
-            NSString *OAuthToken = [_OAuthToken objectForKey:@"OAuthToken"];
-            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:@"OAuthTokenSecret"];
+            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:kOAuthConsumerKey];
+            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:kOAuthConsumerSecret];
+            NSString *OAuthToken = [_OAuthToken objectForKey:kOAuthToken];
+            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
             NSString *OAuthVersion = @"1.0";
             
@@ -172,7 +177,7 @@
                     
                     mutableRequest.HTTPBody = HTTPBodyData;
                     
-                    [mutableRequest addValue:[NSString stringWithFormat:@"%d", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
+                    [mutableRequest addValue:[NSString stringWithFormat:@"%ul", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
                 }
                 else if (_parameters) {
                     NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
@@ -184,9 +189,7 @@
         request = [mutableRequest copy];
     }
     
-    #endif
-    
-    #ifdef __MAC_OS_VERSION_MAX_ALLOWED
+    #else
     
     {
         NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_URL];
@@ -204,10 +207,10 @@
         }
         
         if (_OAuthToken) {
-            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:@"OAuthConsumerKey"];
-            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:@"OAuthConsumerSecret"];
-            NSString *OAuthToken = [_OAuthToken objectForKey:@"OAuthToken"];
-            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:@"OAuthTokenSecret"];
+            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:kOAuthConsumerKey];
+            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:kOAuthConsumerSecret];
+            NSString *OAuthToken = [_OAuthToken objectForKey:kOAuthToken];
+            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
             NSString *OAuthVersion = @"1.0";
             
@@ -252,7 +255,7 @@
                     
                     mutableRequest.HTTPBody = HTTPBodyData;
                     
-                    [mutableRequest addValue:[NSString stringWithFormat:@"%d", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
+                    [mutableRequest addValue:[NSString stringWithFormat:@"%ul", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
                 }
                 else if (_parameters) {
                     NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
