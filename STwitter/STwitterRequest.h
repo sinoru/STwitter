@@ -25,12 +25,7 @@ typedef enum STwitterRequestMethod STwitterRequestMethod;
 
 typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
 
-@interface STwitterRequest : NSObject {
-    @private
-    NSArray *multiPartDatas;
-    NSArray *multiPartNames;
-    NSArray *multiPartTypes;
-}
+@interface STwitterRequest : NSObject
 
 /**
  * Optional account information used to authenticate the request. 
