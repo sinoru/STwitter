@@ -16,6 +16,14 @@ NSString* const kOAuthConsumerSecret = @"OAuthConsumerSecret";
 NSString* const kOAuthToken = @"OAuthToken";
 NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
 
+@interface STwitterRequest () {
+    NSArray *_multiPartDatas;
+    NSArray *_multiPartNames;
+    NSArray *_multiPartTypes;
+}
+
+@end
+
 @implementation STwitterRequest
 
 @synthesize account = _account;
@@ -30,46 +38,43 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     if (self) {
         // Custom initialization
         _URL = aURL;
-        _parameters = aParameters;
+        
+        NSMutableDictionary *percentEscapedParameters = [[NSMutableDictionary alloc] initWithCapacity:[_parameters count]];
+        for (NSValue *key in aParameters) {
+            id object = [aParameters objectForKey:key];
+            
+            if ([object isKindOfClass:[NSString class]]) {
+                NSString *percentEscapedString = [object stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                [percentEscapedParameters setObject:percentEscapedString forKey:key];
+            }
+            else {
+                [percentEscapedParameters setObject:object forKey:key];
+            }
+        }
+        
+        _parameters = [percentEscapedParameters copy];
+        
         _requestMethod = aSTwitterRequestMethod;
     }
     return self;
 }
 
-- (void)setParameters:(NSDictionary *)aParameters
-{
-    NSMutableDictionary *percentEscapedParameters = [[NSMutableDictionary alloc] initWithCapacity:[_parameters count]];
-    for (NSValue *key in aParameters) {
-        id object = [aParameters objectForKey:key];
-        
-        if ([object isKindOfClass:[NSString class]]) {
-            NSString *percentEscapedString = [object stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [percentEscapedParameters setObject:percentEscapedString forKey:key];
-        }
-        else {
-            [percentEscapedParameters setObject:object forKey:key];
-        }
-    }
-    
-    _parameters = [percentEscapedParameters copy];
-}
-
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type
 {
-    if (!multiPartDatas)
-        multiPartDatas = [[NSArray alloc] initWithObjects:(data ? data : Nil), nil];
+    if (!_multiPartDatas)
+        _multiPartDatas = [[NSArray alloc] initWithObjects:(data ? data : Nil), nil];
     else 
-        multiPartDatas = [multiPartDatas arrayByAddingObject:(data ? data : Nil)];
+        _multiPartDatas = [_multiPartDatas arrayByAddingObject:(data ? data : Nil)];
     
-    if (!multiPartNames)
-        multiPartNames = [[NSArray alloc] initWithObjects:(name ? name : Nil), nil];
+    if (!_multiPartNames)
+        _multiPartNames = [[NSArray alloc] initWithObjects:(name ? name : Nil), nil];
     else 
-        multiPartNames = [multiPartNames arrayByAddingObject:(name ? name : Nil)];
+        _multiPartNames = [_multiPartNames arrayByAddingObject:(name ? name : Nil)];
     
-    if (!multiPartTypes)
-        multiPartTypes = [[NSArray alloc] initWithObjects:(type ? type : Nil), nil];
+    if (!_multiPartTypes)
+        _multiPartTypes = [[NSArray alloc] initWithObjects:(type ? type : Nil), nil];
     else
-        multiPartTypes = [multiPartTypes arrayByAddingObject:(type ? type : Nil)];
+        _multiPartTypes = [_multiPartTypes arrayByAddingObject:(type ? type : Nil)];
 }
 
 - (NSURLRequest *)signedURLRequest
@@ -78,10 +83,10 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     
     #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
     
-    if ([TWRequest class] && !_OAuthToken) {
+    if ([TWRequest class] && !self.OAuthToken) {
         TWRequestMethod twitterRequestMethod;
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
                 twitterRequestMethod = TWRequestMethodDELETE;
                 break;
@@ -95,16 +100,16 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         
         TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:_URL parameters:_parameters requestMethod:twitterRequestMethod];
         
-        if (_account)
+        if (self.account)
             twitterRequest.account = _account;
         
-        if (multiPartDatas) {
-            for (NSData *data in multiPartDatas) {
+        if (_multiPartDatas) {
+            for (NSData *data in _multiPartDatas) {
                 @autoreleasepool {
-                    NSUInteger index = [multiPartDatas indexOfObject:data];
+                    NSUInteger index = [_multiPartDatas indexOfObject:data];
                     
-                    NSString *name = [multiPartNames objectAtIndex:index];
-                    NSString *type = [multiPartTypes objectAtIndex:index];
+                    NSString *name = [_multiPartNames objectAtIndex:index];
+                    NSString *type = [_multiPartTypes objectAtIndex:index];
                     
                     [twitterRequest addMultiPartData:data withName:name type:type];
                 }
@@ -116,7 +121,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     else {
         NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_URL];
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
                 mutableRequest.HTTPMethod = @"DELETE";
                 break;
@@ -128,11 +133,11 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
                 break;
         }
         
-        if (_OAuthToken) {
-            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:kOAuthConsumerKey];
-            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:kOAuthConsumerSecret];
-            NSString *OAuthToken = [_OAuthToken objectForKey:kOAuthToken];
-            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:kOAuthTokenSecret];
+        if (self.OAuthToken) {
+            NSString *OAuthConsumerKey = [self.OAuthToken objectForKey:kOAuthConsumerKey];
+            NSString *OAuthConsumerSecret = [self.OAuthToken objectForKey:kOAuthConsumerSecret];
+            NSString *OAuthToken = [self.OAuthToken objectForKey:kOAuthToken];
+            NSString *OAuthTokenSecret = [self.OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
             NSString *OAuthVersion = @"1.0";
             
@@ -146,11 +151,11 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             NSMutableDictionary *OAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:OAuthConsumerKey, @"oauth_consumer_key", OAuthNonce, @"oauth_nonce", OAuthSignatureMethod, @"oauth_signature_method", OAuthToken, @"oauth_token", OAuthTimestamp, @"oauth_timestamp", OAuthVersion, @"oauth_version", nil];
             
             NSMutableDictionary *OAuthSignatureDict = [OAuthArgumentDict mutableCopy];
-            [OAuthSignatureDict addEntriesFromDictionary:_parameters];
+            [OAuthSignatureDict addEntriesFromDictionary:self.parameters];
             
             NSString *OAuthSignature = nil;
             
-            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:_URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
+            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:self.URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
             
             [OAuthArgumentDict setObject:OAuthSignature forKey:@"oauth_signature"];
             
@@ -158,29 +163,29 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             [mutableRequest setValue:HTTPAuthorizationHeader forHTTPHeaderField:@"Authorization"];
         }
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
             case STwitterRequestMethodGET:
-                if (_parameters) {
-                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
-                    mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [_URL absoluteString], HTTPBodyParameterString]];
+                if (self.parameters) {
+                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:self.parameters];
+                    mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [self.URL absoluteString], HTTPBodyParameterString]];
                 }
                 
                 break;
             case STwitterRequestMethodPOST:
-                if (multiPartDatas) {
+                if (_multiPartDatas) {
                     NSString *boundary = @"0xN0b0dy_lik3s_a_mim3__AKhSmhMrH";
                     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
                     [mutableRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
                     
-                    NSData *HTTPBodyData = [STwitterOAuthTool generateHTTPBodyDataWithMultiPartDatas:multiPartDatas multiPartNames:multiPartNames multiPartTypes:multiPartTypes boundary:boundary];
+                    NSData *HTTPBodyData = [STwitterOAuthTool generateHTTPBodyDataWithMultiPartDatas:_multiPartDatas multiPartNames:_multiPartNames multiPartTypes:_multiPartTypes boundary:boundary];
                     
                     mutableRequest.HTTPBody = HTTPBodyData;
                     
                     [mutableRequest addValue:[NSString stringWithFormat:@"%ul", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
                 }
-                else if (_parameters) {
-                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
+                else if (self.parameters) {
+                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:self.parameters];
                     mutableRequest.HTTPBody = [HTTPBodyParameterString dataUsingEncoding:NSUTF8StringEncoding];
                 }
                 break;
@@ -194,7 +199,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     {
         NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_URL];
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
                 mutableRequest.HTTPMethod = @"DELETE";
                 break;
@@ -206,11 +211,11 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
                 break;
         }
         
-        if (_OAuthToken) {
-            NSString *OAuthConsumerKey = [_OAuthToken objectForKey:kOAuthConsumerKey];
-            NSString *OAuthConsumerSecret = [_OAuthToken objectForKey:kOAuthConsumerSecret];
-            NSString *OAuthToken = [_OAuthToken objectForKey:kOAuthToken];
-            NSString *OAuthTokenSecret = [_OAuthToken objectForKey:kOAuthTokenSecret];
+        if (self.OAuthToken) {
+            NSString *OAuthConsumerKey = [self.OAuthToken objectForKey:kOAuthConsumerKey];
+            NSString *OAuthConsumerSecret = [self.OAuthToken objectForKey:kOAuthConsumerSecret];
+            NSString *OAuthToken = [self.OAuthToken objectForKey:kOAuthToken];
+            NSString *OAuthTokenSecret = [self.OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
             NSString *OAuthVersion = @"1.0";
             
@@ -224,11 +229,11 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             NSMutableDictionary *OAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:OAuthConsumerKey, @"oauth_consumer_key", OAuthNonce, @"oauth_nonce", OAuthSignatureMethod, @"oauth_signature_method", OAuthToken, @"oauth_token", OAuthTimestamp, @"oauth_timestamp", OAuthVersion, @"oauth_version", nil];
             
             NSMutableDictionary *OAuthSignatureDict = [OAuthArgumentDict mutableCopy];
-            [OAuthSignatureDict addEntriesFromDictionary:_parameters];
+            [OAuthSignatureDict addEntriesFromDictionary:self.parameters];
             
             NSString *OAuthSignature = nil;
             
-            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:_URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
+            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:self.URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
             
             [OAuthArgumentDict setObject:OAuthSignature forKey:@"oauth_signature"];
             
@@ -236,29 +241,29 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             [mutableRequest setValue:HTTPAuthorizationHeader forHTTPHeaderField:@"Authorization"];
         }
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
             case STwitterRequestMethodGET:
-                if (_parameters) {
-                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
-                    mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [_URL absoluteString], HTTPBodyParameterString]];
+                if (self.parameters) {
+                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:self.parameters];
+                    mutableRequest.URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [self.URL absoluteString], HTTPBodyParameterString]];
                 }
                 
                 break;
             case STwitterRequestMethodPOST:
-                if (multiPartDatas) {
+                if (_multiPartDatas) {
                     NSString *boundary = @"0xN0b0dy_lik3s_a_mim3__AKhSmhMrH";
                     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
                     [mutableRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
                     
-                    NSData *HTTPBodyData = [STwitterOAuthTool generateHTTPBodyDataWithMultiPartDatas:multiPartDatas multiPartNames:multiPartNames multiPartTypes:multiPartTypes boundary:boundary];
+                    NSData *HTTPBodyData = [STwitterOAuthTool generateHTTPBodyDataWithMultiPartDatas:_multiPartDatas multiPartNames:_multiPartNames multiPartTypes:_multiPartTypes boundary:boundary];
                     
                     mutableRequest.HTTPBody = HTTPBodyData;
                     
                     [mutableRequest addValue:[NSString stringWithFormat:@"%ul", [HTTPBodyData length]] forHTTPHeaderField:@"Content-Length"];
                 }
-                else if (_parameters) {
-                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:_parameters];
+                else if (self.parameters) {
+                    NSString *HTTPBodyParameterString = [STwitterOAuthTool generateHTTPBodyString:self.parameters];
                     mutableRequest.HTTPBody = [HTTPBodyParameterString dataUsingEncoding:NSUTF8StringEncoding];
                 }
                 break;
@@ -276,10 +281,10 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
 {
     #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
     
-    if ([TWRequest class] && !_OAuthToken) {
+    if ([TWRequest class] && !self.OAuthToken) {
         TWRequestMethod twitterRequestMethod;
         
-        switch (_requestMethod) {
+        switch (self.requestMethod) {
             case STwitterRequestMethodDELETE:
                 twitterRequestMethod = TWRequestMethodDELETE;
                 break;
@@ -291,18 +296,18 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
                 break;
         }
         
-        TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:_URL parameters:_parameters requestMethod:twitterRequestMethod];
+        TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:self.URL parameters:self.parameters requestMethod:twitterRequestMethod];
         
-        if (_account)
-            twitterRequest.account = _account;
+        if (self.account)
+            twitterRequest.account = self.account;
         
-        if (multiPartDatas) {
-            for (NSData *data in multiPartDatas) {
+        if (_multiPartDatas) {
+            for (NSData *data in _multiPartDatas) {
                 @autoreleasepool {
-                    NSUInteger index = [multiPartDatas indexOfObject:data];
+                    NSUInteger index = [_multiPartDatas indexOfObject:data];
                     
-                    NSString *name = [multiPartNames objectAtIndex:index];
-                    NSString *type = [multiPartTypes objectAtIndex:index];
+                    NSString *name = [_multiPartNames objectAtIndex:index];
+                    NSString *type = [_multiPartTypes objectAtIndex:index];
                     
                     [twitterRequest addMultiPartData:data withName:name type:type];
                 }
