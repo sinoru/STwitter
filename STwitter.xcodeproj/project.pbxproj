@@ -20,8 +20,8 @@
 		198F17AE1520C57E00F2648B /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 198F17911520C57E00F2648B /* NSData+Base64.m */; };
 		198F17AF1520C57E00F2648B /* NSString (AmpersandEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17921520C57E00F2648B /* NSString (AmpersandEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
 		198F17B01520C57E00F2648B /* NSString (AmpersandEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17921520C57E00F2648B /* NSString (AmpersandEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
-		198F17B11520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17931520C57E00F2648B /* NSString (RFC3875PercentEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
-		198F17B21520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17931520C57E00F2648B /* NSString (RFC3875PercentEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
+		198F17B11520C57E00F2648B /* NSString (RFC3986PercentEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17931520C57E00F2648B /* NSString (RFC3986PercentEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
+		198F17B21520C57E00F2648B /* NSString (RFC3986PercentEscapes).h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17931520C57E00F2648B /* NSString (RFC3986PercentEscapes).h */; settings = {ATTRIBUTES = (Public, ); }; };
 		198F17B31520C57E00F2648B /* STwitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17941520C57E00F2648B /* STwitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		198F17B41520C57E00F2648B /* STwitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17941520C57E00F2648B /* STwitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		198F17B51520C57E00F2648B /* STwitterAccounts.h in Headers */ = {isa = PBXBuildFile; fileRef = 198F17951520C57E00F2648B /* STwitterAccounts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,7 +122,7 @@
 		198F17901520C57E00F2648B /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		198F17911520C57E00F2648B /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		198F17921520C57E00F2648B /* NSString (AmpersandEscapes).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString (AmpersandEscapes).h"; sourceTree = "<group>"; };
-		198F17931520C57E00F2648B /* NSString (RFC3875PercentEscapes).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString (RFC3875PercentEscapes).h"; sourceTree = "<group>"; };
+		198F17931520C57E00F2648B /* NSString (RFC3986PercentEscapes).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString (RFC3986PercentEscapes).h"; sourceTree = "<group>"; };
 		198F17941520C57E00F2648B /* STwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitter.h; sourceTree = "<group>"; };
 		198F17951520C57E00F2648B /* STwitterAccounts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterAccounts.h; sourceTree = "<group>"; };
 		198F17961520C57E00F2648B /* STwitterAccounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterAccounts.m; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 				198F17901520C57E00F2648B /* NSData+Base64.h */,
 				198F17911520C57E00F2648B /* NSData+Base64.m */,
 				198F17921520C57E00F2648B /* NSString (AmpersandEscapes).h */,
-				198F17931520C57E00F2648B /* NSString (RFC3875PercentEscapes).h */,
+				198F17931520C57E00F2648B /* NSString (RFC3986PercentEscapes).h */,
 				198F17941520C57E00F2648B /* STwitter.h */,
 				198F17951520C57E00F2648B /* STwitterAccounts.h */,
 				198F17961520C57E00F2648B /* STwitterAccounts.m */,
@@ -299,7 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				198F17AF1520C57E00F2648B /* NSString (AmpersandEscapes).h in Headers */,
-				198F17B11520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */,
+				198F17B11520C57E00F2648B /* NSString (RFC3986PercentEscapes).h in Headers */,
 				198F17B31520C57E00F2648B /* STwitter.h in Headers */,
 				198F17B51520C57E00F2648B /* STwitterAccounts.h in Headers */,
 				196AEFF5152395C100FEB216 /* STwitterDirectMessages.h in Headers */,
@@ -322,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				198F17B01520C57E00F2648B /* NSString (AmpersandEscapes).h in Headers */,
-				198F17B21520C57E00F2648B /* NSString (RFC3875PercentEscapes).h in Headers */,
+				198F17B21520C57E00F2648B /* NSString (RFC3986PercentEscapes).h in Headers */,
 				198F17B41520C57E00F2648B /* STwitter.h in Headers */,
 				198F17B61520C57E00F2648B /* STwitterAccounts.h in Headers */,
 				196AEFF6152395C100FEB216 /* STwitterDirectMessages.h in Headers */,

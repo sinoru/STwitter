@@ -9,7 +9,6 @@
 #import "STwitterRequest.h"
 
 #import "STwitterOAuthTool.h"
-#import "NSString (RFC3875PercentEscapes).h"
 
 NSString* const kOAuthConsumerKey = @"OAuthConsumerKey";
 NSString* const kOAuthConsumerSecret = @"OAuthConsumerSecret";
@@ -39,20 +38,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         // Custom initialization
         _URL = aURL;
         
-        NSMutableDictionary *percentEscapedParameters = [[NSMutableDictionary alloc] initWithCapacity:[_parameters count]];
-        for (NSValue *key in aParameters) {
-            id object = [aParameters objectForKey:key];
-            
-            if ([object isKindOfClass:[NSString class]]) {
-                NSString *percentEscapedString = [object stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                [percentEscapedParameters setObject:percentEscapedString forKey:key];
-            }
-            else {
-                [percentEscapedParameters setObject:object forKey:key];
-            }
-        }
-        
-        _parameters = [percentEscapedParameters copy];
+        _parameters = aParameters;
         
         _requestMethod = aSTwitterRequestMethod;
     }
@@ -139,27 +125,10 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             NSString *OAuthToken = [self.OAuthToken objectForKey:kOAuthToken];
             NSString *OAuthTokenSecret = [self.OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
-            NSString *OAuthVersion = @"1.0";
+            NSString *OAuthVersion = @"1.0a";
             
-            // Generate UUID for OAuth Nonce
-            NSString *OAuthNonce = [STwitterOAuthTool generateUUID];
+            NSString *HTTPAuthorizationHeader = [STwitterOAuthTool generateHTTPOAuthHeaderStringWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthToken:OAuthToken OAuthTokenSecret:OAuthTokenSecret OAuthSignatureMethod:OAuthSignatureMethod OAuthVersion:OAuthVersion httpMethod:mutableRequest.HTTPMethod apiURL:mutableRequest.URL parameters:self.parameters];
             
-            // Generate Time Stamp
-            NSString *OAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-            
-            // Make OAuth Arguemnt Dictionary
-            NSMutableDictionary *OAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:OAuthConsumerKey, @"oauth_consumer_key", OAuthNonce, @"oauth_nonce", OAuthSignatureMethod, @"oauth_signature_method", OAuthToken, @"oauth_token", OAuthTimestamp, @"oauth_timestamp", OAuthVersion, @"oauth_version", nil];
-            
-            NSMutableDictionary *OAuthSignatureDict = [OAuthArgumentDict mutableCopy];
-            [OAuthSignatureDict addEntriesFromDictionary:self.parameters];
-            
-            NSString *OAuthSignature = nil;
-            
-            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:self.URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
-            
-            [OAuthArgumentDict setObject:OAuthSignature forKey:@"oauth_signature"];
-            
-            NSString *HTTPAuthorizationHeader = [STwitterOAuthTool generateHTTPAuthorizationHeader:OAuthArgumentDict];
             [mutableRequest setValue:HTTPAuthorizationHeader forHTTPHeaderField:@"Authorization"];
         }
         
@@ -217,7 +186,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             NSString *OAuthToken = [self.OAuthToken objectForKey:kOAuthToken];
             NSString *OAuthTokenSecret = [self.OAuthToken objectForKey:kOAuthTokenSecret];
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
-            NSString *OAuthVersion = @"1.0";
+            NSString *OAuthVersion = @"1.0a";
             
             // Generate UUID for OAuth Nonce
             NSString *OAuthNonce = [STwitterOAuthTool generateUUID];

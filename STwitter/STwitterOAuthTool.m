@@ -8,7 +8,7 @@
 
 #import "STwitterOAuthTool.h"
 
-#import "NSString (RFC3875PercentEscapes).h"
+#import "NSString (RFC3986PercentEscapes).h"
 #import "NSData+Base64.h"
 
 
@@ -41,7 +41,7 @@
     {
         @autoreleasepool {
             value = [oAuthSignatureDict objectForKey:key];
-            part = [NSString stringWithFormat:@"%@%@%@", [key stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], @"\%3D", [value stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            part = [NSString stringWithFormat:@"%@=%@", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             [parts addObject:part];
         }
     }
@@ -52,10 +52,11 @@
         oAuthTokenSecret = @"";
     
     NSString *signatureKey = [NSString stringWithFormat:@"%@&%@", oAuthConsumerSecret, oAuthTokenSecret];
-    NSArray *signatureArray = [NSArray arrayWithObjects:httpMethod, [[apiURL absoluteString] stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [parts componentsJoinedByString:@"\%26"], nil];
+    NSArray *signatureArray = [NSArray arrayWithObjects:httpMethod, [[apiURL absoluteString] stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [[parts componentsJoinedByString:@"&"] stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
+    NSString *signatureString = [signatureArray componentsJoinedByString:@"&"];
     
     const char *cKey  = [signatureKey cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *cData = [[signatureArray componentsJoinedByString:@"&"] cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cData = [signatureString cStringUsingEncoding:NSUTF8StringEncoding];
     
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
     
@@ -80,7 +81,48 @@
     {
         @autoreleasepool {
             value = [oAuthArgumentDict objectForKey:key];
-            part = [NSString stringWithFormat:@"%@=\"%@\"", [key stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3875PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            part = [NSString stringWithFormat:@"%@=\"%@\"", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [parts addObject:part];
+        }
+    }
+    
+    [parts sortUsingSelector:@selector(compare:)];
+    
+    NSMutableString *oAuthArgumentMutableString = [NSMutableString stringWithString:@"OAuth "];
+    [oAuthArgumentMutableString appendString:[parts componentsJoinedByString:@", "]];
+    
+    return oAuthArgumentMutableString;
+}
+
++ (NSString *)generateHTTPOAuthHeaderStringWithOAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthToken:(NSString *)OAuthToken OAuthTokenSecret:(NSString *)OAuthTokenSecret OAuthSignatureMethod:(NSString *)OAuthSignatureMethod OAuthVersion:(NSString *)OAuthVersion httpMethod:(NSString *)httpMethod apiURL:(NSURL *)apiURL parameters:(NSDictionary *)parameters
+{
+    NSString *OAuthNonce = [STwitterOAuthTool generateUUID];
+    NSString *OAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
+    
+    NSMutableDictionary *OAuthArgumentDict = [[NSMutableDictionary alloc] init];
+    
+    [OAuthArgumentDict setObject:OAuthConsumerKey forKey:@"oauth_consumer_key"];
+    [OAuthArgumentDict setObject:OAuthNonce forKey:@"oauth_nonce"];
+    [OAuthArgumentDict setObject:OAuthSignatureMethod forKey:@"oauth_signature_method"];
+    [OAuthArgumentDict setObject:OAuthToken forKey:@"oauth_token"];
+    [OAuthArgumentDict setObject:OAuthTimestamp forKey:@"oauth_timestamp"];
+    [OAuthArgumentDict setObject:OAuthVersion forKey:@"oauth_version"];
+    
+    NSMutableDictionary *OAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:OAuthArgumentDict];
+    [OAuthSignatureDict addEntriesFromDictionary:parameters];
+    
+    [OAuthArgumentDict setObject:[self generateOAuthSignature:OAuthSignatureDict httpMethod:httpMethod apiURL:apiURL oAuthConsumerSecret:OAuthConsumerKey oAuthTokenSecret:OAuthTokenSecret] forKey:@"oauth_signature"];
+    
+    NSMutableArray *parts = [NSMutableArray array];
+    NSString *part;
+    id key;
+    id value;
+    
+    for(key in OAuthArgumentDict)
+    {
+        @autoreleasepool {
+            value = [OAuthArgumentDict objectForKey:key];
+            part = [NSString stringWithFormat:@"%@=\"%@\"", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             [parts addObject:part];
         }
     }
@@ -103,7 +145,7 @@
             NSString *part;
             id value;
             value = [httpBodyParameterDict objectForKey:key];
-            part = [NSString stringWithFormat:@"%@=%@", key, value];
+            part = [NSString stringWithFormat:@"%@=%@", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             [parts addObject:part];
         }
     }
