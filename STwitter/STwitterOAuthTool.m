@@ -111,7 +111,7 @@
     NSMutableDictionary *OAuthSignatureDict = [[NSMutableDictionary alloc] initWithDictionary:OAuthArgumentDict];
     [OAuthSignatureDict addEntriesFromDictionary:parameters];
     
-    [OAuthArgumentDict setObject:[self generateOAuthSignature:OAuthSignatureDict httpMethod:httpMethod apiURL:apiURL oAuthConsumerSecret:OAuthConsumerKey oAuthTokenSecret:OAuthTokenSecret] forKey:@"oauth_signature"];
+    [OAuthArgumentDict setObject:[self generateOAuthSignature:OAuthSignatureDict httpMethod:httpMethod apiURL:apiURL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret] forKey:@"oauth_signature"];
     
     NSMutableArray *parts = [NSMutableArray array];
     NSString *part;
