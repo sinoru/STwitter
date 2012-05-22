@@ -8,6 +8,7 @@
 
 #import "STwitterTimeline.h"
 
+#import "STwitter.h"
 #import "SBJson/SBJson.h"
 
 @implementation STwitterTimeline
@@ -50,9 +51,9 @@
     request.account = account;
     
     // Get Response
-    // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
+    NSHTTPURLResponse *response = nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:&response error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];
@@ -75,7 +76,36 @@
         }
         
         if (!parsingError) {
-            if (!([parsedObject isKindOfClass:[NSDictionary class]] && [[parsedObject objectForKey:@"error"] isKindOfClass:[NSString class]])) {
+            if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                    id errorObject = [parsedObject objectForKey:@"error"];
+                    
+                    if (!errorObject) {
+                        errorObject = [parsedObject objectForKey:@"errors"];
+                        
+                        if (!errorObject)
+                            return parsedObject;
+                    }
+                    
+                    NSInteger errorCode;
+                    NSString *errorDescription;
+                    
+                    if ([errorObject isKindOfClass:[NSString class]]) {
+                        errorDescription = errorObject;
+                        errorCode = [response statusCode];
+                    }
+                    else if ([errorObject isKindOfClass:[NSDictionary class]]) {
+                        errorDescription = [errorObject objectForKey:@"message"];
+                        errorCode = [[errorObject objectForKey:@"code"] integerValue];
+                    }
+                    
+                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                }
+                else {
+                    return parsedObject;
+                }
+            }
+            else {
                 return parsedObject;
             }
         }
@@ -126,9 +156,9 @@
     request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     
     // Get Response
-    // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
+    NSHTTPURLResponse *response = nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:&response error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];
@@ -137,7 +167,6 @@
     else if (returnData) {
         id parsedObject;
         NSError *parsingError = nil;
-        
         
         if ([NSJSONSerialization class]) {
             parsedObject = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&parsingError];
@@ -152,7 +181,36 @@
         }
         
         if (!parsingError) {
-            if (!([parsedObject isKindOfClass:[NSDictionary class]] && [[parsedObject objectForKey:@"error"] isKindOfClass:[NSString class]])) {
+            if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                    id errorObject = [parsedObject objectForKey:@"error"];
+                    
+                    if (!errorObject) {
+                        errorObject = [parsedObject objectForKey:@"errors"];
+                        
+                        if (!errorObject)
+                            return parsedObject;
+                    }
+                    
+                    NSInteger errorCode;
+                    NSString *errorDescription;
+                    
+                    if ([errorObject isKindOfClass:[NSString class]]) {
+                        errorDescription = errorObject;
+                        errorCode = [response statusCode];
+                    }
+                    else if ([errorObject isKindOfClass:[NSDictionary class]]) {
+                        errorDescription = [errorObject objectForKey:@"message"];
+                        errorCode = [[errorObject objectForKey:@"code"] integerValue];
+                    }
+                    
+                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                }
+                else {
+                    return parsedObject;
+                }
+            }
+            else {
                 return parsedObject;
             }
         }
@@ -211,9 +269,9 @@
     request.account = account;
     
     // Get Response
-    // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
+    NSHTTPURLResponse *response = nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:&response error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];
@@ -222,7 +280,6 @@
     else if (returnData) {
         id parsedObject;
         NSError *parsingError = nil;
-        
         
         if ([NSJSONSerialization class]) {
             parsedObject = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&parsingError];
@@ -237,7 +294,36 @@
         }
         
         if (!parsingError) {
-            if (!([parsedObject isKindOfClass:[NSDictionary class]] && [[parsedObject objectForKey:@"error"] isKindOfClass:[NSString class]])) {
+            if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                    id errorObject = [parsedObject objectForKey:@"error"];
+                    
+                    if (!errorObject) {
+                        errorObject = [parsedObject objectForKey:@"errors"];
+                        
+                        if (!errorObject)
+                            return parsedObject;
+                    }
+                    
+                    NSInteger errorCode;
+                    NSString *errorDescription;
+                    
+                    if ([errorObject isKindOfClass:[NSString class]]) {
+                        errorDescription = errorObject;
+                        errorCode = [response statusCode];
+                    }
+                    else if ([errorObject isKindOfClass:[NSDictionary class]]) {
+                        errorDescription = [errorObject objectForKey:@"message"];
+                        errorCode = [[errorObject objectForKey:@"code"] integerValue];
+                    }
+                    
+                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                }
+                else {
+                    return parsedObject;
+                }
+            }
+            else {
                 return parsedObject;
             }
         }
@@ -296,9 +382,9 @@
     request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     
     // Get Response
-    // TODO: Handling Error
     NSError *connectionError = nil;
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:nil error:&connectionError];
+    NSHTTPURLResponse *response = nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:[request signedURLRequest] returningResponse:&response error:&connectionError];
     if (connectionError) {
         if (error != nil) {
             *error = [connectionError copy];
@@ -307,7 +393,6 @@
     else if (returnData) {
         id parsedObject;
         NSError *parsingError = nil;
-        
         
         if ([NSJSONSerialization class]) {
             parsedObject = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&parsingError];
@@ -322,7 +407,36 @@
         }
         
         if (!parsingError) {
-            if (!([parsedObject isKindOfClass:[NSDictionary class]] && [[parsedObject objectForKey:@"error"] isKindOfClass:[NSString class]])) {
+            if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
+                    id errorObject = [parsedObject objectForKey:@"error"];
+                    
+                    if (!errorObject) {
+                        errorObject = [parsedObject objectForKey:@"errors"];
+                        
+                        if (!errorObject)
+                            return parsedObject;
+                    }
+                    
+                    NSInteger errorCode;
+                    NSString *errorDescription;
+                    
+                    if ([errorObject isKindOfClass:[NSString class]]) {
+                        errorDescription = errorObject;
+                        errorCode = [response statusCode];
+                    }
+                    else if ([errorObject isKindOfClass:[NSDictionary class]]) {
+                        errorDescription = [errorObject objectForKey:@"message"];
+                        errorCode = [[errorObject objectForKey:@"code"] integerValue];
+                    }
+                    
+                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                }
+                else {
+                    return parsedObject;
+                }
+            }
+            else {
                 return parsedObject;
             }
         }

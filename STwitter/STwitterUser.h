@@ -14,7 +14,9 @@
 @interface STwitterUser : NSObject
 
 - (NSDictionary *)getUserProfileImageAndURLWithScreenName:(NSString *)screenName size:(NSString *)size;
+- (NSDictionary *)getUserProfileImageAndURLWithUserID:(NSNumber *)userID size:(NSString *)size;
 - (NSURL *)getUserProfileImageURLWithScreenName:(NSString *)screenName size:(NSString *)size;
+- (NSURL *)getUserProfileImageURLWithUserID:(NSNumber *)userID size:(NSString *)size;
 
 @property (nonatomic, strong) NSURLResponse *getUserProfileImageResponse;
 @property (nonatomic, strong) NSURLConnection *getUserProfileImageURLConnection;

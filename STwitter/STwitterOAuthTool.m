@@ -41,7 +41,7 @@
     {
         @autoreleasepool {
             value = [oAuthSignatureDict objectForKey:key];
-            part = [NSString stringWithFormat:@"%@=%@", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            part = [NSString stringWithFormat:@"%@=%@", ([key isKindOfClass:[NSString class]] ? [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding] : key), ([value isKindOfClass:[NSString class]] ? [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding] : value)];
             [parts addObject:part];
         }
     }
@@ -139,13 +139,13 @@
 {
     NSMutableArray *parts = [NSMutableArray array];
     
-    for(id key in httpBodyParameterDict)
+    for (id key in httpBodyParameterDict)
     {
         @autoreleasepool {
             NSString *part;
             id value;
             value = [httpBodyParameterDict objectForKey:key];
-            part = [NSString stringWithFormat:@"%@=%@", [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding], [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            part = [NSString stringWithFormat:@"%@=%@", ([key isKindOfClass:[NSString class]] ? [key stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding] : key), ([value isKindOfClass:[NSString class]] ? [value stringByAddingRFC3986PercentEscapesUsingEncoding:NSUTF8StringEncoding] : value)];
             [parts addObject:part];
         }
     }

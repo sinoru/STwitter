@@ -10,6 +10,11 @@
 
 #import "STwitterRequest.h"
 
+typedef enum {
+	STwitterUserStreamCompressionNone,
+	STwitterUserStreamCompressionGzip,
+} STwitterUserStreamCompressionType;
+
 @protocol STwitterUserStreamDelegate <NSObject>
 @required
 - (void)accountIdentifier:(NSString *)identifier didReceiveUserStreamObject:(id)object;
@@ -18,7 +23,9 @@
 
 @interface STwitterUserStream : NSObject
 
+- (void)startUserStreamingWithAccount:(ACAccount *)account withCompression:(STwitterUserStreamCompressionType)compressionType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
 - (void)startUserStreamingWithAccount:(ACAccount *)account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
+- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret withCompression:(STwitterUserStreamCompressionType)compressionType;
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret;
 - (void)stopUserStreaming;
 
@@ -29,4 +36,4 @@
 
 @end
 
-extern NSString *const TweetBlastUserStreamConnectionDidFail;
+extern NSString *const STwitterUserStreamConnectionDidFail;

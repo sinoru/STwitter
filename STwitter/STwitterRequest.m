@@ -21,6 +21,10 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     NSArray *_multiPartTypes;
 }
 
+@property (nonatomic, readwrite) STwitterRequestMethod requestMethod;
+@property (nonatomic, readwrite) NSURL *URL;
+@property (nonatomic, readwrite) NSDictionary *parameters;
+
 @end
 
 @implementation STwitterRequest
@@ -36,11 +40,9 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
     self = [super init];
     if (self) {
         // Custom initialization
-        _URL = aURL;
-        
-        _parameters = aParameters;
-        
-        _requestMethod = aSTwitterRequestMethod;
+        self.URL = aURL;
+        self.parameters = aParameters;
+        self.requestMethod = aSTwitterRequestMethod;
     }
     return self;
 }
@@ -188,25 +190,8 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
             NSString *OAuthSignatureMethod = @"HMAC-SHA1";
             NSString *OAuthVersion = @"1.0a";
             
-            // Generate UUID for OAuth Nonce
-            NSString *OAuthNonce = [STwitterOAuthTool generateUUID];
+            NSString *HTTPAuthorizationHeader = [STwitterOAuthTool generateHTTPOAuthHeaderStringWithOAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthToken:OAuthToken OAuthTokenSecret:OAuthTokenSecret OAuthSignatureMethod:OAuthSignatureMethod OAuthVersion:OAuthVersion httpMethod:mutableRequest.HTTPMethod apiURL:mutableRequest.URL parameters:self.parameters];
             
-            // Generate Time Stamp
-            NSString *OAuthTimestamp = [NSString stringWithFormat:@"%i" , [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] intValue]];
-            
-            // Make OAuth Arguemnt Dictionary
-            NSMutableDictionary *OAuthArgumentDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:OAuthConsumerKey, @"oauth_consumer_key", OAuthNonce, @"oauth_nonce", OAuthSignatureMethod, @"oauth_signature_method", OAuthToken, @"oauth_token", OAuthTimestamp, @"oauth_timestamp", OAuthVersion, @"oauth_version", nil];
-            
-            NSMutableDictionary *OAuthSignatureDict = [OAuthArgumentDict mutableCopy];
-            [OAuthSignatureDict addEntriesFromDictionary:self.parameters];
-            
-            NSString *OAuthSignature = nil;
-            
-            OAuthSignature = [STwitterOAuthTool generateOAuthSignature:OAuthSignatureDict httpMethod:mutableRequest.HTTPMethod apiURL:self.URL oAuthConsumerSecret:OAuthConsumerSecret oAuthTokenSecret:OAuthTokenSecret];
-            
-            [OAuthArgumentDict setObject:OAuthSignature forKey:@"oauth_signature"];
-            
-            NSString *HTTPAuthorizationHeader = [STwitterOAuthTool generateHTTPAuthorizationHeader:OAuthArgumentDict];
             [mutableRequest setValue:HTTPAuthorizationHeader forHTTPHeaderField:@"Authorization"];
         }
         
@@ -296,9 +281,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         });
     }
     
-    #endif
-    
-    #ifdef __MAC_OS_VERSION_MAX_ALLOWED
+    #else
     
     {
         NSURLRequest *request = [self signedURLRequest];

@@ -17,3 +17,5 @@
 #import "STwitterTweets+media.h"
 #import "STwitterUser.h"
 #import "STwitterUserStream.h"
+
+extern NSString *const STwitterErrorDomain;
