@@ -21,7 +21,14 @@ enum STwitterRequestMethod {
     STwitterRequestMethodDELETE
 };
 
+enum STwitterRequestCompressionType {
+	STwitterRequestCompressionNone,
+	STwitterRequestCompressionGzip,
+};
+
 typedef enum STwitterRequestMethod STwitterRequestMethod;
+
+typedef enum STwitterRequestCompressionType STwitterRequestCompressionType;
 
 typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
 
@@ -44,6 +51,13 @@ typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *u
  *
  */
 @property (nonatomic, readonly) STwitterRequestMethod requestMethod;
+
+/**
+ * The compression type to use for this request.
+ *
+ * The default value of this property is STwitterRequestCompressionTypeNone.
+ */
+@property (nonatomic) STwitterRequestCompressionType requestCompressionType;
 
 /**
  * The destination URL for this request. (read-only)

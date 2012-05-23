@@ -28,7 +28,7 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
 @synthesize parser;
 @synthesize adapter;
 
-- (void)startUserStreamingWithAccount:(ACAccount *)account withCompression:(STwitterUserStreamCompressionType)compressionType
+- (void)startUserStreamingWithAccount:(ACAccount *)account withCompression:(STwitterRequestCompressionType)compressionType
 {
     #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
     
@@ -59,19 +59,11 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
     accountIdentifier = account.identifier;
     
     // Create Request
-    TWRequest *request = [[TWRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:TWRequestMethodGET];
+    STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
     request.account = account;
-    NSMutableURLRequest *URLRequest = [[request signedURLRequest] mutableCopy];
+    request.requestCompressionType = compressionType;
     
-    switch (compressionType) {
-        case STwitterUserStreamCompressionGzip:
-            [URLRequest setValue:@"deflate, gzip" forHTTPHeaderField:@"Accept-Encoding"];
-            break;
-        case STwitterUserStreamCompressionNone:
-            break;
-    }
-    
-    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:URLRequest delegate:self];
+    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
     
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];
@@ -82,10 +74,10 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
 
 - (void)startUserStreamingWithAccount:(ACAccount *)account
 {
-    [self startUserStreamingWithAccount:account withCompression:STwitterUserStreamCompressionNone];
+    [self startUserStreamingWithAccount:account withCompression:STwitterRequestCompressionNone];
 }
 
-- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret withCompression:(STwitterUserStreamCompressionType)compressionType
+- (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret withCompression:(STwitterRequestCompressionType)compressionType
 {
     NSMutableDictionary *parameterDict = [NSMutableDictionary dictionary];
     NSURL *apiURL = [NSURL URLWithString:@"https://userstream.twitter.com/2/user.json"];
@@ -116,17 +108,9 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
     // Create Request
     STwitterRequest *request = [[STwitterRequest alloc] initWithURL:apiURL parameters:parameterDict requestMethod:STwitterRequestMethodGET];
     request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
-    NSMutableURLRequest *URLRequest = [[request signedURLRequest] mutableCopy];
+    request.requestCompressionType = compressionType;
     
-    switch (compressionType) {
-        case STwitterUserStreamCompressionGzip:
-            [URLRequest setValue:@"deflate, gzip" forHTTPHeaderField:@"Accept-Encoding"];
-            break;
-        case STwitterUserStreamCompressionNone:
-            break;
-    }
-    
-    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:URLRequest delegate:self];
+    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
     
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];
@@ -135,7 +119,7 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
 
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret
 {
-    [self startUserStreamingWithAccountIdentifier:identifier OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:OAuthAccessToken OAuthAccessTokenSecret:OAuthAccessTokenSecret withCompression:STwitterUserStreamCompressionNone];
+    [self startUserStreamingWithAccountIdentifier:identifier OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:OAuthAccessToken OAuthAccessTokenSecret:OAuthAccessTokenSecret withCompression:STwitterRequestCompressionNone];
 }
 
 - (void)stopUserStreaming {
