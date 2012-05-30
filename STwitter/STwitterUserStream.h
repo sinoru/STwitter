@@ -18,8 +18,8 @@
 
 @interface STwitterUserStream : NSObject
 
-- (void)startUserStreamingWithAccount:(ACAccount *)account withCompression:(STwitterRequestCompressionType)compressionType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
-- (void)startUserStreamingWithAccount:(ACAccount *)account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
+- (void)startUserStreamingWithAccount:(ACAccount *)account withCompression:(STwitterRequestCompressionType)compressionType __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);
+- (void)startUserStreamingWithAccount:(ACAccount *)account __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret withCompression:(STwitterRequestCompressionType)compressionType;
 - (void)startUserStreamingWithAccountIdentifier:(NSString *)identifier OAuthConsumerKey:(NSString *)OAuthConsumerKey OAuthConsumerSecret:(NSString *)OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret;
 - (void)stopUserStreaming;

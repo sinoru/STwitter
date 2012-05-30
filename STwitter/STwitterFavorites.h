@@ -12,7 +12,7 @@
 
 @interface STwitterFavorites : NSObject
 
-+ (id)favoriteTweet:(NSNumber *)tweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
++ (id)favoriteTweet:(NSNumber *)tweetID account:(ACAccount *)account includeEntities:(BOOL)includeEntities error:(NSError **)error __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);
 + (id)favoriteTweet:(NSNumber *)tweetID OAuthConsumerKey:OAuthConsumerKey OAuthConsumerSecret:OAuthConsumerSecret OAuthAccessToken:(NSString *)OAuthAccessToken OAuthAccessTokenSecret:(NSString *)OAuthAccessTokenSecret includeEntities:(BOOL)includeEntities error:(NSError **)error;
 
 @end

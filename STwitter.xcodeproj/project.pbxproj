@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1906AD191576382000E3FF62 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1906AD181576382000E3FF62 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		196AEFF5152395C100FEB216 /* STwitterDirectMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		196AEFF6152395C100FEB216 /* STwitterDirectMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		196AEFF7152395C100FEB216 /* STwitterDirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */; };
 		196AEFF8152395C100FEB216 /* STwitterDirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */; };
+		196B627E1575185B004A09B8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196B627D1575185B004A09B8 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		198F176C1520C38600F2648B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198F176B1520C38600F2648B /* Cocoa.framework */; };
 		198F17761520C38600F2648B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 198F17741520C38600F2648B /* InfoPlist.strings */; };
 		198F17861520C3A400F2648B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198F17851520C3A400F2648B /* Foundation.framework */; };
@@ -108,8 +110,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1906AD181576382000E3FF62 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		196AEFF3152395C100FEB216 /* STwitterDirectMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STwitterDirectMessages.h; sourceTree = "<group>"; };
 		196AEFF4152395C100FEB216 /* STwitterDirectMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STwitterDirectMessages.m; sourceTree = "<group>"; };
+		196B627D1575185B004A09B8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		198F17681520C38600F2648B /* STwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STwitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		198F176B1520C38600F2648B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		198F176E1520C38600F2648B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -159,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1906AD191576382000E3FF62 /* Social.framework in Frameworks */,
+				196B627E1575185B004A09B8 /* Accounts.framework in Frameworks */,
 				198F176C1520C38600F2648B /* Cocoa.framework in Frameworks */,
 				19C4DFF61520CE63005CC715 /* SBJson.framework in Frameworks */,
 			);
@@ -201,6 +207,8 @@
 		198F176A1520C38600F2648B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1906AD181576382000E3FF62 /* Social.framework */,
+				196B627D1575185B004A09B8 /* Accounts.framework */,
 				198F176B1520C38600F2648B /* Cocoa.framework */,
 				198F17851520C3A400F2648B /* Foundation.framework */,
 				198F17E31520C5B000F2648B /* Twitter.framework */,

@@ -7,8 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
+#elif (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8)
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+#endif
 
 extern NSString* const kOAuthConsumerKey;
 extern NSString* const kOAuthConsumerSecret;
@@ -37,7 +43,7 @@ typedef void(^STwitterRequestHandler)(NSData *responseData, NSHTTPURLResponse *u
 /**
  * Optional account information used to authenticate the request. 
  */
-@property (nonatomic, retain) ACAccount *account __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0);
+@property (nonatomic, retain) ACAccount *account __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);
 
 /**
  * Optional account information used to authenticate the request. If you don't want using ACAccount.

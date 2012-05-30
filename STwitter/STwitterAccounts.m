@@ -152,33 +152,28 @@
         
         if (!parsingError) {
             if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
-                if ([parsedObject respondsToSelector:@selector(objectForKey:)]) {
-                    id errorObject = [parsedObject objectForKey:@"error"];
+                id errorObject = [parsedObject objectForKey:@"error"];
+                
+                if (!errorObject) {
+                    errorObject = [parsedObject objectForKey:@"errors"];
                     
-                    if (!errorObject) {
-                        errorObject = [parsedObject objectForKey:@"errors"];
-                        
-                        if (!errorObject)
-                            return parsedObject;
-                    }
-                    
-                    NSInteger errorCode;
-                    NSString *errorDescription;
-                    
-                    if ([errorObject isKindOfClass:[NSString class]]) {
-                        errorDescription = errorObject;
-                        errorCode = [response statusCode];
-                    }
-                    else if ([errorObject isKindOfClass:[NSDictionary class]]) {
-                        errorDescription = [errorObject objectForKey:@"message"];
-                        errorCode = [[errorObject objectForKey:@"code"] integerValue];
-                    }
-                    
-                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                    if (!errorObject)
+                        return parsedObject;
                 }
-                else {
-                    return parsedObject;
+                
+                NSInteger errorCode;
+                NSString *errorDescription;
+                
+                if ([errorObject isKindOfClass:[NSString class]]) {
+                    errorDescription = errorObject;
+                    errorCode = [response statusCode];
                 }
+                else if ([errorObject isKindOfClass:[NSDictionary class]]) {
+                    errorDescription = [errorObject objectForKey:@"message"];
+                    errorCode = [[errorObject objectForKey:@"code"] integerValue];
+                }
+                
+                if (error) *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
             }
             else {
                 return parsedObject;
