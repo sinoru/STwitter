@@ -71,7 +71,6 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
 {
     NSURLRequest *request = nil;
     
-    
     #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
     if ([TWRequest class] && !self.OAuthToken) {
         TWRequestMethod twitterRequestMethod;
@@ -118,7 +117,9 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         
         request = [temporaryRequest copy];
     }
+    
     #elif (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8)
+    
     if ([SLRequest class] && !self.OAuthToken) {
         SLRequestMethod socialRequestMethod;
         
@@ -164,6 +165,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         
         request = [temporaryRequest copy];
     }
+    
     #endif
     
     if (!request) {

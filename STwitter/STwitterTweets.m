@@ -119,11 +119,11 @@
         [parameterDict setObject:[inReplyToStatusID stringValue] forKey:@"in_reply_to_status_id"];
     }
     if (latitude && longitude) {
-        [parameterDict setObject:latitude forKey:@"lat"];
-        [parameterDict setObject:longitude forKey:@"long"];
+        [parameterDict setObject:[latitude stringValue] forKey:@"lat"];
+        [parameterDict setObject:[longitude stringValue] forKey:@"long"];
     }
     if (placeID) {
-        [parameterDict setObject:placeID forKey:@"place_id"];
+        [parameterDict setObject:[placeID stringValue] forKey:@"place_id"];
         [parameterDict setObject:[NSNumber numberWithBool:displayCoordinates] forKey:@"display_coordinates"];
     }
     
