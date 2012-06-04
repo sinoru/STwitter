@@ -63,7 +63,10 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
     request.account = account;
     request.requestCompressionType = compressionType;
     
-    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
+    NSMutableURLRequest *URLRequest = [[request signedURLRequest] mutableCopy];
+    URLRequest.timeoutInterval = 20.0f;
+    
+    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[URLRequest copy] delegate:self];
     
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];
@@ -110,7 +113,10 @@ NSString *const STwitterUserStreamConnectionDidFail = @"STwitterUserStreamConnec
     request.OAuthToken = [[NSDictionary alloc] initWithObjectsAndKeys:OAuthConsumerKey, kOAuthConsumerKey, OAuthConsumerSecret, kOAuthConsumerSecret, OAuthAccessToken, kOAuthToken, OAuthAccessTokenSecret, kOAuthTokenSecret, nil];
     request.requestCompressionType = compressionType;
     
-    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[request signedURLRequest] delegate:self];
+    NSMutableURLRequest *URLRequest = [[request signedURLRequest] mutableCopy];
+    URLRequest.timeoutInterval = 20.0f;
+    
+    self.userStreamConnection = [[NSURLConnection alloc] initWithRequest:[URLRequest copy] delegate:self];
     
     if (userStreamConnection) {
         userStreamData = [[NSMutableData alloc] init];
