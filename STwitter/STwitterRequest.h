@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if ((__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0) || (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8))
+#import <Accounts/Accounts.h>
+#endif
 #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
-#import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
-#elif (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8)
-#import <Accounts/Accounts.h>
+#endif
+#if ((__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0) || (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8))
 #import <Social/Social.h>
 #endif
 

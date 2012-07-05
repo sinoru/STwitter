@@ -71,56 +71,9 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
 {
     NSURLRequest *request = nil;
     
-    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
-    if ([TWRequest class] && !self.OAuthToken) {
-        TWRequestMethod twitterRequestMethod;
-        
-        switch (self.requestMethod) {
-            case STwitterRequestMethodDELETE:
-                twitterRequestMethod = TWRequestMethodDELETE;
-                break;
-            case STwitterRequestMethodGET:
-                twitterRequestMethod = TWRequestMethodGET;
-                break;
-            case STwitterRequestMethodPOST:
-                twitterRequestMethod = TWRequestMethodPOST;
-                break;
-        }
-        
-        TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:_URL parameters:_parameters requestMethod:twitterRequestMethod];
-        
-        if (self.account)
-            twitterRequest.account = _account;
-        
-        if (_multiPartDatas) {
-            for (NSData *data in _multiPartDatas) {
-                @autoreleasepool {
-                    NSUInteger index = [_multiPartDatas indexOfObject:data];
-                    
-                    NSString *name = [_multiPartNames objectAtIndex:index];
-                    NSString *type = [_multiPartTypes objectAtIndex:index];
-                    
-                    [twitterRequest addMultiPartData:data withName:name type:type];
-                }
-            }
-        }
-        
-        NSMutableURLRequest *temporaryRequest = [[twitterRequest signedURLRequest] mutableCopy];
-        
-        switch (self.requestCompressionType) {
-            case STwitterRequestCompressionNone:
-                break;
-            case STwitterRequestCompressionGzip:
-                [temporaryRequest setValue:@"deflate, gzip" forHTTPHeaderField:@"Accept-Encoding"];
-                break;
-        }
-        
-        request = [temporaryRequest copy];
-    }
+#if ((__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0) || (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8))
     
-    #elif (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8)
-    
-    if ([SLRequest class] && !self.OAuthToken) {
+    if ([SLRequest class] && (!self.OAuthToken && !request)) {
         SLRequestMethod socialRequestMethod;
         
         switch (self.requestMethod) {
@@ -166,7 +119,57 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
         request = [temporaryRequest copy];
     }
     
-    #endif
+#endif
+    
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
+    
+    if ([TWRequest class] && (!self.OAuthToken && !request)) {
+        TWRequestMethod twitterRequestMethod;
+        
+        switch (self.requestMethod) {
+            case STwitterRequestMethodDELETE:
+                twitterRequestMethod = TWRequestMethodDELETE;
+                break;
+            case STwitterRequestMethodGET:
+                twitterRequestMethod = TWRequestMethodGET;
+                break;
+            case STwitterRequestMethodPOST:
+                twitterRequestMethod = TWRequestMethodPOST;
+                break;
+        }
+        
+        TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:_URL parameters:_parameters requestMethod:twitterRequestMethod];
+        
+        if (self.account)
+            twitterRequest.account = _account;
+        
+        if (_multiPartDatas) {
+            for (NSData *data in _multiPartDatas) {
+                @autoreleasepool {
+                    NSUInteger index = [_multiPartDatas indexOfObject:data];
+                    
+                    NSString *name = [_multiPartNames objectAtIndex:index];
+                    NSString *type = [_multiPartTypes objectAtIndex:index];
+                    
+                    [twitterRequest addMultiPartData:data withName:name type:type];
+                }
+            }
+        }
+        
+        NSMutableURLRequest *temporaryRequest = [[twitterRequest signedURLRequest] mutableCopy];
+        
+        switch (self.requestCompressionType) {
+            case STwitterRequestCompressionNone:
+                break;
+            case STwitterRequestCompressionGzip:
+                [temporaryRequest setValue:@"deflate, gzip" forHTTPHeaderField:@"Accept-Encoding"];
+                break;
+        }
+        
+        request = [temporaryRequest copy];
+    }
+    
+#endif
     
     if (!request) {
         NSMutableURLRequest *temporaryRequest = [[NSMutableURLRequest alloc] initWithURL:_URL];
