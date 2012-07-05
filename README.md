@@ -22,6 +22,8 @@ Place anywhere and drag STwitter.xcodeproj in to your project.
 This framework needs the latest version of Apple's LLVM Compiler that included in Xcode 4.2+ (Need for ARC).
 and It need SBJSon Framework for support iOS 4 and OS X. Just download it from this link ( https://github.com/stig/json-framework ) and drag SBJson.xcodeproj to this framework.
 
+But, Some Xcode version that doesn't have some frameworks (Ex. Social.framework) may be make a error. If error occured, remove that frameworks on xcodeproj. (I will make a branch for those Xcodes.)
+
 ##### Run time requirements ####
 
 It support just OS X 10.6, iOS 4.0 and above. Other version of iOS/OS X will not be worked correctly. It needs OS Supports libdispatch and ARC (Automatic Reference Counting).
