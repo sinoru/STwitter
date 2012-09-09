@@ -71,7 +71,7 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
 {
     NSURLRequest *request = nil;
     
-#if ((__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0) || (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8))
+#if (__MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_8)
     
     if ([SLRequest class] && (!self.OAuthToken && !request)) {
         SLRequestMethod socialRequestMethod;
@@ -102,6 +102,56 @@ NSString* const kOAuthTokenSecret = @"OAuthTokenSecret";
                     NSString *type = [_multiPartTypes objectAtIndex:index];
                     
                     [socialRequest addMultipartData:data withName:name type:type];
+                }
+            }
+        }
+        
+        NSMutableURLRequest *temporaryRequest = [[socialRequest preparedURLRequest] mutableCopy];
+        
+        switch (self.requestCompressionType) {
+            case STwitterRequestCompressionNone:
+                break;
+            case STwitterRequestCompressionGzip:
+                [temporaryRequest setValue:@"deflate, gzip" forHTTPHeaderField:@"Accept-Encoding"];
+                break;
+        }
+        
+        request = [temporaryRequest copy];
+    }
+    
+#endif
+    
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)
+    
+    if ([SLRequest class] && (!self.OAuthToken && !request)) {
+        SLRequestMethod socialRequestMethod;
+        
+        switch (self.requestMethod) {
+            case STwitterRequestMethodDELETE:
+                socialRequestMethod = SLRequestMethodDELETE;
+                break;
+            case STwitterRequestMethodGET:
+                socialRequestMethod = SLRequestMethodGET;
+                break;
+            case STwitterRequestMethodPOST:
+                socialRequestMethod = SLRequestMethodPOST;
+                break;
+        }
+        
+        SLRequest *socialRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:socialRequestMethod URL:_URL parameters:_parameters];
+        
+        if (self.account)
+            socialRequest.account = _account;
+        
+        if (_multiPartDatas) {
+            for (NSData *data in _multiPartDatas) {
+                @autoreleasepool {
+                    NSUInteger index = [_multiPartDatas indexOfObject:data];
+                    
+                    NSString *name = [_multiPartNames objectAtIndex:index];
+                    NSString *type = [_multiPartTypes objectAtIndex:index];
+                    
+                    [socialRequest addMultipartData:data withName:name type:type filename:nil];
                 }
             }
         }

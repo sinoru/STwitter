@@ -187,6 +187,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1962C5C315A59DB1004044A8 /* STwitter */ = {
+			isa = PBXGroup;
+			children = (
+				198F176B1520C38600F2648B /* Cocoa.framework */,
+				196B627D1575185B004A09B8 /* Accounts.framework */,
+				1906AD181576382000E3FF62 /* Social.framework */,
+				198F176D1520C38600F2648B /* Other Frameworks */,
+			);
+			name = STwitter;
+			sourceTree = "<group>";
+		};
+		1962C5C415A59DCA004044A8 /* STwitter-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				198F17851520C3A400F2648B /* Foundation.framework */,
+				198F17E11520C5A400F2648B /* Accounts.framework */,
+				198F17E31520C5B000F2648B /* Twitter.framework */,
+				192477A6158773400024891F /* Social.framework */,
+			);
+			name = "STwitter-iOS";
+			sourceTree = "<group>";
+		};
 		198F175C1520C38600F2648B = {
 			isa = PBXGroup;
 			children = (
@@ -210,14 +232,8 @@
 		198F176A1520C38600F2648B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1906AD181576382000E3FF62 /* Social.framework */,
-				196B627D1575185B004A09B8 /* Accounts.framework */,
-				198F176B1520C38600F2648B /* Cocoa.framework */,
-				198F17851520C3A400F2648B /* Foundation.framework */,
-				198F17E31520C5B000F2648B /* Twitter.framework */,
-				192477A6158773400024891F /* Social.framework */,
-				198F17E11520C5A400F2648B /* Accounts.framework */,
-				198F176D1520C38600F2648B /* Other Frameworks */,
+				1962C5C315A59DB1004044A8 /* STwitter */,
+				1962C5C415A59DCA004044A8 /* STwitter-iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
