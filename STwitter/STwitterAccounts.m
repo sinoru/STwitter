@@ -83,7 +83,8 @@
                         errorCode = [[errorObject objectForKey:@"code"] integerValue];
                     }
                     
-                    *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
+                    if (error)
+                        *error = [[NSError alloc] initWithDomain:STwitterErrorDomain code:errorCode userInfo:[NSDictionary dictionaryWithObject:errorDescription forKey:NSLocalizedDescriptionKey]];
                 }
                 else {
                     return parsedObject;
