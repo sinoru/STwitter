@@ -17,7 +17,7 @@ public class Session: NSObject {
     
     internal let urlSession: URLSession
     
-    @objc init(consumerKey: String, consumerSecret: String) {
+    @objc public init(consumerKey: String, consumerSecret: String) {
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
