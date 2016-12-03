@@ -8,17 +8,6 @@
 
 import Foundation
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-    @objc(STWRequest)
-    public class Request: NSObject {
-        public var account: Account?
-    }
-#elseif os(Linux)
-    public class Request {
-        public var account: Account?
-    }
-#endif
-
-extension Request {
-    
+public class Request: NSObject {
+    public var account: Account?
 }

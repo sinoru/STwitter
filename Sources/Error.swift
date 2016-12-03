@@ -8,18 +8,7 @@
 
 import Foundation
 
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-    @objc(STWError)
-    class Error: NSError {
-        
-    }
-#elseif os(Linux)
-    class Error: NSError {
-        
-    }
-#endif
-
-extension Error {
+class Error: NSError {
     class var unknown: Error {
         return Error(domain: "", code: -1)
     }
