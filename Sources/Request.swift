@@ -10,5 +10,5 @@ import Foundation
 
 @objc(STWRequest)
 public class Request: NSObject {
-    public var account: Account?
+    
 }
