@@ -13,9 +13,12 @@ public class User: NSObject {
     
     var jsonObject: [String:Any]
     
-    var id: Int64
-    var screenName: String
-    var profileImageURL: URL? {
+    public var id: Int64
+    public var screenName: String
+    public var name: String? {
+        return self.jsonObject["name"] as? String
+    }
+    public var profileImageURL: URL? {
         return URL(string: self.jsonObject["profile_image_url"] as? String ?? "")
     }
     
