@@ -15,16 +15,16 @@ public class OAuth: NSObject {
         case ReverseAuth
     }
     
-    public class func requestRequestTokenWith(consumerKey: String, consumerSecret: String, xAuthMode: xAuthMode? , handler: (String, String) -> Void) {
+    public class func requestRequestToken(session: Session, xAuthMode: xAuthMode?, callback: String, handler: (String?, String?, NSError?) -> Void) {
         
     }
     
-    public class func requestAccessTokenWith(requestToken: String, requestTokenSecret: String, oAuthVerifier: String, handler: (String, String) -> Void) {
+    public class func requestAccessToken(requestToken: String, requestTokenSecret: String, oAuthVerifier: String, handler: (String, String) -> Void) {
         
     }
     
-    public class func generateOAuthSignature(queryItems: [URLQueryItem]?, HTTPMethod: String, url: URL, consumerSecret: String, tokenSecret: String?) throws -> String {
-        let queryItems = queryItems?.sorted(by: {$0.name.compare($1.name) == .orderedAscending})
+    internal class func signature(queryItems: [URLQueryItem], HTTPMethod: String, url: URL, consumerSecret: String, tokenSecret: String?) throws -> String {
+        let queryItems = queryItems.sorted(by: {$0.name.compare($1.name) == .orderedAscending})
         
         let signatureKey = "\(consumerSecret)&\(tokenSecret ?? "")"
         var signatureValue = "\(HTTPMethod)"

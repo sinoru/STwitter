@@ -11,7 +11,7 @@ import Foundation
 @testable import STwitter
 
 class OAuthTests: XCTestCase {
-    func testGenerateOAuthSignature() {
+    func testSignature() {
         let HTTPMethod = "POST"
         let url = URL(string: "https://api.twitter.com/1/statuses/update.json")!
         let consumerKey = "xvz1evFS4wEEPTGEFPHBog"
@@ -29,13 +29,13 @@ class OAuthTests: XCTestCase {
         queryItems.append(URLQueryItem(name: "oauth_token", value: token))
         queryItems.append(URLQueryItem(name: "oauth_version", value: "1.0"))
         
-        XCTAssertEqual(try! STwitter.OAuth.generateOAuthSignature(queryItems: queryItems, HTTPMethod: HTTPMethod, url: url, consumerSecret: consumerSecret, tokenSecret: tokenSecret), "tnnArxj06cWHq44gCs1OSKk/jLY=")
+        XCTAssertEqual(try! STwitter.OAuth.signature(queryItems: queryItems, HTTPMethod: HTTPMethod, url: url, consumerSecret: consumerSecret, tokenSecret: tokenSecret), "tnnArxj06cWHq44gCs1OSKk/jLY=")
     }
     
     
     static var allTests : [(String, (OAuthTests) -> () throws -> Void)] {
         return [
-            ("testGenerateOAuthSignature", testGenerateOAuthSignature),
+            ("testSignature", testSignature),
         ]
     }
 }
