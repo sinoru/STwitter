@@ -15,15 +15,15 @@ public class OAuth: NSObject {
         case ReverseAuth
     }
     
-    public class func requestRequestToken(session: Session, xAuthMode: xAuthMode?, callback: String, handler: (String?, String?, NSError?) -> Void) {
+    public class func requestRequestToken(session: Session, xAuthMode: xAuthMode?, callback: String, handler: @escaping (String?, String?, NSError?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "request_token") else {
             handler(nil, nil, Error.unknown)
             return
         }
         
+        let httpMethod = "POST"
+        
         do {
-            let httpMethod = "POST"
-            
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = httpMethod
             
@@ -33,8 +33,46 @@ public class OAuth: NSObject {
             
             urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
             
-            let task = session.urlSession.downloadTask(with: urlRequest, completionHandler: { (location, response, error) in
+            let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+                if let error = error {
+                    handler(nil, nil, error as NSError?)
+                    return
+                }
                 
+                guard let response = response as? HTTPURLResponse, 200 <= response.statusCode && response.statusCode < 300 else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                guard let data = data else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                guard let queryString = String(data: data, encoding: .utf8) else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                var urlComponents = URLComponents()
+                urlComponents.percentEncodedQuery = queryString
+                
+                guard let queryItems = urlComponents.queryItems else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                guard let token = queryItems.filter({$0.name == "oauth_token"}).last?.value else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                guard let tokenSecret = queryItems.filter({$0.name == "oauth_token_secret"}).last?.value else {
+                    handler(nil, nil, Error.unknown)
+                    return
+                }
+                
+                handler(token, tokenSecret, nil)
             })
             task.resume()
         }
@@ -79,9 +117,11 @@ public class OAuth: NSObject {
         var authorizationHeaderStringItems = [String]()
         
         for item in authorizationHeaderQueryItems {
-            var authorizationHeaderString = "\(item.name)"
-            if let value = item.value {
-                authorizationHeaderString += "=\(value)"
+            guard var authorizationHeaderString = item.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlUnreservedCharacters) else {
+                break
+            }
+            if let value = item.value?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlUnreservedCharacters) {
+                authorizationHeaderString += "=\"\(value)\""
             }
             authorizationHeaderStringItems.append(authorizationHeaderString)
         }

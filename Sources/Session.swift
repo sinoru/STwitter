@@ -19,7 +19,7 @@ public class Session: NSObject {
     init(consumerKey: String, consumerSecret: String) {
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
-        self.urlSession = URLSession()
+        self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
         super.init()
     }
 }

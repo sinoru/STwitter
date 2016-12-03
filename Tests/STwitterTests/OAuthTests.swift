@@ -32,10 +32,28 @@ class OAuthTests: XCTestCase {
         XCTAssertEqual(try! STwitter.OAuth.signature(queryItems: queryItems, HTTPMethod: HTTPMethod, url: url, consumerSecret: consumerSecret, tokenSecret: tokenSecret), "tnnArxj06cWHq44gCs1OSKk/jLY=")
     }
     
+    func testRequestRequestToken() {
+        let consumerKey = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? ""
+        let consumerSecret = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? ""
+        
+        let session = STwitter.Session(consumerKey: consumerKey, consumerSecret: consumerSecret)
+        
+        let expectation = self.expectation(description: "Request OAuth Request-Token")
+        
+        STwitter.OAuth.requestRequestToken(session: session, xAuthMode: nil, callback: "oob") { (token, tokenSecret, error) in
+            XCTAssert(token != nil && tokenSecret != nil && error == nil)
+            
+            expectation.fulfill()
+        }
+        
+        self.waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
     
     static var allTests : [(String, (OAuthTests) -> () throws -> Void)] {
         return [
             ("testSignature", testSignature),
+            ("testRequestRequestToken", testRequestRequestToken)
         ]
     }
 }
