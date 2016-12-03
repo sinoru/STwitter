@@ -10,6 +10,8 @@ import Foundation
 
 extension CharacterSet {
     static var urlUnreservedCharacters: CharacterSet {
-        return CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
+        var urlUnreservedCharacters = CharacterSet.alphanumerics
+        urlUnreservedCharacters.insert(charactersIn: "-._~")
+        return urlUnreservedCharacters
     }
 }
