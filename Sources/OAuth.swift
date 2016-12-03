@@ -45,7 +45,12 @@ public class OAuth: NSObject {
                 }
                 
                 do {
-                    let (token, tokenSecret) = try self.processOAuth(response: response, data: data)
+                    let (token, tokenSecret, userInfo) = try self.processOAuth(response: response, data: data)
+                    
+                    guard let callbackConfirmed = Bool((userInfo["oauth_callback_confirmed"] ?? nil) ?? "false"), callbackConfirmed == true else {
+                        handler(nil, nil, Error.unknown)
+                        return
+                    }
                     
                     handler(token, tokenSecret, nil)
                 }
@@ -66,9 +71,9 @@ public class OAuth: NSObject {
         }
     }
     
-    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, NSError?) -> Void) {
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, Int64, String?, NSError?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "access_token") else {
-            handler(nil, nil, Error.unknown)
+            handler(nil, nil, -1, nil, Error.unknown)
             return
         }
         
@@ -92,33 +97,36 @@ public class OAuth: NSObject {
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 if let error = error {
-                    handler(nil, nil, error as NSError?)
+                    handler(nil, nil, -1, nil, error as NSError?)
                     return
                 }
                 
                 do {
-                    let (token, tokenSecret) = try self.processOAuth(response: response, data: data)
+                    let (token, tokenSecret, userInfo) = try self.processOAuth(response: response, data: data)
                     
-                    handler(token, tokenSecret, nil)
+                    let userID: Int64 = Int64((userInfo["user_id"] ?? "") ?? "") ?? -1
+                    let screenName = userInfo["screen_name"] ?? nil
+                    
+                    handler(token, tokenSecret, userID, screenName, nil)
                 }
                 catch let error as NSError {
-                    handler(nil, nil, error)
+                    handler(nil, nil, -1, nil, error)
                 }
                 catch {
-                    handler(nil, nil, Error.unknown)
+                    handler(nil, nil, -1, nil, Error.unknown)
                 }
             })
             task.resume()
         }
         catch let error as NSError {
-            handler(nil, nil, error)
+            handler(nil, nil, -1, nil, error)
         }
         catch {
-            handler(nil, nil, Error.unknown)
+            handler(nil, nil, -1, nil, Error.unknown)
         }
     }
     
-    internal class func processOAuth(response: URLResponse?, data: Data?) throws -> (token: String, tokenSecret: String) {
+    internal class func processOAuth(response: URLResponse?, data: Data?) throws -> (token: String, tokenSecret: String, userInfo: [String:String?]) {
         guard let response = response as? HTTPURLResponse, 200 <= response.statusCode && response.statusCode < 300 else {
             throw Error.unknown
         }
@@ -138,15 +146,19 @@ public class OAuth: NSObject {
             throw Error.unknown
         }
         
-        guard let token = queryItems.filter({$0.name == "oauth_token"}).last?.value else {
+        var items = [String:String?]()
+        for queryItem in queryItems {
+            items[queryItem.name] = queryItem.value
+        }
+        
+        guard let token = items["oauth_token"] ?? nil, let tokenSecret = items["oauth_token_secret"] ?? nil else {
             throw Error.unknown
         }
         
-        guard let tokenSecret = queryItems.filter({$0.name == "oauth_token_secret"}).last?.value else {
-            throw Error.unknown
-        }
+        items.removeValue(forKey: "oauth_token")
+        items.removeValue(forKey: "oauth_token_secret")
         
-        return (token, tokenSecret)
+        return (token, tokenSecret, items)
     }
     
     internal class func authorizationHeader(queryItems: [URLQueryItem] = [], oauthItems: [String:String] = [:], HTTPMethod: String, url: URL, consumerKey: String, consumerSecret: String, token: String? = nil, tokenSecret: String? = nil) throws -> String {
