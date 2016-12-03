@@ -9,7 +9,18 @@
 import Foundation
 import Cryptor
 
-public class OAuth: NSObject {
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+    @objc(STWOAuth)
+    public class OAuth: NSObject {
+        
+    }
+#elseif os(Linux)
+    public class OAuth {
+        
+    }
+#endif
+
+extension OAuth {
     public enum xAuthMode {
         case ClientAuth
         case ReverseAuth

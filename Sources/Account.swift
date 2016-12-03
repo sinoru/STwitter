@@ -8,6 +8,17 @@
 
 import Foundation
 
-public class Account: NSObject {
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+    @objc(STWAccount)
+    public class Account: NSObject {
+        
+    }
+#elseif os(Linux)
+    public class Account {
+        
+    }
+#endif
+
+extension Account {
     
 }
