@@ -9,6 +9,6 @@
 import Foundation
 
 @objc(STWTAccount)
-class Account: NSObject {
+public class Account: NSObject {
     
 }

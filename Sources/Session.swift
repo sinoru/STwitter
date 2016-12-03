@@ -9,6 +9,6 @@
 import Cocoa
 
 @objc(STWTSession)
-class Session: NSObject {
-    var account: Account?
+public class Session: NSObject {
+    public var account: Account?
 }

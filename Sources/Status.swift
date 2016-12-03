@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(STWTStatus)
-class Status: NSObject {
+public class Status: NSObject {
 //    class func updateRequestWith(status: String, mediae: [Media]?) throws -> StatusUpdateRequest {
 //        
 //    }

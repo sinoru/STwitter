@@ -9,6 +9,6 @@
 import Foundation
 
 @objc(STWTRequest)
-class Request: NSObject {
-    var account: Account?
+public class Request: NSObject {
+    public var account: Account?
 }

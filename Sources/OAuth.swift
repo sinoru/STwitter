@@ -10,21 +10,21 @@ import Foundation
 import Cryptor
 
 @objc(STWTOAuth)
-class OAuth: NSObject {
-    enum xAuthMode {
+public class OAuth: NSObject {
+    public enum xAuthMode {
         case ClientAuth
         case ReverseAuth
     }
     
-    class func requestRequestTokenWith(consumerKey: String, consumerSecret: String, xAuthMode: xAuthMode? , handler: (String, String) -> Void) {
+    public class func requestRequestTokenWith(consumerKey: String, consumerSecret: String, xAuthMode: xAuthMode? , handler: (String, String) -> Void) {
         
     }
     
-    class func requestAccessTokenWith(requestToken: String, requestTokenSecret: String, oAuthVerifier: String, handler: (String, String) -> Void) {
+    public class func requestAccessTokenWith(requestToken: String, requestTokenSecret: String, oAuthVerifier: String, handler: (String, String) -> Void) {
         
     }
     
-    class func generateOAuthSignature(queryItems: [URLQueryItem]?, HTTPMethod: String, url: URL, consumerSecret: String, tokenSecret: String?) throws -> String {
+    public class func generateOAuthSignature(queryItems: [URLQueryItem]?, HTTPMethod: String, url: URL, consumerSecret: String, tokenSecret: String?) throws -> String {
         let queryItems = queryItems?.sorted(by: {$0.name.compare($1.name) == .orderedAscending})
         
         let signatureKey = "\(consumerSecret)&\(tokenSecret ?? "")"
