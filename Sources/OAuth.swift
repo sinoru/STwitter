@@ -9,13 +9,16 @@
 import Foundation
 import Cryptor
 
+@objc(STWOAuth)
 public class OAuth: NSObject {
-    public enum xAuthMode {
-        case ClientAuth
-        case ReverseAuth
+    @objc(STWXAuthMode)
+    public enum xAuthMode: UInt {
+        case None = 0
+        case ClientAuth = 1
+        case ReverseAuth = 2
     }
     
-    public class func requestRequestToken(session: Session, xAuthMode: xAuthMode? = nil, callback: String = "oob", handler: @escaping (String?, String?, NSError?) -> Void) {
+    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", handler: @escaping (String?, String?, NSError?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "request_token") else {
             handler(nil, nil, Error.unknown)
             return
@@ -63,7 +66,7 @@ public class OAuth: NSObject {
         }
     }
     
-    public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode? = nil, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, NSError?) -> Void) {
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, NSError?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "access_token") else {
             handler(nil, nil, Error.unknown)
             return

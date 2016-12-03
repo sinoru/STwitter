@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(STWSession)
 public class Session: NSObject {
     public var account: Account?
     
