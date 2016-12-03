@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTStatusUpdateRequest)
 public class StatusUpdateRequest: Request {
 
 }

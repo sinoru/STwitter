@@ -9,7 +9,6 @@
 import Foundation
 import Cryptor
 
-@objc(STWTOAuth)
 public class OAuth: NSObject {
     public enum xAuthMode {
         case ClientAuth

@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTError)
 class Error: NSError {
     class var unknown: Error {
         return Error(domain: "", code: -1)

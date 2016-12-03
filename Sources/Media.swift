@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTMedia)
 public class Media: NSObject {
 //    class func uploadRequestWith(media: Data) throws -> MediaUploadRequest {
 //        

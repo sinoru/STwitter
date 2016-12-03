@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTRequest)
 public class Request: NSObject {
     public var account: Account?
 }

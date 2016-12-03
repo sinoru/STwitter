@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTMediaUploadRequest)
 public class MediaUploadRequest: Request {
 
 }

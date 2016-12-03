@@ -8,7 +8,6 @@
 
 import Foundation
 
-@objc(STWTAccount)
 public class Account: NSObject {
     
 }
