@@ -41,7 +41,9 @@ class OAuthTests: XCTestCase {
         let expectation = self.expectation(description: "Request OAuth Request-Token")
         
         STwitter.OAuth.requestRequestToken(session: session, xAuthMode: nil, callback: "oob") { (token, tokenSecret, error) in
-            XCTAssert(token != nil && tokenSecret != nil && error == nil)
+            XCTAssertNotNil(token)
+            XCTAssertNotNil(tokenSecret)
+            XCTAssertNil(error)
             
             expectation.fulfill()
         }
