@@ -2,10 +2,9 @@ dist: trusty
 language: swift
 matrix:
   include:
-    # - os: linux
-    #   language: generic
-    #   sudo: required
-    # disable linux temporary
+    - os: linux
+      language: generic
+      sudo: required
     - os: osx
       osx_image: xcode8.1
 env:
