@@ -37,7 +37,7 @@ public class OAuth: NSObject {
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 if let error = error {
-                    handler(nil, nil, error as NSError?)
+                    handler(nil, nil, error)
                     return
                 }
                 
@@ -85,7 +85,7 @@ public class OAuth: NSObject {
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 if let error = error {
-                    handler(nil, nil, -1, nil, error as NSError?)
+                    handler(nil, nil, -1, nil, error)
                     return
                 }
                 

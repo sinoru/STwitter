@@ -51,7 +51,7 @@ public class Media: NSObject {
         }
         self.jsonObject = jsonObject
         
-        guard let id = jsonObject["id"] as? Int64 else {
+        guard let id = jsonObject["media_id"] as? Int64 else {
             return nil
         }
         self.id = id
@@ -63,7 +63,7 @@ public class Media: NSObject {
 extension Session {
     
     @objc public func uploadPhotoMediaTask(photoData: Data, completionHandler: @escaping (Media?, Swift.Error?) -> Void) throws -> MediaSessionTask {
-        let url = URL.twitterRESTAPIURL(endpoint: "media/upload.json")!
+        let url = URL.twitterUploadAPIURL(endpoint: "media/upload.json")!
         
         let httpMethod = "POST"
         
@@ -77,7 +77,7 @@ extension Session {
         urlRequest.setValue("multipart/form-data; boundary=\(multipartBoundary)", forHTTPHeaderField: "Content-Type")
         
         let multiparts = [
-        Multipart(data: photoData, name: "media", type: Media.mimeType(forImageData: photoData), filename: "file" + (Media.extensionForType[Media.mimeType(forImageData: photoData) ?? ""] ?? ""))
+            Multipart(data: photoData, name: "media", type: Media.mimeType(forImageData: photoData), filename: "file" + (Media.extensionForType[Media.mimeType(forImageData: photoData) ?? ""] ?? ""))
         ]
         
         urlRequest.httpBody = try MultipartSerialization.data(withMultiparts: multiparts, boundary: multipartBoundary)
@@ -90,7 +90,7 @@ extension Session {
             
             do {
                 guard let data = data else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, Error.Unknown)
                     return
                 }
                 
@@ -99,7 +99,7 @@ extension Session {
                 try TwitterError.checkTwitterError(onJsonObject: jsonObject)
                 
                 guard let media = Media(jsonObject: jsonObject) else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, Error.Unknown)
                     return
                 }
                 

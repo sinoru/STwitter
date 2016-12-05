@@ -63,7 +63,7 @@ extension Session {
             
             do {
                 guard let data = data else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, Error.Unknown)
                     return
                 }
                 
@@ -72,7 +72,7 @@ extension Session {
                 try TwitterError.checkTwitterError(onJsonObject: jsonObject)
                 
                 guard let user = User(jsonObject: jsonObject) else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, Error.Unknown)
                     return
                 }
                 

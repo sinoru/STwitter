@@ -42,10 +42,14 @@ extension Session {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod
         
-        let queryItems = [
+        var queryItems = [
             URLQueryItem(name: "status", value: status),
             URLQueryItem(name: "possibly_sensitive", value: possiblySensitive ? "true" : "false"),
             ]
+        
+        if let mediae = mediae, mediae.count > 0 {
+            queryItems.append(URLQueryItem(name: "media_ids", value: mediae.map({String($0.id)}).joined(separator: ",")))
+        }
         
         let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret, token: self.account?.oauthToken, tokenSecret: self.account?.oauthTokenSecret)
         urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
@@ -62,7 +66,7 @@ extension Session {
             }
             
             guard let location = location else {
-                completionHandler(nil, error)
+                completionHandler(nil, Error.Unknown)
                 return
             }
             
@@ -74,7 +78,7 @@ extension Session {
                 try TwitterError.checkTwitterError(onJsonObject: jsonObject)
                 
                 guard let status = Status(jsonObject: jsonObject) else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, Error.Unknown)
                     return
                 }
                 
