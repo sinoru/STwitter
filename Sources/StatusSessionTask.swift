@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(STWStatusSessionTask)
 public class StatusSessionTask: SessionTask {
 
 }

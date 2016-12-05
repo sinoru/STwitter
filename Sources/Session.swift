@@ -11,10 +11,10 @@ import Foundation
 @objc(STWSession)
 public class Session: NSObject {
     
-    public var account: Account?
+    @objc public var account: Account?
     
-    public var consumerKey: String
-    public var consumerSecret: String
+    @objc public var consumerKey: String
+    @objc public var consumerSecret: String
     
     let sessionDispatchQueue: DispatchQueue
     let sessionOperationQueue: OperationQueue

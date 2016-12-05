@@ -8,15 +8,16 @@
 
 import Foundation
 
+@objc(STWSessionTask)
 public class SessionTask: NSObject {
 
     private let urlSessionTask: URLSessionTask
-    init(urlSessionTask: URLSessionTask) {
+    @objc init(urlSessionTask: URLSessionTask) {
         self.urlSessionTask = urlSessionTask
         super.init()
     }
     
-    public func resume() {
+    @objc public func resume() {
         self.urlSessionTask.resume()
     }
 }

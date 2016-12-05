@@ -8,11 +8,12 @@
 
 import Foundation
 
+@objc(STWStatus)
 public class Status: NSObject {
     
     var jsonObject: [String:Any]
     
-    public var id: Int64
+    @objc public var id: Int64
     
     internal init?(jsonObject: Any) {
         guard let jsonObject = jsonObject as? [String:Any] else {
@@ -31,7 +32,7 @@ public class Status: NSObject {
 
 extension Session {
     
-    public func statusUpdateTask(status: String, possiblySensitive: Bool = false, mediae: [Media]?, completionHandler: @escaping (Status?, Swift.Error?) -> Void) throws -> StatusSessionTask {
+    @objc public func statusUpdateTask(status: String, possiblySensitive: Bool = false, mediae: [Media]?, completionHandler: @escaping (Status?, Swift.Error?) -> Void) throws -> StatusSessionTask {
         guard let url = URL.twitterRESTAPIURL(endpoint: "statuses/update.json") else {
             throw Error.Unknown
         }

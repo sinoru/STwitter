@@ -10,8 +10,8 @@ import Foundation
 
 @objc(STWAccount)
 public class Account: NSObject {
-    public let oauthToken: String
-    internal let oauthTokenSecret: String
+    @objc public let oauthToken: String
+    let oauthTokenSecret: String
     
     @objc public init(oauthToken: String, oauthTokenSecret: String) {
         self.oauthToken = oauthToken
