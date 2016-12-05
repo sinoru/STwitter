@@ -6,7 +6,7 @@
 //
 //
 
-import Cocoa
+import Foundation
 
 @objc(STWUser)
 public class User: NSObject {
