@@ -10,71 +10,32 @@ import Foundation
 
 @objc(STWSession)
 public class Session: NSObject {
+    
     public var account: Account?
     
     public var consumerKey: String
     public var consumerSecret: String
     
-    internal let urlSession: URLSession
+    let sessionDispatchQueue: DispatchQueue
+    let sessionOperationQueue: OperationQueue
+    private(set) lazy var urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: self.sessionOperationQueue)
     
     @objc public init(consumerKey: String, consumerSecret: String) {
+        let sessionDispatchQueue = DispatchQueue(label: "STwitter.Session.DispatchQueue")
+        
+        let sessionOperationQueue = OperationQueue()
+        sessionOperationQueue.name = "STwitter.Session.OperationQueue"
+        sessionOperationQueue.underlyingQueue = sessionDispatchQueue
+        
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
-        self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
+        self.sessionDispatchQueue = sessionDispatchQueue
+        self.sessionOperationQueue = sessionOperationQueue
+        
         super.init()
     }
+}
+
+extension Session: URLSessionDelegate {
     
-    @objc public func requestVerifyAccountCredential(handler: @escaping (User?, Swift.Error?) -> Void) {
-        guard let url = URL.twitterRESTAPIURL(endpoint: "account/verify_credentials.json") else {
-            handler(nil, Error.Unknown)
-            return
-        }
-        
-        let httpMethod = "GET"
-        
-        do {
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = httpMethod
-            
-            let authorizationHeader = try OAuth.authorizationHeader(oauthItems: [:], HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
-            
-            urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
-            
-            let task = self.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-                if let error = error {
-                    handler(nil, error as NSError?)
-                    return
-                }
-                
-                do {
-                    guard let data = data else {
-                        handler(nil, error as NSError?)
-                        return
-                    }
-                    
-                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
-                    
-                    guard let user = User(jsonObject: jsonObject) else {
-                        handler(nil, error as NSError?)
-                        return
-                    }
-                    
-                    handler(user, nil)
-                }
-                catch let error as NSError {
-                    handler(nil, error)
-                }
-                catch {
-                    handler(nil, Error.Unknown)
-                }
-            })
-            task.resume()
-        }
-        catch let error as NSError {
-            handler(nil, error)
-        }
-        catch {
-            handler(nil, Error.Unknown)
-        }
-    }
 }

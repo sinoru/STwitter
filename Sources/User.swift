@@ -41,3 +41,50 @@ public class User: NSObject {
         super.init()
     }
 }
+
+extension Session {
+    
+    @objc public func fetchUserTaskForCurrentAccount(completionHandler: @escaping (User?, Swift.Error?) -> Void) throws -> UserSessionTask {
+        let url = URL.twitterRESTAPIURL(endpoint: "account/verify_credentials.json")!
+        
+        let httpMethod = "GET"
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = httpMethod
+        
+        let authorizationHeader = try OAuth.authorizationHeader(oauthItems: [:], HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
+        
+        urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+        
+        let urlSessionTask = self.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+            if let error = error {
+                completionHandler(nil, error)
+                return
+            }
+            
+            do {
+                guard let data = data else {
+                    completionHandler(nil, error)
+                    return
+                }
+                
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
+                
+                guard let user = User(jsonObject: jsonObject) else {
+                    completionHandler(nil, error)
+                    return
+                }
+                
+                completionHandler(user, nil)
+            }
+            catch let error {
+                completionHandler(nil, error)
+            }
+        })
+        
+        let userSessionTask = UserSessionTask(urlSessionTask: urlSessionTask)
+        
+        return userSessionTask
+    }
+}
+
