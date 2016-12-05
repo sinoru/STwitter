@@ -9,7 +9,7 @@
 import Foundation
 
 public class Status: NSObject {
-
+    
     var jsonObject: [String:Any]
     
     public var id: Int64
@@ -44,7 +44,7 @@ extension Session {
         let queryItems = [
             URLQueryItem(name: "status", value: status),
             URLQueryItem(name: "possibly_sensitive", value: possiblySensitive ? "true" : "false"),
-        ]
+            ]
         
         let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret, token: self.account?.oauthToken, tokenSecret: self.account?.oauthTokenSecret)
         urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
@@ -52,7 +52,7 @@ extension Session {
         var urlComponents = URLComponents()
         urlComponents.queryItems = queryItems
         
-        urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
+        urlRequest.httpBody = urlComponents.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: CharacterSet.twitterAllowedCharacters)?.data(using: .utf8)
         
         let urlSessionTask = self.urlSession.downloadTask(with: urlRequest, completionHandler: { (location, response, error) in
             if let error = error {

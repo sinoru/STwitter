@@ -198,9 +198,7 @@ public class OAuth: NSObject {
         
         var urlComponents = URLComponents()
         urlComponents.queryItems = queryItems
-        var rePercentEncodingAllowedCharacters = CharacterSet.urlUnreservedCharacters
-        rePercentEncodingAllowedCharacters.insert(charactersIn: "%&=")
-        if let percentEncodedQuery = urlComponents.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: rePercentEncodingAllowedCharacters)?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlUnreservedCharacters) {
+        if let percentEncodedQuery = urlComponents.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: CharacterSet.twitterAllowedCharacters)?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlUnreservedCharacters) {
             signatureValue += "&\(percentEncodedQuery)"
         }
         
