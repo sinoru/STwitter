@@ -46,7 +46,7 @@ extension Session {
             URLQueryItem(name: "possibly_sensitive", value: possiblySensitive ? "true" : "false"),
         ]
         
-        let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
+        let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret, token: self.account?.oauthToken, tokenSecret: self.account?.oauthTokenSecret)
         urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         var urlComponents = URLComponents()

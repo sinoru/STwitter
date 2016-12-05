@@ -31,7 +31,7 @@ public class OAuth: NSObject {
             
             // TODO: xAuth
             
-            let authorizationHeader = try self.authorizationHeader(oauthItems: oauthItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret)
+            let authorizationHeader = try self.authorizationHeader(oauthItems: oauthItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret, token: nil, tokenSecret: nil)
             
             urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
             
@@ -79,7 +79,7 @@ public class OAuth: NSObject {
             
             // TODO: xAuth
             
-            let authorizationHeader = try self.authorizationHeader(oauthItems: oauthItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret)
+            let authorizationHeader = try self.authorizationHeader(oauthItems: oauthItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret, token: requestToken, tokenSecret: requestTokenSecret)
             
             urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
             
@@ -143,7 +143,7 @@ public class OAuth: NSObject {
         return (token, tokenSecret, items)
     }
     
-    internal class func authorizationHeader(queryItems: [URLQueryItem] = [], oauthItems: [String:String] = [:], HTTPMethod: String, url: URL, consumerKey: String, consumerSecret: String, token: String? = nil, tokenSecret: String? = nil) throws -> String {
+    internal class func authorizationHeader(queryItems: [URLQueryItem] = [], oauthItems: [String:String] = [:], HTTPMethod: String, url: URL, consumerKey: String, consumerSecret: String, token: String?, tokenSecret: String?) throws -> String {
         var authorizationHeaderQueryItems = [
             URLQueryItem(name: "oauth_consumer_key", value: consumerKey),
             URLQueryItem(name: "oauth_signature_method", value: "HMAC-SHA1"),
