@@ -1,10 +1,11 @@
 language: swift
 matrix:
   include:
-    - os: linux
-      language: generic
-      dist: trusty
-      sudo: required
+    # - os: linux
+    #   language: generic
+    #   dist: trusty
+    #   sudo: required
+    # Linux build will be failed due to SR-3332. Wait for workaround or fix.
     - os: osx
       osx_image: xcode8.1
 install:
