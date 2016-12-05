@@ -8,9 +8,34 @@
 
 import Foundation
 
-@objc (STWError)
-class Error: NSError {
-    class var unknown: Error {
-        return Error(domain: "", code: -1)
+public enum Error: Swift.Error, CustomNSError {
+    case Unknown
+    
+    func errorDomain() -> String {
+        return "com.sinoru.STwitter.Error"
+    }
+    
+    func userInfo() -> Dictionary<String,String>? {
+        var userInfo:Dictionary<String,String>?
+        if let errorString = errorDescription() {
+            userInfo = [NSLocalizedDescriptionKey: errorString]
+        }
+        return userInfo
+    }
+    
+    func errorDescription() -> String? {
+        var errorString:String?
+        switch self {
+        case .Unknown:
+            errorString = "Unknown Error"
+        }
+        return errorString
+    }
+    
+    func errorCode() -> Int {
+        switch self {
+        case .Unknown:
+            return -1
+        }
     }
 }

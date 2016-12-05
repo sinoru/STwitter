@@ -18,9 +18,9 @@ public class OAuth: NSObject {
         case ReverseAuth = 2
     }
     
-    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", handler: @escaping (String?, String?, NSError?) -> Void) {
+    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", handler: @escaping (String?, String?, Swift.Error?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "request_token") else {
-            handler(nil, nil, Error.unknown)
+            handler(nil, nil, Error.Unknown)
             return
         }
         
@@ -48,7 +48,7 @@ public class OAuth: NSObject {
                     let (token, tokenSecret, userInfo) = try self.processOAuth(response: response, data: data)
                     
                     guard let callbackConfirmed = Bool((userInfo["oauth_callback_confirmed"] ?? nil) ?? "false"), callbackConfirmed == true else {
-                        handler(nil, nil, Error.unknown)
+                        handler(nil, nil, Error.Unknown)
                         return
                     }
                     
@@ -58,7 +58,7 @@ public class OAuth: NSObject {
                     handler(nil, nil, error)
                 }
                 catch {
-                    handler(nil, nil, Error.unknown)
+                    handler(nil, nil, Error.Unknown)
                 }
             })
             task.resume()
@@ -67,13 +67,13 @@ public class OAuth: NSObject {
             handler(nil, nil, error)
         }
         catch {
-            handler(nil, nil, Error.unknown)
+            handler(nil, nil, Error.Unknown)
         }
     }
     
-    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, Int64, String?, NSError?) -> Void) {
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, Int64, String?, Swift.Error?) -> Void) {
         guard let url = URL.twitterOAuthURL(endpoint: "access_token") else {
-            handler(nil, nil, -1, nil, Error.unknown)
+            handler(nil, nil, -1, nil, Error.Unknown)
             return
         }
         
@@ -113,7 +113,7 @@ public class OAuth: NSObject {
                     handler(nil, nil, -1, nil, error)
                 }
                 catch {
-                    handler(nil, nil, -1, nil, Error.unknown)
+                    handler(nil, nil, -1, nil, Error.Unknown)
                 }
             })
             task.resume()
@@ -122,28 +122,28 @@ public class OAuth: NSObject {
             handler(nil, nil, -1, nil, error)
         }
         catch {
-            handler(nil, nil, -1, nil, Error.unknown)
+            handler(nil, nil, -1, nil, Error.Unknown)
         }
     }
     
     internal class func processOAuth(response: URLResponse?, data: Data?) throws -> (token: String, tokenSecret: String, userInfo: [String:String?]) {
         guard let response = response as? HTTPURLResponse, 200 <= response.statusCode && response.statusCode < 300 else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         guard let data = data else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         guard let queryString = String(data: data, encoding: .utf8) else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         var urlComponents = URLComponents()
         urlComponents.percentEncodedQuery = queryString
         
         guard let queryItems = urlComponents.queryItems else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         var items = [String:String?]()
@@ -152,7 +152,7 @@ public class OAuth: NSObject {
         }
         
         guard let token = items["oauth_token"] ?? nil, let tokenSecret = items["oauth_token_secret"] ?? nil else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         items.removeValue(forKey: "oauth_token")
@@ -211,7 +211,7 @@ public class OAuth: NSObject {
             signatureValue += "&\(path)"
         }
         else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         var urlComponents = URLComponents()
@@ -226,7 +226,7 @@ public class OAuth: NSObject {
         let data : [UInt8] = CryptoUtils.byteArray(from: signatureValue)
         
         guard let hmac = HMAC(using: HMAC.Algorithm.sha1, key: key).update(byteArray: data)?.final() else {
-            throw Error.unknown
+            throw Error.Unknown
         }
         
         return (CryptoUtils.data(from: hmac) as Data).base64EncodedString()

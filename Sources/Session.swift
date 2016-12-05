@@ -24,9 +24,9 @@ public class Session: NSObject {
         super.init()
     }
     
-    @objc public func requestVerifyAccountCredential(handler: @escaping (User?, NSError?) -> Void) {
+    @objc public func requestVerifyAccountCredential(handler: @escaping (User?, Swift.Error?) -> Void) {
         guard let url = URL.twitterRESTAPIURL(endpoint: "account/verify_credentials.json") else {
-            handler(nil, Error.unknown)
+            handler(nil, Error.Unknown)
             return
         }
         
@@ -65,7 +65,7 @@ public class Session: NSObject {
                     handler(nil, error)
                 }
                 catch {
-                    handler(nil, Error.unknown)
+                    handler(nil, Error.Unknown)
                 }
             })
             task.resume()
@@ -74,7 +74,7 @@ public class Session: NSObject {
             handler(nil, error)
         }
         catch {
-            handler(nil, Error.unknown)
+            handler(nil, Error.Unknown)
         }
     }
 }
