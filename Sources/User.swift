@@ -70,6 +70,8 @@ extension Session {
                 
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
                 
+                try TwitterError.checkTwitterError(onJsonObject: jsonObject)
+                
                 guard let user = User(jsonObject: jsonObject) else {
                     completionHandler(nil, error)
                     return
