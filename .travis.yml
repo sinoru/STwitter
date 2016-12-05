@@ -1,9 +1,9 @@
-dist: trusty
 language: swift
 matrix:
   include:
     # - os: linux
     #   language: generic
+    #   dist: trusty
     #   sudo: required
     # disable linux temporary
     - os: osx
