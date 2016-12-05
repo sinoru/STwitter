@@ -22,7 +22,7 @@ public class User: NSObject {
         return URL(string: self.jsonObject["profile_image_url"] as? String ?? "")
     }
     
-    internal init?(jsonObject: Any) {
+    init?(jsonObject: Any) {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return nil
         }

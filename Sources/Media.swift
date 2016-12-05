@@ -45,7 +45,7 @@ public class Media: NSObject {
         return ext
     }
     
-    internal init?(jsonObject: Any) {
+    init?(jsonObject: Any) {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return nil
         }

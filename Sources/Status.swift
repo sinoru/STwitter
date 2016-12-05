@@ -15,7 +15,7 @@ public class Status: NSObject {
     
     @objc public var id: Int64
     
-    internal init?(jsonObject: Any) {
+    init?(jsonObject: Any) {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return nil
         }
