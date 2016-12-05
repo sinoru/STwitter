@@ -52,8 +52,7 @@ extension Session {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod
         
-        let authorizationHeader = try OAuth.authorizationHeader(oauthItems: [:], HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
-        
+        let authorizationHeader = try OAuth.authorizationHeader(HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
         urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         let urlSessionTask = self.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
