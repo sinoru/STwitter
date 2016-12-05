@@ -19,10 +19,7 @@ public class OAuth: NSObject {
     }
     
     @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", handler: @escaping (String?, String?, Swift.Error?) -> Void) {
-        guard let url = URL.twitterOAuthURL(endpoint: "request_token") else {
-            handler(nil, nil, Error.Unknown)
-            return
-        }
+        let url = URL.twitterOAuthURL(endpoint: "request_token")!
         
         let httpMethod = "POST"
         
@@ -54,28 +51,19 @@ public class OAuth: NSObject {
                     
                     handler(token, tokenSecret, nil)
                 }
-                catch let error as NSError {
+                catch let error {
                     handler(nil, nil, error)
-                }
-                catch {
-                    handler(nil, nil, Error.Unknown)
                 }
             })
             task.resume()
         }
-        catch let error as NSError {
+        catch let error {
             handler(nil, nil, error)
-        }
-        catch {
-            handler(nil, nil, Error.Unknown)
         }
     }
     
     @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, Int64, String?, Swift.Error?) -> Void) {
-        guard let url = URL.twitterOAuthURL(endpoint: "access_token") else {
-            handler(nil, nil, -1, nil, Error.Unknown)
-            return
-        }
+        let url = URL.twitterOAuthURL(endpoint: "access_token")!
         
         let httpMethod = "POST"
         
@@ -109,20 +97,14 @@ public class OAuth: NSObject {
                     
                     handler(token, tokenSecret, userID, screenName, nil)
                 }
-                catch let error as NSError {
+                catch let error {
                     handler(nil, nil, -1, nil, error)
-                }
-                catch {
-                    handler(nil, nil, -1, nil, Error.Unknown)
                 }
             })
             task.resume()
         }
-        catch let error as NSError {
+        catch let error {
             handler(nil, nil, -1, nil, error)
-        }
-        catch {
-            handler(nil, nil, -1, nil, Error.Unknown)
         }
     }
     
