@@ -85,41 +85,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
-      "line": 14,
-      "symbol": "OAuth",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
-      "line": 21,
-      "symbol": "OAuth.xAuthMode",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
-      "line": 22,
-      "symbol": "OAuth.xAuthMode.None",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
-      "line": 23,
-      "symbol": "OAuth.xAuthMode.ClientAuth",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
-      "line": 24,
-      "symbol": "OAuth.xAuthMode.ReverseAuth",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
       "line": null,
       "symbol": "Session",

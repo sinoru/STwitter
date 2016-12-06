@@ -9,18 +9,18 @@
 import Foundation
 import Cryptor
 
-@objc(STWOAuth)
 /// a Class for OAuth-ing with Twitter.
+@objc(STWOAuth)
 public class OAuth: NSObject {
-    @objc(STWxAuthMode)
+
     /// XAuth mode for OAuth requests.
-    ///
-    /// - None: None.
-    /// - ClientAuth: Client authentication based on Username, Password.
-    /// - ReverseAuth: Reverse authentication based on iOS internal frameworks' account.
+    @objc(STWxAuthMode)
     public enum xAuthMode: UInt {
+        /// None.
         case None = 0
+        /// Client authentication based on Username, Password.
         case ClientAuth = 1
+        /// Reverse authentication based on iOS internal frameworks' account.
         case ReverseAuth = 2
     }
     
