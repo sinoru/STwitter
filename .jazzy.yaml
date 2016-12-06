@@ -1,4 +1,4 @@
-output: Docs
+output: docs
 module: STwitter
 xcodebuild_arguments:
   - "-target"
