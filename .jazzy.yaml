@@ -1,0 +1,5 @@
+output: Docs
+module: STwitter
+xcodebuild_arguments:
+  - "-target"
+  - "STwitter"

@@ -1,0 +1,271 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
+      "line": 12,
+      "symbol": "Account",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
+      "line": 13,
+      "symbol": "Account.oauthToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
+      "line": 16,
+      "symbol": "Account.init(oauthToken:oauthTokenSecret:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
+      "line": 11,
+      "symbol": "Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
+      "line": 12,
+      "symbol": "Error.Unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
+      "line": 43,
+      "symbol": "TwitterError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
+      "line": 44,
+      "symbol": "TwitterError.NotAllowed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
+      "line": 45,
+      "symbol": "TwitterError.Other",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Media.swift",
+      "line": 12,
+      "symbol": "Media",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Media.swift",
+      "line": 23,
+      "symbol": "Media.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Media.swift",
+      "line": 65,
+      "symbol": "Session.uploadPhotoMediaTask(photoData:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/MediaSessionTask.swift",
+      "line": 12,
+      "symbol": "MediaSessionTask",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
+      "line": 14,
+      "symbol": "OAuth",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
+      "line": 21,
+      "symbol": "OAuth.xAuthMode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
+      "line": 22,
+      "symbol": "OAuth.xAuthMode.None",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
+      "line": 23,
+      "symbol": "OAuth.xAuthMode.ClientAuth",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/OAuth.swift",
+      "line": 24,
+      "symbol": "OAuth.xAuthMode.ReverseAuth",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": null,
+      "symbol": "Session",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": null,
+      "symbol": "Session",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": null,
+      "symbol": "Session",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": 12,
+      "symbol": "Session",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": 14,
+      "symbol": "Session.account",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": 16,
+      "symbol": "Session.consumerKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": 17,
+      "symbol": "Session.consumerSecret",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Session.swift",
+      "line": 23,
+      "symbol": "Session.init(consumerKey:consumerSecret:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/SessionTask.swift",
+      "line": 12,
+      "symbol": "SessionTask",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/SessionTask.swift",
+      "line": 20,
+      "symbol": "SessionTask.resume()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Status.swift",
+      "line": 12,
+      "symbol": "Status",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Status.swift",
+      "line": 16,
+      "symbol": "Status.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Status.swift",
+      "line": 35,
+      "symbol": "Session.statusUpdateTask(status:possiblySensitive:mediae:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/StatusSessionTask.swift",
+      "line": 12,
+      "symbol": "StatusSessionTask",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 12,
+      "symbol": "User",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 16,
+      "symbol": "User.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 17,
+      "symbol": "User.screenName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 18,
+      "symbol": "User.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 21,
+      "symbol": "User.profileImageURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/User.swift",
+      "line": 47,
+      "symbol": "Session.fetchUserTaskForCurrentAccount(completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/UserSessionTask.swift",
+      "line": 12,
+      "symbol": "UserSessionTask",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/sinoru/Documents/Projects/sinoru/STwitter"
+}

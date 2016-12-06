@@ -10,15 +10,28 @@ import Foundation
 import Cryptor
 
 @objc(STWOAuth)
+/// a Class for OAuth-ing with Twitter.
 public class OAuth: NSObject {
-    @objc(STWXAuthMode)
+    @objc(STWxAuthMode)
+    /// XAuth mode for OAuth requests.
+    ///
+    /// - None: None.
+    /// - ClientAuth: Client authentication based on Username, Password.
+    /// - ReverseAuth: Reverse authentication based on iOS internal frameworks' account.
     public enum xAuthMode: UInt {
         case None = 0
         case ClientAuth = 1
         case ReverseAuth = 2
     }
     
-    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", handler: @escaping (String?, String?, Swift.Error?) -> Void) {
+    /// Request Request-Token from Twitter OAuth 1.0a
+    ///
+    /// - Parameters:
+    ///   - session: A session for request.
+    ///   - xAuthMode: xAuth mode. For possible values, see xAuthMode.
+    ///   - callback: OAuth callback string. The value you specify here will be used as the URL a user is redirected to should they approve your application’s access to their account. Set this to `oob` for out-of-band pin mode. This is also how you specify custom callbacks for use in desktop/mobile applications.
+    ///   - completionHandler: A handler that will be called after completion.
+    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", completionHandler: @escaping (String?, String?, Swift.Error?) -> Void) {
         let url = URL.twitterOAuthURL(endpoint: "request_token")!
         
         let httpMethod = "POST"
@@ -37,7 +50,7 @@ public class OAuth: NSObject {
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 if let error = error {
-                    handler(nil, nil, error)
+                    completionHandler(nil, nil, error)
                     return
                 }
                 
@@ -45,24 +58,35 @@ public class OAuth: NSObject {
                     let (token, tokenSecret, userInfo) = try self.processOAuth(response: response, data: data)
                     
                     guard let callbackConfirmed = Bool((userInfo["oauth_callback_confirmed"] ?? nil) ?? "false"), callbackConfirmed == true else {
-                        handler(nil, nil, Error.Unknown)
+                        completionHandler(nil, nil, Error.Unknown)
                         return
                     }
                     
-                    handler(token, tokenSecret, nil)
+                    completionHandler(token, tokenSecret, nil)
                 }
                 catch let error {
-                    handler(nil, nil, error)
+                    completionHandler(nil, nil, error)
                 }
             })
             task.resume()
         }
         catch let error {
-            handler(nil, nil, error)
+            completionHandler(nil, nil, error)
         }
     }
     
-    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, handler: @escaping (String?, String?, Int64, String?, Swift.Error?) -> Void) {
+    /// Request Access-Token from Twitter OAuth 1.0a
+    ///
+    /// - Parameters:
+    ///   - session: A session for request.
+    ///   - requestToken: A request token.
+    ///   - requestTokenSecret: A request token secret.
+    ///   - xAuthMode: xAuth mode. For possible values, see xAuthMode.
+    ///   - xAuthUsername: A username for xAuth ClientAuth.
+    ///   - xAuthPassword: A password for xAuth ClientAuth.
+    ///   - oauthVerifier: A verifier from oauth/authentication.
+    ///   - completionHandler: A handler that will be called after completion.
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, completionHandler: @escaping (String?, String?, Int64, String?, Swift.Error?) -> Void) {
         let url = URL.twitterOAuthURL(endpoint: "access_token")!
         
         let httpMethod = "POST"
@@ -85,7 +109,7 @@ public class OAuth: NSObject {
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 if let error = error {
-                    handler(nil, nil, -1, nil, error)
+                    completionHandler(nil, nil, -1, nil, error)
                     return
                 }
                 
@@ -95,16 +119,16 @@ public class OAuth: NSObject {
                     let userID: Int64 = Int64((userInfo["user_id"] ?? "") ?? "") ?? -1
                     let screenName = userInfo["screen_name"] ?? nil
                     
-                    handler(token, tokenSecret, userID, screenName, nil)
+                    completionHandler(token, tokenSecret, userID, screenName, nil)
                 }
                 catch let error {
-                    handler(nil, nil, -1, nil, error)
+                    completionHandler(nil, nil, -1, nil, error)
                 }
             })
             task.resume()
         }
         catch let error {
-            handler(nil, nil, -1, nil, error)
+            completionHandler(nil, nil, -1, nil, error)
         }
     }
     

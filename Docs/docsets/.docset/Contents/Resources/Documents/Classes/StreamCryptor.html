@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>StreamCryptor Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/StreamCryptor" class="dashAnchor"></a>
+    <a title="StreamCryptor Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (93% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        StreamCryptor Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Cryptor.html">Cryptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Digest.html">Digest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Digest/Algorithm.html">– Algorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HMAC.html">HMAC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HMAC/Algorithm.html">– Algorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PBKDF.html">PBKDF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PBKDF/PseudoRandomAlgorithm.html">– PseudoRandomAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RSA.html">RSA</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RSA/RSAAlgorithm.html">– RSAAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Random.html">Random</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamCryptor.html">StreamCryptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamCryptor/Operation.html">– Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamCryptor/ValidKeySize.html">– ValidKeySize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamCryptor/Options.html">– Options</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamCryptor/Algorithm.html">– Algorithm</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Status.html">Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Status.html">Status</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CryptoDigest.html">CryptoDigest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Updatable.html">Updatable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/CryptoUtils.html">CryptoUtils</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>StreamCryptor</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StreamCryptor</span></code></pre>
+
+                </div>
+              </div>
+            <p>Encrypts or decrypts return results as they become available.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The underlying cipher may be a block or a stream cipher.
+
+</div>
+
+<p>Use for large files or network streams.</p>
+
+<p>For small, in-memory buffers Cryptor may be easier to use.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC7Cryptor13StreamCryptor9Operation"></a>
+                    <a name="//apple_ref/swift/Enum/Operation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC7Cryptor13StreamCryptor9Operation">Operation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Enumerates Cryptor operations</p>
+
+                        <a href="../Classes/StreamCryptor/Operation.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Operation</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC7Cryptor13StreamCryptor12ValidKeySize"></a>
+                    <a name="//apple_ref/swift/Enum/ValidKeySize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC7Cryptor13StreamCryptor12ValidKeySize">ValidKeySize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Enumerates valid key sizes.</p>
+
+                        <a href="../Classes/StreamCryptor/ValidKeySize.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ValidKeySize</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:VC7Cryptor13StreamCryptor7Options"></a>
+                    <a name="//apple_ref/swift/Struct/Options" class="dashAnchor"></a>
+                    <a class="token" href="#/s:VC7Cryptor13StreamCryptor7Options">Options</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maps CommonCryptoOptions onto a Swift struct.</p>
+
+                        <a href="../Classes/StreamCryptor/Options.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Options</span><span class="p">:</span> <span class="kt">OptionSet</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC7Cryptor13StreamCryptor9Algorithm"></a>
+                    <a name="//apple_ref/swift/Enum/Algorithm" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC7Cryptor13StreamCryptor9Algorithm">Algorithm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Enumerates available algorithms</p>
+
+                        <a href="../Classes/StreamCryptor/Algorithm.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Algorithm</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7Cryptor13StreamCryptor6statusOS_6Status"></a>
+                    <a name="//apple_ref/swift/Property/status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7Cryptor13StreamCryptor6statusOS_6Status">status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The status code resulting from the last method call to this Cryptor.
+   Used to get additional information when optional chaining collapes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">success</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle Methods" class="dashAnchor"></a>
+                <a href="#/Lifecycle%20Methods">
+                  <h3 class="section-name">Lifecycle Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options9keyBufferGSaVs5UInt8_12keyByteCountSi8ivBufferGSPS4___S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(operation:algorithm:options:keyBuffer:keyByteCount:ivBuffer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options9keyBufferGSaVs5UInt8_12keyByteCountSi8ivBufferGSPS4___S0_">init(operation:algorithm:options:keyBuffer:keyByteCount:ivBuffer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default Initializer</p>
+
+<p><li><p>Parameters: </p></p>
+
+<p><ul>
+<li>operation:    The operation to perform see Operation (Encrypt, Decrypt)</li>
+<li>algorithm:    The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</li>
+<li>keyBuffer:    Pointer to key buffer</li>
+<li>keyByteCount: Number of bytes in the key</li>
+<li>ivBuffer:     Initialization vector buffer</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>New StreamCryptor instance.</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">operation</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Operation.html">Operation</a></span><span class="p">,</span> <span class="nv">algorithm</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Algorithm.html">Algorithm</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Options.html">Options</a></span><span class="p">,</span> <span class="nv">keyBuffer</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">],</span> <span class="nv">keyByteCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">ivBuffer</span><span class="p">:</span> <span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">UInt8</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The operation to perform see Operation (Encrypt, Decrypt)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>algorithm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyBuffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Pointer to key buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyByteCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of bytes in the key</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ivBuffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Initialization vector buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>New StreamCryptor instance.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options3keyGSaVs5UInt8_2ivGSaS4___S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(operation:algorithm:options:key:iv:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options3keyGSaVs5UInt8_2ivGSaS4___S0_">init(operation:algorithm:options:key:iv:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new StreamCryptor</p>
+
+<p><li><p>Parameters:
+    - operation:    The operation to perform see Operation (Encrypt, Decrypt)</p></p>
+
+<p><ul>
+<li>algorithm:    The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</li>
+<li>key:          A byte array containing key data</li>
+<li>iv:           A byte array containing initialization vector</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>New StreamCryptor instance.</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">operation</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Operation.html">Operation</a></span><span class="p">,</span> <span class="nv">algorithm</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Algorithm.html">Algorithm</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Options.html">Options</a></span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">],</span> <span class="nv">iv</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The operation to perform see Operation (Encrypt, Decrypt)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>algorithm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A byte array containing key data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>iv</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A byte array containing initialization vector</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>New StreamCryptor instance.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options3keySS2ivSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(operation:algorithm:options:key:iv:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptorcFT9operationOS0_9Operation9algorithmOS0_9Algorithm7optionsVS0_7Options3keySS2ivSS_S0_">init(operation:algorithm:options:key:iv:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new StreamCryptor</p>
+
+<p><li><p>Parameters:
+    - operation:    The operation to perform see Operation (Encrypt, Decrypt)</p></p>
+
+<p><ul>
+<li>algorithm:    The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</li>
+<li>key:          A string containing key data (will be interpreted as UTF8)</li>
+<li>iv:           A string containing initialization vector data (will be interpreted as UTF8)</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>New StreamCryptor instance.</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">operation</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Operation.html">Operation</a></span><span class="p">,</span> <span class="nv">algorithm</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Algorithm.html">Algorithm</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Classes/StreamCryptor/Options.html">Options</a></span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">iv</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The operation to perform see Operation (Encrypt, Decrypt)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>algorithm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The algorithm to use see Algorithm (AES, des, tripleDes, cast, rc2, blowfish)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A string containing key data (will be interpreted as UTF8)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>iv</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A string containing initialization vector data (will be interpreted as UTF8)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>New StreamCryptor instance.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Public Methods" class="dashAnchor"></a>
+                <a href="#/Public%20Methods">
+                  <h3 class="section-name">Public Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor6updateFT6dataInV10Foundation4Data12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_"></a>
+                    <a name="//apple_ref/swift/Method/update(dataIn:byteArrayOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor6updateFT6dataInV10Foundation4Data12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_">update(dataIn:byteArrayOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the contents of an Data buffer to the current encryption/decryption operation.</p>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>dataIn:       The input data</li>
+<li>byteArrayOut: Output data</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A tuple containing the number of output bytes produced and the status (see Status)</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">dataIn</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">byteArrayOut</span><span class="p">:</span> <span class="k">inout</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataIn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Output data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A tuple containing the number of output bytes produced and the status (see Status)</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor6updateFT6dataInCSo6NSData12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_"></a>
+                    <a name="//apple_ref/swift/Method/update(dataIn:byteArrayOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor6updateFT6dataInCSo6NSData12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_">update(dataIn:byteArrayOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the contents of an NSData buffer to the current encryption/decryption operation.</p>
+
+<p><li><p>Parameters:
+    - dataIn:       The input data</p></p>
+
+<p><ul>
+<li>byteArrayOut: Output data</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A tuple containing the number of output bytes produced and the status (see Status)</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">dataIn</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">,</span> <span class="nv">byteArrayOut</span><span class="p">:</span> <span class="k">inout</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dataIn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Output data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A tuple containing the number of output bytes produced and the status (see Status)</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor6updateFT11byteArrayInGSaVs5UInt8_12byteArrayOutRGSaS1___TSiOS_6Status_"></a>
+                    <a name="//apple_ref/swift/Method/update(byteArrayIn:byteArrayOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor6updateFT11byteArrayInGSaVs5UInt8_12byteArrayOutRGSaS1___TSiOS_6Status_">update(byteArrayIn:byteArrayOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the contents of a byte array to the current encryption/decryption operation.</p>
+
+<p><li><p>Parameters:
+    - byteArrayIn:  The input data</p></p>
+
+<p><ul>
+<li>byteArrayOut: Output data</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A tuple containing the number of output bytes produced and the status (see Status)</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">byteArrayIn</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">],</span> <span class="nv">byteArrayOut</span><span class="p">:</span> <span class="k">inout</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayIn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Output data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A tuple containing the number of output bytes produced and the status (see Status)</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor6updateFT8stringInSS12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_"></a>
+                    <a name="//apple_ref/swift/Method/update(stringIn:byteArrayOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor6updateFT8stringInSS12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_">update(stringIn:byteArrayOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the contents of a string (interpreted as UTF8) to the current encryption/decryption operation.</p>
+
+<p><li><p>Parameters:
+    - byteArrayIn:  The input data</p>
+<li>byteArrayOut: Output data</li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    A tuple containing the number of output bytes produced and the status (see Status)</p>
+
+<p></div></li></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">stringIn</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">byteArrayOut</span><span class="p">:</span> <span class="k">inout</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayIn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Output data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A tuple containing the number of output bytes produced and the status (see Status)</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor5finalFT12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_"></a>
+                    <a name="//apple_ref/swift/Method/final(byteArrayOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor5finalFT12byteArrayOutRGSaVs5UInt8__TSiOS_6Status_">final(byteArrayOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves all remaining encrypted or decrypted data from this cryptor.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If the underlying algorithm is an block cipher and the padding option has
+not been specified and the cumulative input to the cryptor has not been an integral
+multiple of the block length this will fail with an alignment error.</p>
+
+</div>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method updates the status property</p>
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter byteArrayOut: The output bffer</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>a tuple containing the number of output bytes produced and the status (see Status)</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">final</span><span class="p">(</span><span class="nv">byteArrayOut</span><span class="p">:</span> <span class="k">inout</span> <span class="p">[</span><span class="kt">UInt8</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byteArrayOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The output bffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a tuple containing the number of output bytes produced and the status (see Status)</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Low-level%20interface"></a>
+                <a name="//apple_ref/swift/Section/Low-level interface" class="dashAnchor"></a>
+                <a href="#/Low-level%20interface">
+                  <h3 class="section-name">Low-level interface</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor6updateFT8bufferInSV11byteCountInSi9bufferOutGSpVs5UInt8_15byteCapacityOutSi12byteCountOutRSi_OS_6Status"></a>
+                    <a name="//apple_ref/swift/Method/update(bufferIn:byteCountIn:bufferOut:byteCapacityOut:byteCountOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor6updateFT8bufferInSV11byteCountInSi9bufferOutGSpVs5UInt8_15byteCapacityOutSi12byteCountOutRSi_OS_6Status">update(bufferIn:byteCountIn:bufferOut:byteCapacityOut:byteCountOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the buffer</p>
+
+<p><li><p>Parameters: </p></p>
+
+<p><ul>
+<li>bufferIn:         Pointer to input buffer</li>
+<li>inByteCount:      Number of bytes contained in input buffer</li>
+<li>bufferOut:        Pointer to output buffer</li>
+<li>outByteCapacity:  Capacity of the output buffer in bytes</li>
+<li>outByteCount:     On successful completion, the number of bytes written to the output buffer</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>Status of the update</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">bufferIn</span><span class="p">:</span> <span class="kt">UnsafeRawPointer</span><span class="p">,</span> <span class="nv">byteCountIn</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">bufferOut</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">UInt8</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">byteCapacityOut</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">byteCountOut</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bufferIn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Pointer to input buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inByteCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of bytes contained in input buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bufferOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Pointer to output buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outByteCapacity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Capacity of the output buffer in bytes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outByteCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>On successful completion, the number of bytes written to the output buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Status of the update</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor5finalFT9bufferOutGSpVs5UInt8_15byteCapacityOutSi12byteCountOutRSi_OS_6Status"></a>
+                    <a name="//apple_ref/swift/Method/final(bufferOut:byteCapacityOut:byteCountOut:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor5finalFT9bufferOutGSpVs5UInt8_15byteCapacityOutSi12byteCountOutRSi_OS_6Status">final(bufferOut:byteCapacityOut:byteCountOut:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves all remaining encrypted or decrypted data from this cryptor.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If the underlying algorithm is an block cipher and the padding option has
+not been specified and the cumulative input to the cryptor has not been an integral
+multiple of the block length this will fail with an alignment error.</p>
+
+</div>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method updates the status property</p>
+
+</div>
+
+<p><li><p>Parameters:
+    - bufferOut:        Pointer to output buffer</p></p>
+
+<p><ul>
+<li>outByteCapacity:  Capacity of the output buffer in bytes</li>
+<li>outByteCount:     On successful completion, the number of bytes written to the output buffer</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>Status of the update</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">final</span><span class="p">(</span><span class="nv">bufferOut</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">UInt8</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">byteCapacityOut</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">byteCountOut</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Status.html">Status</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bufferOut</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Pointer to output buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outByteCapacity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Capacity of the output buffer in bytes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outByteCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>On successful completion, the number of bytes written to the output buffer</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Status of the update</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7Cryptor13StreamCryptor15getOutputLengthFT14inputByteCountSi7isFinalSb_Si"></a>
+                    <a name="//apple_ref/swift/Method/getOutputLength(inputByteCount:isFinal:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7Cryptor13StreamCryptor15getOutputLengthFT14inputByteCountSi7isFinalSb_Si">getOutputLength(inputByteCount:isFinal:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Determines the number of bytes that will be output by this Cryptor if inputBytes of additional
+data is input.</p>
+
+<p><li><p>Parameters:
+    - inputByteCount:   Number of bytes that will be input.</p></p>
+
+<p><ul>
+<li>isFinal:          True if buffer to be input will be the last input buffer, false otherwise.</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>The final output length</p></p>
+
+<p></div></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getOutputLength</span><span class="p">(</span><span class="nv">inputByteCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">isFinal</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputByteCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of bytes that will be input.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isFinal</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>True if buffer to be input will be the last input buffer, false otherwise.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The final output length</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,75 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/HMAC.swift",
+      "line": 160,
+      "symbol": "HMAC.Context",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/RSA.swift",
+      "line": 39,
+      "symbol": "RSA.RSAAlgorithm.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/RSA.swift",
+      "line": 40,
+      "symbol": "RSA.RSAAlgorithm.pkcs1",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/RSA.swift",
+      "line": 41,
+      "symbol": "RSA.RSAAlgorithm.md2",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/RSA.swift",
+      "line": 42,
+      "symbol": "RSA.RSAAlgorithm.md5",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/RSA.swift",
+      "line": 43,
+      "symbol": "RSA.RSAAlgorithm.sha1",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/StreamCryptor.swift",
+      "line": 115,
+      "symbol": "StreamCryptor.ValidKeySize.fixed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/StreamCryptor.swift",
+      "line": 116,
+      "symbol": "StreamCryptor.ValidKeySize.discrete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/StreamCryptor.swift",
+      "line": 117,
+      "symbol": "StreamCryptor.ValidKeySize.range",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Packages/Cryptor-0.8.1/Sources/StreamCryptor.swift",
+      "line": 283,
+      "symbol": "StreamCryptor.Algorithm.defaultKeySize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/sinoru/Documents/Projects/sinoru/STwitter"
+}
