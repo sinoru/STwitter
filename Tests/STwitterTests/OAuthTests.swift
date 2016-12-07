@@ -10,7 +10,8 @@ import XCTest
 import Foundation
 @testable import STwitter
 
-class OAuthTests: XCTestCase {
+class OAuthTests: STwitterTestCase {
+    
     func testSignature() {
         let HTTPMethod = "POST"
         let url = URL(string: "https://api.twitter.com/1/statuses/update.json")!
@@ -33,10 +34,7 @@ class OAuthTests: XCTestCase {
     }
     
     func testRequestRequestToken() {
-        let consumerKey = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? ""
-        let consumerSecret = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? ""
-        
-        let session = STwitter.Session(consumerKey: consumerKey, consumerSecret: consumerSecret)
+        let session = STwitter.Session(consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
         
         let expectation = self.expectation(description: "Request OAuth Request-Token")
         

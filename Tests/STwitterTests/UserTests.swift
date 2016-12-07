@@ -10,27 +10,12 @@ import XCTest
 import Foundation
 @testable import STwitter
 
-class UserTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+class UserTests: STwitterTestCase {
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
     func testFetchUserForCurrentAccount() {
-        let consumerKey = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_KEY"] ?? ""
-        let consumerSecret = ProcessInfo.processInfo.environment["TWITTER_CONSUMER_SECRET"] ?? ""
-        let accessToken = ProcessInfo.processInfo.environment["TWITTER_ACCESS_TOKEN"] ?? ""
-        let accessTokenSecret = ProcessInfo.processInfo.environment["TWITTER_ACCESS_TOKEN_SECRET"] ?? ""
+        let session = STwitter.Session(consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
         
-        let session = STwitter.Session(consumerKey: consumerKey, consumerSecret: consumerSecret)
-        
-        let account = STwitter.Account(oauthToken: accessToken, oauthTokenSecret: accessTokenSecret)
+        let account = STwitter.Account(oauthToken: self.accessToken, oauthTokenSecret: self.accessTokenSecret)
         session.account = account
         
         let expectation = self.expectation(description: "Fetch User for current account")
