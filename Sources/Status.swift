@@ -15,7 +15,7 @@ public class Status: NSObject {
     
     @objc public var id: Int64
     
-    init?(jsonObject: Any) {
+    @objc public init?(jsonObject: Any) {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return nil
         }
@@ -27,6 +27,10 @@ public class Status: NSObject {
         self.id = id
         
         super.init()
+    }
+    
+    @objc public class func statuses(jsonObjects: [Any]) -> [Status] {
+        return jsonObjects.flatMap({Status(jsonObject: $0)})
     }
 }
 
