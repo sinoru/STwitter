@@ -14,7 +14,7 @@
     <a title="OAuth Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">STwitter Docs</a> (17% documented)</p>
+        <p><a href="../index.html">STwitter Docs</a> (28% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -88,7 +88,27 @@
 
                 </div>
               </div>
-            <p>a Class for OAuth-ing with Twitter.</p>
+            <p>A class for OAuth-ing with Twitter.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>You can obtain Twitter OAuth Acess Token like this:</p>
+<pre class="highlight plaintext"><code>let session = Session(consumerKey: &lt;#consumerKey#&gt;, consumerSecret: &lt;#consumerSecret#&gt;)
+OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestToken#&gt;, &lt;#requestTokenSecret#&gt;, &lt;#error#&gt;) in
+    var urlComponents = URLComponents(url: OAuth.authorizeURL)
+    urlComponents.query = "oauth_token=\(&lt;#requestToken#&gt;)"
+
+    let authorizeURL = urlComponents.url
+
+    // Open authorizeURL on WebView or anything. and get OAuth verifier
+
+    OAuth.requestAccessToken(session: session, requestToken: &lt;#requestToken#&gt;, requestTokenSecret: &lt;#requestTokenSecret#&gt;, oauthVerifier: &lt;#oauthVerifier#&gt;, completionHandler: { (&lt;#accessToken#&gt;, &lt;#accessTokenSecret#&gt;, &lt;#userID#&gt;, &lt;#screenName#&gt;, &lt;#error#&gt;) in
+        // Implementation
+    })
+})
+</code></pre>
+
+</div>
 
           </section>
           <section class="section task-group-section">
@@ -125,6 +145,72 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:ZvC8STwitter5OAuth12authorizeURLV10Foundation3URL"></a>
+                    <a name="//apple_ref/swift/Variable/authorizeURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC8STwitter5OAuth12authorizeURLV10Foundation3URL">authorizeURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A URL for <em>authorize</em> endpoint. Desktop applications must use this endpoint.</p>
+
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <a href="https://dev.twitter.com/oauth/reference/get/oauth/authorize">Twitter Developer Documentation</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">authorizeURL</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC8STwitter5OAuth15authenticateURLV10Foundation3URL"></a>
+                    <a name="//apple_ref/swift/Variable/authenticateURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC8STwitter5OAuth15authenticateURLV10Foundation3URL">authenticateURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A URL for <em>authenticate</em> endpoint.</p>
+
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <a href="https://dev.twitter.com/oauth/reference/get/oauth/authenticate">Twitter Developer Documentation</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">authenticateURL</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session9xAuthModeOS0_9xAuthMode8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_"></a>
                     <a name="//apple_ref/swift/Method/requestRequestToken(session:xAuthMode:callback:completionHandler:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session9xAuthModeOS0_9xAuthMode8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_">requestRequestToken(session:xAuthMode:callback:completionHandler:)</a>
@@ -145,6 +231,9 @@
 <li>xAuthMode: xAuth mode. For possible values, see xAuthMode.</li>
 <li>callback: OAuth callback string. The value you specify here will be used as the URL a user is redirected to should they approve your application’s access to their account. Set this to <code>oob</code> for out-of-band pin mode. This is also how you specify custom callbacks for use in desktop/mobile applications.</li>
 <li>completionHandler: A handler that will be called after completion.</li>
+<li>requestToken: A request token that returned</li>
+<li>requestTokenSecret: A request secret token that returned</li>
+<li>error: A error that returned</li>
 </ul></li>
 </ul>
 
@@ -153,7 +242,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestRequestToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"oob"</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">String</span><span class="p">?,</span> <span class="kt">String</span><span class="p">?,</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestRequestToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"oob"</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -213,6 +302,45 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>requestToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A request token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>requestTokenSecret</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A request secret token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A error that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -246,6 +374,11 @@
 <li>xAuthPassword: A password for xAuth ClientAuth.</li>
 <li>oauthVerifier: A verifier from oauth/authentication.</li>
 <li>completionHandler: A handler that will be called after completion.</li>
+<li>accessToken: A access token that returned</li>
+<li>accessTokenSecret: A access secret token that returned</li>
+<li>userID: A user ID that returned</li>
+<li>screenName: A screen name that returned</li>
+<li>error: A error that returned</li>
 </ul></li>
 </ul>
 
@@ -254,7 +387,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestAccessToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">xAuthUsername</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">xAuthPassword</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">oauthVerifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">String</span><span class="p">?,</span> <span class="kt">String</span><span class="p">?,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">String</span><span class="p">?,</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestAccessToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">xAuthUsername</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">xAuthPassword</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">oauthVerifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">accessTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">userID</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">,</span> <span class="n">_</span> <span class="nv">screenName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -366,6 +499,71 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A access token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessTokenSecret</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A access secret token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user ID that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>screenName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A screen name that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A error that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -377,7 +575,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-06)</p>
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

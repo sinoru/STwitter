@@ -1,27 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
-      "line": 12,
-      "symbol": "Account",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
-      "line": 13,
-      "symbol": "Account.oauthToken",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Account.swift",
-      "line": 16,
-      "symbol": "Account.init(oauthToken:oauthTokenSecret:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/sinoru/Documents/Projects/sinoru/STwitter/Sources/Error.swift",
       "line": 11,
       "symbol": "Error",

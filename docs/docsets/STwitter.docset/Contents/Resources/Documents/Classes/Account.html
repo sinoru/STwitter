@@ -14,7 +14,7 @@
     <a title="Account Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">STwitter Docs</a> (17% documented)</p>
+        <p><a href="../index.html">STwitter Docs</a> (28% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -82,7 +82,13 @@
         <section>
           <section class="section">
             <h1>Account</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Account</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>A class that interact with Session to authenticate API endpoints.</p>
 
           </section>
           <section class="section task-group-section">
@@ -91,9 +97,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC8STwitter7Account10oauthTokenSS"></a>
-                    <a name="//apple_ref/swift/Property/oauthToken" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8STwitter7Account10oauthTokenSS">oauthToken</a>
+                    <a name="/s:vC8STwitter7Account11accessTokenSS"></a>
+                    <a name="//apple_ref/swift/Property/accessToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8STwitter7Account11accessTokenSS">accessToken</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -101,8 +107,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>OAuth access token.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="k">let</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -110,9 +124,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC8STwitter7AccountcFT10oauthTokenSS16oauthTokenSecretSS_S0_"></a>
-                    <a name="//apple_ref/swift/Method/init(oauthToken:oauthTokenSecret:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC8STwitter7AccountcFT10oauthTokenSS16oauthTokenSecretSS_S0_">init(oauthToken:oauthTokenSecret:)</a>
+                    <a name="/s:FC8STwitter7AccountcFT11accessTokenSS17accessTokenSecretSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(accessToken:accessTokenSecret:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8STwitter7AccountcFT11accessTokenSS17accessTokenSecretSS_S0_">init(accessToken:accessTokenSecret:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -120,8 +134,58 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initialize Account object.</p>
 
+<ul>
+<li>Parameters:
+
+<ul>
+<li>accessToken: A OAuth acess token.</li>
+<li>accessTokenSecret: A OAuth access token secret.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">accessTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A OAuth acess token.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessTokenSecret</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A OAuth access token secret.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -131,7 +195,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-06)</p>
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

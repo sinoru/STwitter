@@ -9,7 +9,24 @@
 import Foundation
 import Cryptor
 
-/// a Class for OAuth-ing with Twitter.
+/// A class for OAuth-ing with Twitter.
+///
+/// - note:
+///     You can obtain Twitter OAuth Acess Token like this:
+///
+///         let session = Session(consumerKey: <#consumerKey#>, consumerSecret: <#consumerSecret#>)
+///         OAuth.requestRequestToken(session: session, completionHandler: { (<#requestToken#>, <#requestTokenSecret#>, <#error#>) in
+///             var urlComponents = URLComponents(url: OAuth.authorizeURL)
+///             urlComponents.query = "oauth_token=\(<#requestToken#>)"
+///
+///             let authorizeURL = urlComponents.url
+///
+///             // Open authorizeURL on WebView or anything. and get OAuth verifier
+///             
+///             OAuth.requestAccessToken(session: session, requestToken: <#requestToken#>, requestTokenSecret: <#requestTokenSecret#>, oauthVerifier: <#oauthVerifier#>, completionHandler: { (<#accessToken#>, <#accessTokenSecret#>, <#userID#>, <#screenName#>, <#error#>) in
+///                 // Implementation
+///             })
+///         })
 @objc(STWOAuth)
 public class OAuth: NSObject {
 
@@ -24,6 +41,23 @@ public class OAuth: NSObject {
         case ReverseAuth = 2
     }
     
+    /// A URL for *authorize* endpoint. Desktop applications must use this endpoint.
+    ///
+    /// - seealso:
+    ///     [Twitter Developer Documentation](https://dev.twitter.com/oauth/reference/get/oauth/authorize)
+    public static var authorizeURL: URL {
+        return URL.twitterOAuthURL(endpoint: "authorize")!
+    }
+    
+    /// A URL for *authenticate* endpoint.
+    ///
+    /// - seealso:
+    ///     [Twitter Developer Documentation](https://dev.twitter.com/oauth/reference/get/oauth/authenticate)
+    public static var authenticateURL: URL {
+        return URL.twitterOAuthURL(endpoint: "authenticate")!
+    }
+    
+    
     /// Request Request-Token from Twitter OAuth 1.0a
     ///
     /// - Parameters:
@@ -31,7 +65,10 @@ public class OAuth: NSObject {
     ///   - xAuthMode: xAuth mode. For possible values, see xAuthMode.
     ///   - callback: OAuth callback string. The value you specify here will be used as the URL a user is redirected to should they approve your application’s access to their account. Set this to `oob` for out-of-band pin mode. This is also how you specify custom callbacks for use in desktop/mobile applications.
     ///   - completionHandler: A handler that will be called after completion.
-    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", completionHandler: @escaping (String?, String?, Swift.Error?) -> Void) {
+    ///   - requestToken: A request token that returned
+    ///   - requestTokenSecret: A request secret token that returned
+    ///   - error: A error that returned
+    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", completionHandler: @escaping (_ requestToken: String?, _ requestTokenSecret: String?, _ error: Swift.Error?) -> Void) {
         let url = URL.twitterOAuthURL(endpoint: "request_token")!
         
         let httpMethod = "POST"
@@ -86,7 +123,12 @@ public class OAuth: NSObject {
     ///   - xAuthPassword: A password for xAuth ClientAuth.
     ///   - oauthVerifier: A verifier from oauth/authentication.
     ///   - completionHandler: A handler that will be called after completion.
-    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, completionHandler: @escaping (String?, String?, Int64, String?, Swift.Error?) -> Void) {
+    ///   - accessToken: A access token that returned
+    ///   - accessTokenSecret: A access secret token that returned
+    ///   - userID: A user ID that returned
+    ///   - screenName: A screen name that returned
+    ///   - error: A error that returned
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, completionHandler: @escaping (_ accessToken: String?, _ accessTokenSecret: String?, _ userID: Int64, _ screenName: String?, _ error: Swift.Error?) -> Void) {
         let url = URL.twitterOAuthURL(endpoint: "access_token")!
         
         let httpMethod = "POST"
