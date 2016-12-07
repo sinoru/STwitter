@@ -14,7 +14,7 @@
     <a title="OAuth Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">STwitter Docs</a> (28% documented)</p>
+        <p><a href="../index.html">STwitter Docs</a> (31% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -145,6 +145,117 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:C8STwitter5OAuth35RequestAccessTokenCompletionHandler"></a>
+                    <a name="//apple_ref/swift/Alias/RequestAccessTokenCompletionHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C8STwitter5OAuth35RequestAccessTokenCompletionHandler">RequestAccessTokenCompletionHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Request Access-Token Completion Handler</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>accessToken: A access token that returned</li>
+<li>accessTokenSecret: A access secret token that returned</li>
+<li>userID: A user ID that returned</li>
+<li>screenName: A screen name that returned</li>
+<li>error: A error that returned</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">RequestAccessTokenCompletionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">accessTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">userID</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">,</span> <span class="n">_</span> <span class="nv">screenName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A access token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessTokenSecret</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A access secret token that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user ID that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>screenName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A screen name that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A error that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:ZvC8STwitter5OAuth12authorizeURLV10Foundation3URL"></a>
                     <a name="//apple_ref/swift/Variable/authorizeURL" class="dashAnchor"></a>
                     <a class="token" href="#/s:ZvC8STwitter5OAuth12authorizeURLV10Foundation3URL">authorizeURL</a>
@@ -211,9 +322,9 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session9xAuthModeOS0_9xAuthMode8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_"></a>
-                    <a name="//apple_ref/swift/Method/requestRequestToken(session:xAuthMode:callback:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session9xAuthModeOS0_9xAuthMode8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_">requestRequestToken(session:xAuthMode:callback:completionHandler:)</a>
+                    <a name="/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_"></a>
+                    <a name="//apple_ref/swift/Method/requestRequestToken(session:callback:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8STwitter5OAuth19requestRequestTokenFT7sessionCS_7Session8callbackSS17completionHandlerFTGSqSS_GSqSS_GSqPs5Error___T__T_">requestRequestToken(session:callback:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -228,7 +339,6 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
 
 <ul>
 <li>session: A session for request.</li>
-<li>xAuthMode: xAuth mode. For possible values, see xAuthMode.</li>
 <li>callback: OAuth callback string. The value you specify here will be used as the URL a user is redirected to should they approve your application’s access to their account. Set this to <code>oob</code> for out-of-band pin mode. This is also how you specify custom callbacks for use in desktop/mobile applications.</li>
 <li>completionHandler: A handler that will be called after completion.</li>
 <li>requestToken: A request token that returned</li>
@@ -242,7 +352,7 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestRequestToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"oob"</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestRequestToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"oob"</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -259,19 +369,6 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                               <td>
                                 <div>
                                   <p>A session for request.</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>xAuthMode</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>xAuth mode. For possible values, see xAuthMode.</p>
 
                                 </div>
                               </td>
@@ -350,6 +447,103 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:ZFC8STwitter5OAuth34requestRequestTokenForxAuthReverseFT7sessionCS_7Session17completionHandlerFTGSqSS_GSqPs5Error___T__T_"></a>
+                    <a name="//apple_ref/swift/Method/requestRequestTokenForxAuthReverse(session:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8STwitter5OAuth34requestRequestTokenForxAuthReverseFT7sessionCS_7Session17completionHandlerFTGSqSS_GSqPs5Error___T__T_">requestRequestTokenForxAuthReverse(session:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Request Request-Token from Twitter OAuth 1.0a for Reverse Auth</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>session: A session for request.</li>
+<li>completionHandler: A handler that will be called after completion.</li>
+<li>response: A string that returned for access token</li>
+<li>error: A error that returned</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestRequestTokenForxAuthReverse</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>session</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A session for request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A handler that will be called after completion.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>response</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A string that returned for access token</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A error that returned</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:ZFC8STwitter5OAuth18requestAccessTokenFT7sessionCS_7Session12requestTokenSS18requestTokenSecretSS9xAuthModeOS0_9xAuthMode13xAuthUsernameGSqSS_13xAuthPasswordGSqSS_13oauthVerifierGSqSS_17completionHandlerFTGSqSS_GSqSS_Vs5Int64GSqSS_GSqPs5Error___T__T_"></a>
                     <a name="//apple_ref/swift/Method/requestAccessToken(session:requestToken:requestTokenSecret:xAuthMode:xAuthUsername:xAuthPassword:oauthVerifier:completionHandler:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:ZFC8STwitter5OAuth18requestAccessTokenFT7sessionCS_7Session12requestTokenSS18requestTokenSecretSS9xAuthModeOS0_9xAuthMode13xAuthUsernameGSqSS_13xAuthPasswordGSqSS_13oauthVerifierGSqSS_17completionHandlerFTGSqSS_GSqSS_Vs5Int64GSqSS_GSqPs5Error___T__T_">requestAccessToken(session:requestToken:requestTokenSecret:xAuthMode:xAuthUsername:xAuthPassword:oauthVerifier:completionHandler:)</a>
@@ -374,11 +568,6 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
 <li>xAuthPassword: A password for xAuth ClientAuth.</li>
 <li>oauthVerifier: A verifier from oauth/authentication.</li>
 <li>completionHandler: A handler that will be called after completion.</li>
-<li>accessToken: A access token that returned</li>
-<li>accessTokenSecret: A access secret token that returned</li>
-<li>userID: A user ID that returned</li>
-<li>screenName: A screen name that returned</li>
-<li>error: A error that returned</li>
 </ul></li>
 </ul>
 
@@ -387,7 +576,7 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestAccessToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">xAuthUsername</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">xAuthPassword</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">oauthVerifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">accessTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">userID</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">,</span> <span class="n">_</span> <span class="nv">screenName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestAccessToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="nv">requestToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requestTokenSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">xAuthMode</span><span class="p">:</span> <span class="n"><a href="../Classes/OAuth/xAuthMode.html">xAuthMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">None</span><span class="p">,</span> <span class="nv">xAuthUsername</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">xAuthPassword</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">oauthVerifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/OAuth.html#/s:C8STwitter5OAuth35RequestAccessTokenCompletionHandler">RequestAccessTokenCompletionHandler</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -499,15 +688,60 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                                 </div>
                               </td>
                             </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC8STwitter5OAuth18requestAccessTokenFT7sessionCS_7Session22accountForxAuthReverseCSo9ACAccount15requestResponseSS17completionHandlerFTGSqSS_GSqSS_Vs5Int64GSqSS_GSqPs5Error___T__T_"></a>
+                    <a name="//apple_ref/swift/Method/requestAccessToken(session:accountForxAuthReverse:requestResponse:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC8STwitter5OAuth18requestAccessTokenFT7sessionCS_7Session22accountForxAuthReverseCSo9ACAccount15requestResponseSS17completionHandlerFTGSqSS_GSqSS_Vs5Int64GSqSS_GSqPs5Error___T__T_">requestAccessToken(session:accountForxAuthReverse:requestResponse:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Request Access-Token from Twitter OAuth 1.0a</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>session: A session for request.</li>
+<li>account: A account from ACAccountStore for request</li>
+<li>requestResponse: A request response.</li>
+<li>completionHandler: A handler that will be called after completion.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">requestAccessToken</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/Session.html">Session</a></span><span class="p">,</span> <span class="n">accountForxAuthReverse</span> <span class="nv">account</span><span class="p">:</span> <span class="kt">ACAccount</span><span class="p">,</span> <span class="nv">requestResponse</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/OAuth.html#/s:C8STwitter5OAuth35RequestAccessTokenCompletionHandler">RequestAccessTokenCompletionHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
                             <tr>
                               <td>
                                 <code>
-                                <em>accessToken</em>
+                                <em>session</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A access token that returned</p>
+                                  <p>A session for request.</p>
 
                                 </div>
                               </td>
@@ -515,12 +749,12 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                             <tr>
                               <td>
                                 <code>
-                                <em>accessTokenSecret</em>
+                                <em>account</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A access secret token that returned</p>
+                                  <p>A account from ACAccountStore for request</p>
 
                                 </div>
                               </td>
@@ -528,12 +762,12 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                             <tr>
                               <td>
                                 <code>
-                                <em>userID</em>
+                                <em>requestResponse</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A user ID that returned</p>
+                                  <p>A request response.</p>
 
                                 </div>
                               </td>
@@ -541,25 +775,12 @@ OAuth.requestRequestToken(session: session, completionHandler: { (&lt;#requestTo
                             <tr>
                               <td>
                                 <code>
-                                <em>screenName</em>
+                                <em>completionHandler</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A screen name that returned</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>error</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A error that returned</p>
+                                  <p>A handler that will be called after completion.</p>
 
                                 </div>
                               </td>
