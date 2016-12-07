@@ -15,7 +15,7 @@ class UserTests: STwitterTestCase {
     func testFetchUserForCurrentAccount() {
         let session = STwitter.Session(consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
         
-        let account = STwitter.Account(oauthToken: self.accessToken, oauthTokenSecret: self.accessTokenSecret)
+        let account = STwitter.Account(accessToken: self.accessToken, accessTokenSecret: self.accessTokenSecret)
         session.account = account
         
         let expectation = self.expectation(description: "Fetch User for current account")
