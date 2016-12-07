@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// Generic Error
 public enum Error: Swift.Error, CustomNSError {
+    /// Unknown Error
     case Unknown
     
     func errorDomain() -> String {
@@ -40,8 +42,14 @@ public enum Error: Swift.Error, CustomNSError {
     }
 }
 
+/// Twitter Error
+///
+/// - seealso:
+///     [Error Codes & Responses](https://dev.twitter.com/overview/api/response-codes) from Twitter Developer Documentation
 public enum TwitterError: Swift.Error, CustomNSError {
+    /// Your credentials do not allow access to this resource.
     case NotAllowed
+    /// Other wrapper for unknown error from Twitter.
     case Other(code: Int, message: String?)
     
     func errorDomain() -> String {

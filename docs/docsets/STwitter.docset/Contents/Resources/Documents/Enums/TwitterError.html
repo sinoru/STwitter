@@ -14,7 +14,7 @@
     <a title="TwitterError Enum Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">STwitter Docs</a> (31% documented)</p>
+        <p><a href="../index.html">STwitter Docs</a> (52% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -82,7 +82,19 @@
         <section>
           <section class="section">
             <h1>TwitterError</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TwitterError</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt"><a href="../Enums/Error.html">Error</a></span><span class="p">,</span> <span class="kt">CustomNSError</span></code></pre>
+
+                </div>
+              </div>
+            <p>Twitter Error</p>
+
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <a href="https://dev.twitter.com/overview/api/response-codes">Error Codes &amp; Responses</a> from Twitter Developer Documentation
+
+</div>
 
           </section>
           <section class="section task-group-section">
@@ -101,8 +113,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Your credentials do not allow access to this resource.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">NotAllowed</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -124,8 +144,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Other wrapper for unknown error from Twitter.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Other</span><span class="p">(</span><span class="nv">code</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

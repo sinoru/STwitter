@@ -21,7 +21,7 @@ If you want to use as xcodeproj, using `swift package generate-xcodeproj` comman
 
 ### Documentation
 
-http://sinoru.github.io/STwitter/
+You can check on docs folder. Or on [GitHub Pages](http://sinoru.github.io/STwitter/)
 
 ### License ###
 

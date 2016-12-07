@@ -13,11 +13,15 @@ public class User: NSObject {
     
     var jsonObject: [String:Any]
     
+    /// The user ID for the account.
     @objc public var id: Int64
+    /// The username for the account.
     @objc public var screenName: String
+    /// The full name for the account.
     @objc public var name: String? {
         return self.jsonObject["name"] as? String
     }
+    /// The profile image URL for the account.
     @objc public var profileImageURL: URL? {
         return URL(string: self.jsonObject["profile_image_url"] as? String ?? "")
     }
