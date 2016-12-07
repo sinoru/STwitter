@@ -51,7 +51,7 @@ extension Session {
             queryItems.append(URLQueryItem(name: "media_ids", value: mediae.map({String($0.id)}).joined(separator: ",")))
         }
         
-        let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret, token: self.account?.oauthToken, tokenSecret: self.account?.oauthTokenSecret)
+        let authorizationHeader = try OAuth.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: self.consumerKey, consumerSecret: self.consumerSecret, token: self.account?.accessToken, tokenSecret: self.account?.accessTokenSecret)
         urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         var urlComponents = URLComponents()

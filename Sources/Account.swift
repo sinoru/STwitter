@@ -8,14 +8,21 @@
 
 import Foundation
 
+/// A class that interact with Session to authenticate API endpoints.
 @objc(STWAccount)
 public class Account: NSObject {
-    @objc public let oauthToken: String
-    let oauthTokenSecret: String
+    /// OAuth access token.
+    @objc public let accessToken: String
+    let accessTokenSecret: String
     
-    @objc public init(oauthToken: String, oauthTokenSecret: String) {
-        self.oauthToken = oauthToken
-        self.oauthTokenSecret = oauthTokenSecret
+    /// Initialize Account object.
+    ///
+    /// - Parameters:
+    ///   - accessToken: A OAuth acess token.
+    ///   - accessTokenSecret: A OAuth access token secret.
+    @objc public init(accessToken: String, accessTokenSecret: String) {
+        self.accessToken = accessToken
+        self.accessTokenSecret = accessTokenSecret
         super.init()
     }
     
