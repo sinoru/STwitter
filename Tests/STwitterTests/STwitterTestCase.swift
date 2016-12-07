@@ -15,6 +15,8 @@ class STwitterTestCase: XCTestCase {
     let accessToken = ProcessInfo.processInfo.environment["TWITTER_ACCESS_TOKEN"] ?? ""
     let accessTokenSecret = ProcessInfo.processInfo.environment["TWITTER_ACCESS_TOKEN_SECRET"] ?? ""
     
+    let uuid = UUID()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.

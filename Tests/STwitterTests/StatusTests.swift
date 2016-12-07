@@ -30,7 +30,7 @@ class StatusTests: STwitterTestCase {
         
         let expectation = self.expectation(description: "Update Status")
         
-        let task = try! session.statusUpdateTask(status: "Test! \(UUID().uuidString)", possiblySensitive: false, mediae: nil, completionHandler: { (status, error) in
+        let task = try! session.statusUpdateTask(status: "STwitter Unit Test! - (\(URL(fileURLWithPath: #file).lastPathComponent)#\(#line), \(self.uuid.uuidString[self.uuid.uuidString.startIndex..<self.uuid.uuidString.index(self.uuid.uuidString.startIndex, offsetBy: 8)])))", possiblySensitive: false, mediae: nil, completionHandler: { (status, error) in
             XCTAssertNotNil(status)
             XCTAssertNil(error)
             

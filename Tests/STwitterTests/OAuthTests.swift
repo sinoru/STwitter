@@ -11,6 +11,14 @@ import Foundation
 @testable import STwitter
 
 class OAuthTests: STwitterTestCase {
+  
+    func testAuthorizeURL() {
+        XCTAssertNotEqual(STwitter.OAuth.authorizeURL, URL(string: "https://api.twitter.com/oauth/authorize"))
+    }
+    
+    func testAuthenticateURL() {
+        XCTAssertNotEqual(STwitter.OAuth.authenticateURL, URL(string: "https://api.twitter.com/oauth/authenticate"))
+    }
     
     func testSignature() {
         let HTTPMethod = "POST"
@@ -38,13 +46,28 @@ class OAuthTests: STwitterTestCase {
         
         let expectation = self.expectation(description: "Request OAuth Request-Token")
         
-        STwitter.OAuth.requestRequestToken(session: session, callback: "oob") { (token, tokenSecret, error) in
+        STwitter.OAuth.requestRequestToken(session: session, completionHandler: { (token, tokenSecret, error) in
             XCTAssertNotNil(token)
             XCTAssertNotNil(tokenSecret)
             XCTAssertNil(error)
             
             expectation.fulfill()
-        }
+        })
+        
+        self.waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func testRequestRequestTokenForxAuthReverse() {
+        let session = STwitter.Session(consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
+        
+        let expectation = self.expectation(description: "Request OAuth Request-Token for ReverseAuth")
+        
+        STwitter.OAuth.requestRequestTokenForxAuthReverse(session: session, completionHandler: { (response, error) in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            
+            expectation.fulfill()
+        })
         
         self.waitForExpectations(timeout: 5.0, handler: nil)
     }
@@ -53,7 +76,8 @@ class OAuthTests: STwitterTestCase {
     static var allTests : [(String, (OAuthTests) -> () throws -> Void)] {
         return [
             ("testSignature", testSignature),
-            ("testRequestRequestToken", testRequestRequestToken)
+            ("testRequestRequestToken", testRequestRequestToken),
+            ("testRequestRequestTokenForxAuthReverse", testRequestRequestTokenForxAuthReverse)
         ]
     }
 }
