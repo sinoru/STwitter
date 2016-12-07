@@ -93,7 +93,7 @@ public enum TwitterError: Swift.Error, CustomNSError {
         case 220:
             throw self.NotAllowed
         default:
-            let message = error["code"] as? String
+            let message = error["message"] as? String
             throw self.Other(code: code, message: message)
         }
     }
