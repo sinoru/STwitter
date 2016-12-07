@@ -76,7 +76,7 @@ public enum TwitterError: Swift.Error, CustomNSError {
         }
     }
     
-    static func checkTwitterError(onJsonObject jsonObject: Any) throws {
+    static func checkTwitterError(onJsonObject jsonObject: Any?) throws {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return
         }

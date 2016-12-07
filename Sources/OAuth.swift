@@ -9,6 +9,11 @@
 import Foundation
 import Cryptor
 
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+    import Accounts;
+    import Social;
+#endif
+
 /// A class for OAuth-ing with Twitter.
 ///
 /// - note:
@@ -22,14 +27,14 @@ import Cryptor
 ///             let authorizeURL = urlComponents.url
 ///
 ///             // Open authorizeURL on WebView or anything. and get OAuth verifier
-///             
+///
 ///             OAuth.requestAccessToken(session: session, requestToken: <#requestToken#>, requestTokenSecret: <#requestTokenSecret#>, oauthVerifier: <#oauthVerifier#>, completionHandler: { (<#accessToken#>, <#accessTokenSecret#>, <#userID#>, <#screenName#>, <#error#>) in
 ///                 // Implementation
 ///             })
 ///         })
 @objc(STWOAuth)
 public class OAuth: NSObject {
-
+    
     /// XAuth mode for OAuth requests.
     @objc(STWxAuthMode)
     public enum xAuthMode: UInt {
@@ -37,8 +42,6 @@ public class OAuth: NSObject {
         case None = 0
         /// Client authentication based on Username, Password.
         case ClientAuth = 1
-        /// Reverse authentication based on iOS internal frameworks' account.
-        case ReverseAuth = 2
     }
     
     /// A URL for *authorize* endpoint. Desktop applications must use this endpoint.
@@ -62,13 +65,12 @@ public class OAuth: NSObject {
     ///
     /// - Parameters:
     ///   - session: A session for request.
-    ///   - xAuthMode: xAuth mode. For possible values, see xAuthMode.
     ///   - callback: OAuth callback string. The value you specify here will be used as the URL a user is redirected to should they approve your application’s access to their account. Set this to `oob` for out-of-band pin mode. This is also how you specify custom callbacks for use in desktop/mobile applications.
     ///   - completionHandler: A handler that will be called after completion.
     ///   - requestToken: A request token that returned
     ///   - requestTokenSecret: A request secret token that returned
     ///   - error: A error that returned
-    @objc public class func requestRequestToken(session: Session, xAuthMode: xAuthMode = .None, callback: String = "oob", completionHandler: @escaping (_ requestToken: String?, _ requestTokenSecret: String?, _ error: Swift.Error?) -> Void) {
+    @objc public class func requestRequestToken(session: Session, callback: String = "oob", completionHandler: @escaping (_ requestToken: String?, _ requestTokenSecret: String?, _ error: Swift.Error?) -> Void) {
         let url = URL.twitterOAuthURL(endpoint: "request_token")!
         
         let httpMethod = "POST"
@@ -77,12 +79,9 @@ public class OAuth: NSObject {
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = httpMethod
             
-            var oauthItems = ["oauth_callback": callback]
-            
-            // TODO: xAuth
+            let oauthItems = ["oauth_callback": callback]
             
             let authorizationHeader = try self.authorizationHeader(oauthItems: oauthItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret, token: nil, tokenSecret: nil)
-            
             urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
             
             let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
@@ -112,6 +111,74 @@ public class OAuth: NSObject {
         }
     }
     
+    /// Request Request-Token from Twitter OAuth 1.0a for Reverse Auth
+    ///
+    /// - Parameters:
+    ///   - session: A session for request.
+    ///   - completionHandler: A handler that will be called after completion.
+    ///   - response: A string that returned for access token
+    ///   - error: A error that returned
+    @objc public class func requestRequestTokenForxAuthReverse(session: Session, completionHandler: @escaping (_ response: String?, _ error: Swift.Error?) -> Void) {
+        let url = URL.twitterOAuthURL(endpoint: "request_token")!
+        
+        let httpMethod = "POST"
+        
+        do {
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = httpMethod
+            
+            let queryItems = [ URLQueryItem(name: "x_auth_mode", value: "reverse_auth") ]
+            
+            let authorizationHeader = try self.authorizationHeader(queryItems: queryItems, HTTPMethod: httpMethod, url: url, consumerKey: session.consumerKey, consumerSecret: session.consumerSecret, token: nil, tokenSecret: nil)
+            urlRequest.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+            
+            var urlComponents = URLComponents()
+            urlComponents.queryItems = queryItems
+            
+            urlRequest.httpBody = urlComponents.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: CharacterSet.twitterAllowedCharacters)?.data(using: .utf8)
+            
+            let task = session.urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+                if let error = error {
+                    completionHandler(nil, error)
+                    return
+                }
+                
+                guard let data = data else {
+                    completionHandler(nil, error)
+                    return
+                }
+                
+                guard let responseString = String(data: data, encoding: .utf8) else {
+                    completionHandler(nil, error)
+                    return
+                }
+                
+                do {
+                    try TwitterError.checkTwitterError(onJsonObject: try? JSONSerialization.jsonObject(with: data, options: []))
+                    
+                    completionHandler(responseString, nil)
+                }
+                catch let error {
+                    completionHandler(nil, error)
+                }
+            })
+            task.resume()
+        }
+        catch let error {
+            completionHandler(nil, error)
+        }
+    }
+    
+    /// Request Access-Token Completion Handler
+    ///
+    /// - Parameters:
+    ///   - accessToken: A access token that returned
+    ///   - accessTokenSecret: A access secret token that returned
+    ///   - userID: A user ID that returned
+    ///   - screenName: A screen name that returned
+    ///   - error: A error that returned
+    public typealias RequestAccessTokenCompletionHandler = (_ accessToken: String?, _ accessTokenSecret: String?, _ userID: Int64, _ screenName: String?, _ error: Swift.Error?) -> Void
+    
     /// Request Access-Token from Twitter OAuth 1.0a
     ///
     /// - Parameters:
@@ -123,12 +190,7 @@ public class OAuth: NSObject {
     ///   - xAuthPassword: A password for xAuth ClientAuth.
     ///   - oauthVerifier: A verifier from oauth/authentication.
     ///   - completionHandler: A handler that will be called after completion.
-    ///   - accessToken: A access token that returned
-    ///   - accessTokenSecret: A access secret token that returned
-    ///   - userID: A user ID that returned
-    ///   - screenName: A screen name that returned
-    ///   - error: A error that returned
-    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, completionHandler: @escaping (_ accessToken: String?, _ accessTokenSecret: String?, _ userID: Int64, _ screenName: String?, _ error: Swift.Error?) -> Void) {
+    @objc public class func requestAccessToken(session: Session, requestToken: String, requestTokenSecret: String, xAuthMode: xAuthMode = .None, xAuthUsername: String? = nil, xAuthPassword: String? = nil, oauthVerifier: String? = nil, completionHandler: @escaping RequestAccessTokenCompletionHandler) {
         let url = URL.twitterOAuthURL(endpoint: "access_token")!
         
         let httpMethod = "POST"
@@ -174,7 +236,50 @@ public class OAuth: NSObject {
         }
     }
     
+    #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+    /// Request Access-Token from Twitter OAuth 1.0a
+    ///
+    /// - Parameters:
+    ///   - session: A session for request.
+    ///   - account: A account from ACAccountStore for request
+    ///   - requestResponse: A request response.
+    ///   - completionHandler: A handler that will be called after completion.
+    @objc public class func requestAccessToken(session: Session, accountForxAuthReverse account: ACAccount, requestResponse: String, completionHandler: @escaping RequestAccessTokenCompletionHandler) {
+        let url = URL.twitterOAuthURL(endpoint: "access_token")!
+        
+        let parameters = ["x_reverse_auth_target": session.consumerKey, "x_reverse_auth_parameters": requestResponse]
+        
+        guard let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, url: url, parameters: parameters) else {
+            completionHandler(nil, nil, -1, nil, Error.Unknown)
+            return;
+        }
+        request.account = account
+        
+        let task = session.urlSession.dataTask(with: request.preparedURLRequest(), completionHandler: { (data, response, error) in
+            if let error = error {
+                completionHandler(nil, nil, -1, nil, error)
+                return
+            }
+            
+            do {
+                let (token, tokenSecret, userInfo) = try self.processOAuth(response: response, data: data)
+                
+                let userID: Int64 = Int64((userInfo["user_id"] ?? "") ?? "") ?? -1
+                let screenName = userInfo["screen_name"] ?? nil
+                
+                completionHandler(token, tokenSecret, userID, screenName, nil)
+            }
+            catch let error {
+                completionHandler(nil, nil, -1, nil, error)
+            }
+        })
+        task.resume()
+    }
+    #endif
+    
     internal class func processOAuth(response: URLResponse?, data: Data?) throws -> (token: String, tokenSecret: String, userInfo: [String:String?]) {
+        try TwitterError.checkTwitterError(onJsonObject: try? JSONSerialization.jsonObject(with: data ?? Data(), options: []))
+        
         guard let response = response as? HTTPURLResponse, 200 <= response.statusCode && response.statusCode < 300 else {
             throw Error.Unknown
         }
@@ -188,7 +293,7 @@ public class OAuth: NSObject {
         }
         
         var urlComponents = URLComponents()
-        urlComponents.percentEncodedQuery = queryString
+        urlComponents.query = queryString.removingPercentEncoding
         
         guard let queryItems = urlComponents.queryItems else {
             throw Error.Unknown
