@@ -14,7 +14,7 @@ public class Account: NSObject {
     /// OAuth access token.
     @objc public let accessToken: String
     let accessTokenSecret: String
-    
+
     /// Initialize Account object.
     ///
     /// - Parameters:
@@ -25,5 +25,5 @@ public class Account: NSObject {
         self.accessTokenSecret = accessTokenSecret
         super.init()
     }
-    
+
 }

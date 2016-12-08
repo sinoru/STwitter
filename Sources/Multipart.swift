@@ -14,7 +14,7 @@ class Multipart: NSObject {
     let type: String?
     let filename: String?
     let data: Data
-    
+
     init(data: Data, name: String, type: String?, filename: String?) {
         self.data = data
         self.name = name

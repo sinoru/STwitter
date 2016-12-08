@@ -16,28 +16,28 @@ class StatusTests: STwitterTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
     func testStatusUpdate() {
         let session = STwitter.Session(consumerKey: self.consumerKey, consumerSecret: self.consumerSecret)
-        
+
         let account = STwitter.Account(accessToken: self.accessToken, accessTokenSecret: self.accessTokenSecret)
         session.account = account
-        
+
         let expectation = self.expectation(description: "Update Status")
-        
+
         let task = try! session.statusUpdateTask(status: "STwitter Unit Test! - (\(URL(fileURLWithPath: #file).lastPathComponent)#\(#line), \(self.uuid.uuidString[self.uuid.uuidString.startIndex..<self.uuid.uuidString.index(self.uuid.uuidString.startIndex, offsetBy: 8)])))", possiblySensitive: false, mediae: nil, completionHandler: { (status, error) in
             XCTAssertNotNil(status)
             XCTAssertNil(error)
-            
+
             expectation.fulfill()
         })
         task.resume()
-        
+
         self.waitForExpectations(timeout: 5.0, handler: nil)
     }
 

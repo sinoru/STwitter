@@ -12,28 +12,28 @@ import Foundation
 public enum Error: Swift.Error, CustomNSError {
     /// Unknown Error
     case Unknown
-    
+
     func errorDomain() -> String {
         return "com.sinoru.STwitter.Error"
     }
-    
-    func userInfo() -> Dictionary<String,String>? {
-        var userInfo:Dictionary<String,String>?
+
+    func userInfo() -> [String:String]? {
+        var userInfo: [String:String]?
         if let errorString = errorDescription() {
             userInfo = [NSLocalizedDescriptionKey: errorString]
         }
         return userInfo
     }
-    
+
     func errorDescription() -> String? {
-        var errorString:String?
+        var errorString: String?
         switch self {
         case .Unknown:
             errorString = "Unknown Error"
         }
         return errorString
     }
-    
+
     func errorCode() -> Int {
         switch self {
         case .Unknown:
@@ -51,21 +51,21 @@ public enum TwitterError: Swift.Error, CustomNSError {
     case NotAllowed
     /// Other wrapper for unknown error from Twitter.
     case Other(code: Int, message: String?)
-    
+
     func errorDomain() -> String {
         return "com.sinoru.STwitter.Twitter.Error"
     }
-    
-    func userInfo() -> Dictionary<String,String>? {
-        var userInfo:Dictionary<String,String>?
+
+    func userInfo() -> [String:String]? {
+        var userInfo: [String:String]?
         if let errorString = errorDescription() {
             userInfo = [NSLocalizedDescriptionKey: errorString]
         }
         return userInfo
     }
-    
+
     func errorDescription() -> String? {
-        var errorString:String?
+        var errorString: String?
         switch self {
         case .NotAllowed:
             errorString = "Your credentials do not allow access to this resource."
@@ -74,7 +74,7 @@ public enum TwitterError: Swift.Error, CustomNSError {
         }
         return errorString
     }
-    
+
     func errorCode() -> Int {
         switch self {
         case .NotAllowed:
@@ -83,20 +83,20 @@ public enum TwitterError: Swift.Error, CustomNSError {
             return code
         }
     }
-    
+
     static func checkTwitterError(onJsonObject jsonObject: Any?) throws {
         guard let jsonObject = jsonObject as? [String:Any] else {
             return
         }
-        
+
         guard let error = (jsonObject["errors"] as? [[String:Any]])?.first else {
             return
         }
-        
+
         guard let code = error["code"] as? Int else {
             return
         }
-        
+
         switch code {
         case 220:
             throw self.NotAllowed

@@ -16,7 +16,7 @@ public class SessionTask: NSObject {
         self.urlSessionTask = urlSessionTask
         super.init()
     }
-    
+
     @objc public func resume() {
         self.urlSessionTask.resume()
     }
